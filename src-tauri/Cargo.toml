@@ -1,6 +1,6 @@
 [package]
 name = "stayreal"
-version = "0.0.0"
+version = "0.1.0"
 description = "An open-source, lightweight and privacy-focused BeReal alternative client."
 authors = ["Mikkel ALMONTE--RINGAUD <contact@vexcited.com>"]
 edition = "2021"

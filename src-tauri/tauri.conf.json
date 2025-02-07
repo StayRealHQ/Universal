@@ -55,5 +55,6 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ]
-  }
+  },
+  "version": "0.1.0"
 }
