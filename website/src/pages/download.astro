@@ -31,7 +31,7 @@ import Header from "../components/Header.astro";
             <option>i686</option>
           </select>
           <a
-            href="https://nightly.link/Vexcited/StayReal/workflows/build/main/stayreal-android-aarch64-apk.zip"
+            href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-android-aarch64-apk.zip"
             id="android-download-button"
             class="bg-white text-dark outline-none rounded-full px-4 py-2 border border-white"
             >Download</a
@@ -45,7 +45,7 @@ import Header from "../components/Header.astro";
           install.
         </p>
         <a
-          href="https://nightly.link/Vexcited/StayReal/workflows/build/main/stayreal-ios-aarch64-ipa.zip"
+          href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-ios-aarch64-ipa.zip"
           class="bg-white text-dark outline-none rounded-full px-4 py-2 border border-white block w-fit"
         >
           Download (arm64)
@@ -118,7 +118,7 @@ import Header from "../components/Header.astro";
 
   androidArchSelector.addEventListener("change", () => {
     const arch = androidArchSelector.value;
-    const url = `https://nightly.link/Vexcited/StayReal/workflows/build/main/stayreal-android-${arch}-apk.zip`;
+    const url = `https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-android-${arch}-apk.zip`;
 
     document
       .getElementById("android-download-button")
@@ -131,7 +131,7 @@ import Header from "../components/Header.astro";
 
   windowsArchSelector.addEventListener("change", () => {
     const provider = windowsArchSelector.value;
-    const url = `https://nightly.link/Vexcited/StayReal/workflows/build/main/${provider}.zip`;
+    const url = `https://nightly.link/Vexcited/StayReal/workflows/nightly/main/${provider}.zip`;
 
     document
       .getElementById("windows-download-button")
