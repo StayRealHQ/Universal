@@ -18,7 +18,7 @@ export const postVonageDataExchange = async (inputs: {
   });
 
   if (response.status !== 200)
-    throw new BeRealError("failed to request code from vonage");
+    throw new BeRealError("Not able to get data exchange for this phone number, please check the phone number and try again.");
 
   const json = await response.json() as {
     dataExchange: string

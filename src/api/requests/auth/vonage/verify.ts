@@ -32,7 +32,7 @@ export const vonage_verify_otp = async (inputs: {
   }
 
   if (json.status !== "0")
-    throw new BeRealError("failed to verify code");
+    throw new BeRealError("Incorrect OTP code.");
 
   return json.token;
 };

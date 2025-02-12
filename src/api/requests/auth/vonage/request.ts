@@ -36,7 +36,7 @@ export const vonage_request_code = async (inputs: {
   });
 
   if (response.status !== 200)
-    throw new BeRealError("failed to request code from vonage");
+    throw new BeRealError("Not able to send SMS for this phone number, please check the phone number and try again.");
 
   const json = await response.json() as {
     vonageRequestId: string
