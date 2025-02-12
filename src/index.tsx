@@ -8,6 +8,7 @@ import { render } from "solid-js/web";
 import { Router } from "@solidjs/router";
 
 import SplashView from "~/views/splash";
+import { Toaster } from "solid-toast";
 
 const routes = [
   {
@@ -55,7 +56,26 @@ const routes = [
 ]
 
 render(() => (
-  <Router>
-    {routes}
-  </Router>
+  <>
+    <Toaster position="bottom-center"
+      toastOptions={{
+        iconTheme: {
+          primary: '#fff',
+          secondary: '#000',
+        },
+        style: {
+          color: "#fff",
+          background: "#000",
+          border: "2px solid #fff",
+          "border-radius": "16px",
+          "box-shadow": "0 0 10px rgba(0,0,0,0.5)"
+        }
+      }}
+    />
+
+    <Router>
+      {/* @ts-expect-error */}
+      {routes}
+    </Router>
+  </>
 ), document.getElementById("root") as HTMLDivElement);
