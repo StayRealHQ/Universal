@@ -1,115 +1,25 @@
-import { onMount, createSignal, type Component, onCleanup, Show } from "solid-js";
-import { Portal } from "solid-js/web";
-import { message } from "@tauri-apps/plugin-dialog";
+export const createArkoseURL = (key: string, dataExchange: string) => {
+  const href = window.location.origin + window.location.pathname;
 
-const Arkose: Component<{
-  key: string
-  dataExchange: string
-  onVerify: (token?: string) => void
-}> = (props) => {
-  const html = () => `
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" />
-  <style>
-    html, body {
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      position: fixed;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
-  <script crossorigin="anonymous" data-callback="setupEnforcement" onerror="jsLoadError()" src="https://client-api.arkoselabs.com/v2/api.js" async defer></script>
-  <script>
-    function jsLoadError () {
-      window.top.postMessage(JSON.stringify({ type: "js:error" }), "*");
-    }
-
-    function setupEnforcement (arkoseEnforcement) {
-      arkoseEnforcement.setConfig({
-        selector: '#challenge',
-        publicKey: ${JSON.stringify(props.key)},
-        mode: 'inline',
-        data: { blob: ${JSON.stringify(props.dataExchange)} },
-        language: '',
-        isSDK: true,
-        accessibilitySettings: {
-          lockFocusToModal: true
-        },
-        noSuppress: false,
-        onCompleted (response) {
-          window.top.postMessage(JSON.stringify({ type: "completed", response }), "*");
-        },
-        onHide () {
-          window.top.postMessage(JSON.stringify({ type: "hide" }), "*");
-        },
-        onShow () {
-          window.top.postMessage(JSON.stringify({ type: "show" }), "*");
-        },
-        onError (response) {
-          window.top.postMessage(JSON.stringify({ type: "error", response }), "*");
-        },
-        onFailed (response) {
-          window.top.postMessage(JSON.stringify({ type: "failed", response }), "*");
-        }
-      });
-    }
-  </script>
-</head>
-<body id="challenge"></body>
-</html>
-  `.trim();
-
-  const url = () => "data:text/html;base64," + btoa(html());
-  const [show, setShow] = createSignal(true);
-
-  const handleWindowMessage = (e: MessageEvent) => {
-    const event = e as MessageEvent;
-    const data = JSON.parse(event.data);
-
-    switch (data.type) {
-      case "show":
-        setShow(true);
-        break;
-      case "hide":
-        setShow(false);
-        break;
-      case "error":
-      case "failed":
-      case "js:error":
-        message("Uh oh, something went wrong, please try again. If the issue persists, please open an issue on GitHub.", {
-          kind: "error"
-        });
-        break;
-      case "completed":
-        props.onVerify(data.response.token);
-        setShow(false);
-        break;
-    }
+  const html = `<html><head><meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=0"><style>html,body{display:flex;justify-content:center;align-items:center;background:#000;height:100%;width:100%;overflow:hidden;position:fixed;margin:0;padding:0;color:#fff}.spin{transition: opacity .175s; animation: spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}</style>`
+    + `<script crossorigin="anonymous" data-callback="setup" src="https://client-api.arkoselabs.com/v2/api.js" async defer></script>`
+    + `<script>
+function setup(enforcement){
+enforcement.setConfig({
+  selector:'#challenge',
+  publicKey:${JSON.stringify(key)},
+  mode:'inline',
+  data:{blob:${JSON.stringify(dataExchange)}},
+  isSDK:true,
+  accessibilitySettings:{lockFocusToModal:true},
+  onCompleted({token}){
+    location.href = \`${href}?arkoseToken=\${token}\`
+  },
+  onShow(){
+    document.querySelector('.spin').style.opacity = 0
   }
-
-  onMount(() => {
-    window.addEventListener("message", handleWindowMessage);
-  });
-
-  onCleanup(() => {
-    window.removeEventListener("message", handleWindowMessage);
-  });
-
-  return (
-    <Portal>
-      <Show when={show()}>
-        <div class="fixed inset-0 z-50 bg-black bg-opacity-75 flex items-center justify-center">
-          <iframe
-            src={url()}
-            class="h-[450px] w-[400px]"
-          />
-        </div>
-      </Show>
-    </Portal>
-  );
+})
+}</script>`
+    + `</head><body id="challenge"><svg class="spin" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4V2A10 10 0 0 0 2 12h2a8 8 0 0 1 8-8"/></svg></body></html>`;
+  return "data:text/html;base64," + btoa(html);
 };
-
-export default Arkose;

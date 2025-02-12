@@ -1,5 +1,5 @@
-import { Show, type Component } from "solid-js";
-import { useNavigate } from "@solidjs/router";
+import { createEffect, on, Show, type Component } from "solid-js";
+import { useNavigate, useSearchParams } from "@solidjs/router";
 import { createStore } from "solid-js/store";
 import { v4 as uuidv4 } from "uuid";
 
@@ -9,26 +9,27 @@ import { vonage_verify_otp } from "~/api/requests/auth/vonage/verify";
 import { grant_firebase } from "~/api/requests/auth/token";
 import { BEREAL_ARKOSE_PUBLIC_KEY } from "~/api/constants";
 
-import Arkose from "~/components/arkose";
+import { createArkoseURL } from "~/components/arkose";
 import auth from "~/stores/auth";
 import { DEMO_ACCESS_TOKEN, DEMO_PHONE_NUMBER, DEMO_REFRESH_TOKEN } from "~/utils/demo";
 import MdiChevronLeft from '~icons/mdi/chevron-left'
 import { postVonageDataExchange } from "~/api/requests/auth/vonage/data-exchange";
 import Otp from "~/components/otp";
 import MdiLoading from '~icons/mdi/loading'
+import { BeRealError } from "~/api/models/errors";
+import { invoke } from "@tauri-apps/api/core";
 
 const LoginView: Component = () => {
   const navigate = useNavigate();
+  const [params, setParams] = useSearchParams<{ arkoseToken: string }>()
 
   const [state, setState] = createStore({
     step: "phone" as ("phone" | "otp"),
-    deviceID: uuidv4(),
-    waitingOnArkose: false,
+    deviceID: localStorage.getItem("login__deviceID") || uuidv4(),
+    error: null as string | null,
     loading: false,
 
-    phoneNumber: "",
-    arkoseToken: "",
-    arkoseDataExchange: "",
+    phoneNumber: localStorage.getItem("login__phoneNumber") || "",
     requestID: "",
     otp: "",
   })
@@ -37,26 +38,10 @@ const LoginView: Component = () => {
     if (!state.phoneNumber) return;
 
     // Make sure there's no whitespace in the phone number.
-    const phoneNumber = state.phoneNumber.split(" ").join("");
+    const phoneNumber = state.phoneNumber.replace(/ /g, "");
 
     try {
       setState("loading", true);
-
-      // Captcha is always needed, except if we're trying
-      // to authenticate on the demonstration account.
-      if (!state.arkoseToken && phoneNumber !== DEMO_PHONE_NUMBER) {
-        const dataExchange = await postVonageDataExchange({
-          deviceID: state.deviceID,
-          phoneNumber,
-        })
-
-        setState({
-          waitingOnArkose: true,
-          arkoseDataExchange: dataExchange,
-        });
-
-        return;
-      }
 
       if (state.step === "phone") {
         let requestID: string;
@@ -65,12 +50,37 @@ const LoginView: Component = () => {
           requestID = "demo";
         }
         else {
+          if (!params.arkoseToken) {
+            const dataExchange = await postVonageDataExchange({
+              deviceID: state.deviceID,
+              phoneNumber
+            });
+
+            // Save the state in `localStorage` to remember it
+            // when we come back from the Arkose challenge.
+            localStorage.setItem("login__phoneNumber", phoneNumber);
+            localStorage.setItem("login__deviceID", state.deviceID);
+
+            const url = createArkoseURL(BEREAL_ARKOSE_PUBLIC_KEY, dataExchange);
+            // For some odd reason, we can't use `location.href = url` here
+            // so we're doing it through a Tauri command instead.
+            return invoke("navigate", { url });
+          }
+
+          // We can safely remove the temporary state from localStorage.
+          localStorage.removeItem("login__phoneNumber");
+          localStorage.removeItem("login__deviceID");
+
+          const token = params.arkoseToken;
+          // One time use, we don't need it anymore.
+          setParams({ arkoseToken: void 0 });
+
           requestID = await vonage_request_code({
             deviceID: state.deviceID,
             phoneNumber,
             tokens: [{
               identifier: VonageRequestCodeTokenIdentifier.ARKOSE,
-              token: state.arkoseToken,
+              token,
             }]
           });
         }
@@ -109,14 +119,25 @@ const LoginView: Component = () => {
         navigate("/feed");
       }
     }
-    catch (e) {
-      // TODO: show error in UI
-      console.error(e);
+    catch (error) {
+      if (error instanceof BeRealError) {
+        setState("error", error.message);
+      }
+      else {
+        setState("error", "An error occurred while authenticating, please try again later.");
+      }
     }
     finally {
       setState("loading", false);
     }
   };
+
+  // If we're coming back from the Arkose challenge, we need to
+  // re-run the authentication process.
+  createEffect(on(() => params.arkoseToken, (token) => {
+    if (token)
+      runAuthentication();
+  }));
 
   return (
     <main class="h-screen flex flex-col px-4 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
@@ -125,7 +146,6 @@ const LoginView: Component = () => {
           <button type="button"
             onClick={() => {
               setState({
-                arkoseToken: "",
                 step: "phone",
                 otp: "",
               });
@@ -152,24 +172,6 @@ const LoginView: Component = () => {
         }}
       >
         <Show when={state.step === "phone"}>
-          <Show when={state.waitingOnArkose}>
-            <Arkose
-              key={BEREAL_ARKOSE_PUBLIC_KEY}
-              dataExchange={state.arkoseDataExchange}
-              onVerify={(token) => {
-                if (token) {
-                  setState({
-                    loading: false,
-                    arkoseToken: token,
-                    waitingOnArkose: false,
-                  });
-
-                  runAuthentication();
-                }
-              }}
-            />
-          </Show>
-
           <input
             class="w-full max-w-280px mx-auto rounded-2xl py-3 px-4 text-white bg-white/10 text-2xl font-600 tracking-wide outline-none placeholder:text-white/40 focus:(outline outline-white outline-offset-2)"
             type="tel"
@@ -184,6 +186,12 @@ const LoginView: Component = () => {
           <p class="mt-8 text-sm text-center px-4 text-white/75">
             By continuing, you agree that StayReal is not affiliated with BeReal and that you are using this service at your own risk.
           </p>
+
+          <Show when={state.error}>
+            <p class="mt-8 text-sm text-center px-4 text-red">
+              {state.error}
+            </p>
+          </Show>
 
           <button type="submit" disabled={state.loading || !state.phoneNumber}
             class="text-black bg-white rounded-2xl w-full py-3 mt-auto focus:(outline outline-white outline-offset-2) disabled:opacity-30 transition-all"
