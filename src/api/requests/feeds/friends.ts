@@ -25,7 +25,7 @@ export interface Post {
 
   realMojis: Array<{
     id: string
-    user: {
+    user?: {
       id: string
       username: string
       profilePicture: ApiMedia | null

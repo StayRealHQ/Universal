@@ -11,7 +11,7 @@ const ReactionBar: Component<{
   const [loading, setLoading] = createSignal(false);
 
   const currentReaction = createMemo(() => {
-    const reaction = props.post.realMojis.find(r => r.user.id === me.get()?.id);
+    const reaction = props.post.realMojis.find(r => r.user?.id === me.get()?.id);
     return reaction ?? null;
   });
 

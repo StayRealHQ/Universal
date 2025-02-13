@@ -91,6 +91,7 @@ export const person_me = async (): Promise<PersonMe> => {
   }
 
   const json = await response.json();
+  console.log(json);
 
   if (response.status === 404 && json.errorKey === "user-profile-not-found") {
     throw new ProfileInexistentError();
