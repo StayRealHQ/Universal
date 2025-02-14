@@ -1,8 +1,16 @@
 <p align="center">
-  <img width="100%" src=".github/assets/banner.svg" alt="Banner for StayReal.">
+  <img width="100%" src=".github/assets/banner.svg" alt="StayReal: your friends for real, once again.">
 </p>
 <p align="center">
-  <b>An open-source, lightweight and privacy-focused BeReal alternative client.</b>
+  <b>An open-source, lightweight and privacy-focused alternative client for a popular authentic social network.</b>
+</p>
+<p align="center">
+  <a href="https://apps.apple.com/app/stayreal/id6741685267">
+    <img src=".github/assets/appstore.png" width="200px" alt="Download on the App Store">
+  </a>
+  <a href="https://play.google.com/store/apps/details?id=com.vexcited.stayreal">
+    <img src=".github/assets/googleplay.png" width="200px" alt="Get it on Google Play">
+  </a>
 </p>
 <p align="center">
   <a href="https://github.com/Vexcited/StayReal/actions/workflows/nightly.yml">
@@ -123,7 +131,7 @@
 
 ### Upload
 
-- [x] Post a new BeReal
+- [x] Post a new moment
 - [ ] Flip camera
 - [x] Take a photo from A side (primary image), wait for a few seconds, then take a photo from B side (secondary image)
 - [ ] Caption
@@ -233,12 +241,11 @@ Every release, publication to stores, is triggered by [`pnpx tauri-version <bump
 
 A lot of similar projects and researches have been made, and we would like to thank the authors for their work.
 
-- [&nearr;&nbsp;BeFake, a BeReal Python API wrapper](https://github.com/Smart123s/BeFake)
+- [&nearr;&nbsp;BeFake, an API wrapper written in Python](https://github.com/Smart123s/BeFake)
 - [&nearr;&nbsp;TooFake, an alternative web client](https://github.com/s-alad/toofake)
 - [&nearr;&nbsp;BeUnblurred, an alternative web client](https://github.com/macedonga/beunblurred)
-- [&nearr;&nbsp;Fowled's researches on the app](https://bereal.fowled.dev)
-- [&nearr;&nbsp;userbradley's researches on the API](https://github.com/userbradley/BeReal)
-
+- [&nearr;&nbsp;Fowled's researches](https://bereal.fowled.dev)
+- [&nearr;&nbsp;userbradley's researches](https://github.com/userbradley/BeReal)
 
 ## 📄 License
 

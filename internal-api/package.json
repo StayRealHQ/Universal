@@ -2,7 +2,7 @@
   "name": "@stayreal/api",
   "version": "0.0.0",
   "author": "Mikkel ALMONTE--RINGAUD <contact@vexcited.com>",
-  "description": "A guest for StayReal's native client for the BeReal API.",
+  "description": "A way to bridge native features with StayReal.",
   "type": "module",
   "types": "./dist-js/index.d.ts",
   "main": "./dist-js/index.cjs",
