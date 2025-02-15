@@ -24,3 +24,9 @@ tauri-plugin-http = "2"
 tauri-plugin-os = "2"
 tauri-plugin-internal-api = { path = "../internal-api" }
 tauri-plugin-dialog = "2"
+
+[package.metadata.patch]
+crates = ["wry"]
+
+[patch.crates-io]
+wry = { path = "./target/patch/wry-0.48.1" }

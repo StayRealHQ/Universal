@@ -1,0 +1,171 @@
+diff --git a/src/android/kotlin/RustWebView.kt b/src/android/kotlin/RustWebView.kt
+index cb7b001..2bc1999 100644
+--- a/src/android/kotlin/RustWebView.kt
++++ b/src/android/kotlin/RustWebView.kt
+@@ -16,7 +16,19 @@ import kotlin.collections.Map
+ @SuppressLint("RestrictedApi")
+ class RustWebView(context: Context, val initScripts: Array<String>, val id: String): WebView(context) {
+     val isDocumentStartScriptEnabled: Boolean
+-  
++
++    val ajaxRequestContents = mutableMapOf<String, String>()
++    fun addAjaxRequest (id: String, body: String){
++      ajaxRequestContents.put(id, body);
++    }
++
++    class RustWebViewAjax(val mWebView: RustWebView) {
++      @JavascriptInterface
++      fun customAjax (id: String, body: String) {
++        mWebView.addAjaxRequest(id, body);
++      }
++    }
++
+     init {
+         settings.javaScriptEnabled = true
+         settings.domStorageEnabled = true
+@@ -25,6 +37,8 @@ class RustWebView(context: Context, val initScripts: Array<String>, val id: Stri
+         settings.mediaPlaybackRequiresUserGesture = false
+         settings.javaScriptCanOpenWindowsAutomatically = true
+ 
++        addJavascriptInterface(RustWebViewAjax(this), "interception")
++
+         if (WebViewFeature.isFeatureSupported(WebViewFeature.DOCUMENT_START_SCRIPT)) {
+             isDocumentStartScriptEnabled = true
+             for (script in initScripts) {
+diff --git a/src/android/kotlin/RustWebViewClient.kt b/src/android/kotlin/RustWebViewClient.kt
+index 343ad14..cb51c7c 100644
+--- a/src/android/kotlin/RustWebViewClient.kt
++++ b/src/android/kotlin/RustWebViewClient.kt
+@@ -10,13 +10,18 @@ import android.content.Context
+ import android.graphics.Bitmap
+ import android.os.Handler
+ import android.os.Looper
++import java.io.DataOutputStream
+ import androidx.webkit.WebViewAssetLoader
++import java.io.InputStream
++import java.net.HttpURLConnection
++import java.net.URL
+ 
+ class RustWebViewClient(context: Context): WebViewClient() {
+     private val interceptedState = mutableMapOf<String, Boolean>()
+     var currentUrl: String = "about:blank"
+     private var lastInterceptedUrl: Uri? = null
+     private var pendingUrlRedirect: String? = null
++    private var proxyUrlDivider = "_PROXYFIED_"
+ 
+     private val assetLoader = WebViewAssetLoader.Builder()
+         .setDomain(assetLoaderDomain())
+@@ -35,17 +40,112 @@ class RustWebViewClient(context: Context): WebViewClient() {
+             return null
+         }
+ 
++        var url = request.url.toString()
++
++        if (url.startsWith("https://client-api.arkoselabs.com/") && url.contains("/enforcement.") && url.contains(".html")) {
++          val connection = URL(url).openConnection() as HttpURLConnection
++          request.requestHeaders.forEach {
++            if (!it.key.startsWith("sec-ch-")) {
++              connection.setRequestProperty(it.key, it.value)
++            }
++          }
++
++          connection.setRequestProperty("X-Requested-With", "com.bereal.ft")
++          connection.connect()
++
++          var html = connection.inputStream.bufferedReader().use { it.readText() }
++
++          // Remove the CSP.
++          html = html.replace(Regex("<meta http-equiv=\"Content-Security-Policy\"[^>]*>"), "")
++
++          // Monkey patch the fetch function to intercept requests.
++          html = html.replace("</head>", "<script>" +
++            """
++              let requestID = null;
++
++              XMLHttpRequest.prototype._open = XMLHttpRequest.prototype.open;
++              XMLHttpRequest.prototype.open = function (method, url, async, user, password) {
++                if (method.toUpperCase() === "POST" && url.startsWith("https://client-api.arkoselabs.com/fc/gt2/public_key")) {
++                  requestID = Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
++                  url = url + "$proxyUrlDivider" + requestID;
++                }
++                else {
++                  requestID = null;
++                }
++
++                this._open(method, url, async, user, password);
++              }
++
++              XMLHttpRequest.prototype._send = XMLHttpRequest.prototype.send;
++              XMLHttpRequest.prototype.send = function (body) {
++                if (requestID)
++                  interception.customAjax(requestID, body);
++
++                this._send(body);
++              }
++             """ +
++          "</script></head>")
++
++          val byteArray = html.toByteArray()
++          return WebResourceResponse("text/html", "UTF-8", byteArray.inputStream())
++        }
++
++        if (url.startsWith("https://client-api.arkoselabs.com/fc/gt2/public_key")) {
++          val requestBody = getRequestBody(view as RustWebView, request)
++          url = getOriginalRequestUri(request)
++
++          val connection = URL(url).openConnection() as HttpURLConnection
++          connection.requestMethod = request.method
++          connection.doOutput = true
++          connection.doInput = true
++
++          request.requestHeaders.forEach {
++            if (!it.key.startsWith("sec-ch-")) {
++              connection.setRequestProperty(it.key, it.value)
++            }
++          }
++
++          connection.setRequestProperty("X-Requested-With", "com.bereal.ft")
++
++          DataOutputStream(connection.outputStream).use { it.writeBytes(requestBody) }
++          return WebResourceResponse("application/json", "UTF-8", connection.inputStream)
++        }
++
+         lastInterceptedUrl = request.url
+         return if (withAssetLoader()) {
+             assetLoader.shouldInterceptRequest(request.url)
+         } else {
+             val rustWebview = view as RustWebView;
+             val response = handleRequest(rustWebview.id, request, rustWebview.isDocumentStartScriptEnabled)
+-            interceptedState[request.url.toString()] = response != null
++            interceptedState[url] = response != null
+             return response
+         }
+     }
+ 
++    private fun getUrlSegments (request: WebResourceRequest): List<String> {
++      val urlString = request.url.toString()
++      return urlString.split(proxyUrlDivider)
++    }
++
++    private fun getOriginalRequestUri (request: WebResourceRequest): String {
++      return getUrlSegments(request)[0]
++    }
++
++    private fun getAjaxRequestID (request: WebResourceRequest): String {
++      return getUrlSegments(request)[1]
++    }
++
++    private fun getRequestBody (view: RustWebView, request: WebResourceRequest): String {
++      val requestID = getAjaxRequestID(request)
++      return getAjaxRequestBodyByID(view, requestID)
++    }
++
++    private fun getAjaxRequestBodyByID (view: RustWebView, requestID: String): String {
++      val body = view.ajaxRequestContents[requestID]
++      view.ajaxRequestContents.remove(requestID)
++      return body!!
++    }
++
+     override fun shouldOverrideUrlLoading(
+         view: WebView,
+         request: WebResourceRequest

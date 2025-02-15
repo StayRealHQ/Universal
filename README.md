@@ -208,6 +208,11 @@ pnpm install
 pnpm build
 cd ..
 
+# Patch the wry crate for Android login
+cargo install patch-crate
+cd src-tauri && cargo patch-crate
+cd ..
+
 # Start development on desktop
 pnpm tauri dev
 

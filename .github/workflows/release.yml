@@ -85,6 +85,10 @@ jobs:
         with:
           targets: aarch64-apple-ios
 
+      - run: |
+          cargo install patch-crate
+          cd src-tauri && cargo patch-crate
+
       - name: (Android) install dependencies
         if: matrix.os == 'android'
         run: |

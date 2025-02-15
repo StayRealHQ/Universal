@@ -137,6 +137,10 @@ jobs:
           prefix-key: rust-${{ hashFiles('**/Cargo.lock') }}
           shared-key: ${{ matrix.platform }}-${{ matrix.target }}
 
+      - run: |
+          cargo install patch-crate
+          cd src-tauri && cargo patch-crate
+
       - name: build
         if: matrix.platform != 'ubuntu-22.04'
         # if we are compiling for Windows ARM, we can only support NSIS
@@ -303,6 +307,10 @@ jobs:
             internal-api -> target
           prefix-key: rust-${{ hashFiles('**/Cargo.lock') }}
           shared-key: ${{ matrix.platform }}-${{ matrix.target-full }}
+
+      - run: |
+          cargo install patch-crate
+          cd src-tauri && cargo patch-crate
 
       - name: (Android) install dependencies
         if: matrix.os == 'android'
