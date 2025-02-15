@@ -232,7 +232,7 @@ const UploadView: Component = () => {
       }
 
       // Navigate to the feed to see the new post.
-      navigate("/feed");
+      navigate("/feed/friends");
     }
     finally {
       setState({
@@ -306,7 +306,7 @@ const UploadView: Component = () => {
     <div class="min-h-screen grid gap-4 rows-[auto_1fr_auto] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
       <header>
         <nav class="flex items-center justify-between px-4 h-[72px]">
-          <a href="/feed" class="p-2.5 rounded-full ml-[-10px]" aria-label="Back to feed">
+          <a href="/feed/friends" class="p-2.5 rounded-full ml-[-10px]" aria-label="Back to feed">
             <MdiChevronLeft class="text-2xl" />
           </a>
           <Show when={backImage() && frontImage()}>

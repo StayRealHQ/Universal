@@ -11,7 +11,7 @@ const SplashView: Component = () => {
 
     // redirect to the appropriate page based on the final auth state.
     if (auth.store.accessToken && auth.store.refreshToken)
-      navigate("/feed");
+      navigate("/feed/friends");
     else
       navigate("/login");
   });

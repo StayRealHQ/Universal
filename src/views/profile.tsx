@@ -17,7 +17,7 @@ const ProfileView: Component = () => {
     <>
       <header class="z-20 fixed top-0 inset-x-0 bg-gradient-to-b from-black to-transparent pt-[env(safe-area-inset-top)]">
         <nav class="flex items-center justify-between px-4 h-[72px]">
-          <a href="/feed" class="p-2.5 rounded-full ml-[-10px]" aria-label="Back to feed">
+          <a href="/feed/friends" class="p-2.5 rounded-full ml-[-10px]" aria-label="Back to feed">
             <MdiChevronLeft class="text-2xl" />
           </a>
 

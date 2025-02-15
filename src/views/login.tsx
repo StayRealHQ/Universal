@@ -116,7 +116,7 @@ const LoginView: Component = () => {
           });
         }
 
-        navigate("/feed");
+        navigate("/feed/friends");
       }
     }
     catch (error) {

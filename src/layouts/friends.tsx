@@ -18,7 +18,7 @@ const FriendsLayout: FlowComponent = (props) => {
             StayReal.
           </p>
 
-          <a href="/feed" aria-label="Return Feed">
+          <a href="/feed/friends" aria-label="Return Feed">
             <MdiChevronRight class="text-xl" />
           </a>
         </nav>

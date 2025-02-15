@@ -22,7 +22,7 @@ const CreateProfileView: Component = () => {
       setCreationLoading(true);
 
       await postPersonMe(username(), birthdate(), fullName());
-      navigate("/feed");
+      navigate("/feed/friends");
     }
     finally {
       setCreationLoading(false);
