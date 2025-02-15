@@ -1,9 +1,5 @@
 name: nightly build
 
-concurrency:
-  group: ${{ github.ref }}-nightly
-  cancel-in-progress: true
-
 on:
   workflow_dispatch:
   push:
