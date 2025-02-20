@@ -5,8 +5,8 @@ class Requests {
   private var authentication = Authentication.shared
 
   private let appIOSBundleId = "AlexisBarreyat.BeReal"
-  private let appIOSVersion = "4.8.0"
-  private let appIOSBuild = "19795"
+  private let appIOSVersion = "4.10.0"
+  private let appIOSBuild = "19846"
   private let clientSecret = "962D357B-B134-4AB6-8F53-BEA2B7255420"
 
   private func defaultHeaders(deviceId: String) -> [String: String] {
