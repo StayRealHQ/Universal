@@ -137,8 +137,8 @@ export interface PostPersonMe {
  * @param birthdate The birthdate of the user, in the format `YYYY-MM-DD`.
  * @param fullname The full name of the user.
  */
-export const postPersonMe = async (username: string, birthdate: string, fullname: string): Promise<PostPersonMe> => {
-  const response = await fetch("https://mobile-l7.bereal.com/api/person/me", {
+export const postPersonMe = async (username: string, birthdate: string, fullname: string, pushToken?: string, parentalConsentRequestId?: string): Promise<PostPersonMe> => {
+    const response = await fetch("https://mobile-l7.bereal.com/api/person/me", {
     method: "POST",
     headers: {
       ...BEREAL_DEFAULT_HEADERS(auth.store.deviceId),
@@ -156,7 +156,9 @@ export const postPersonMe = async (username: string, birthdate: string, fullname
       device: `iPhone15,3 ${BEREAL_PLATFORM_VERSION}`, // iPhone 15 Pro Max, should be updated time to time...
       language: "en",
       birthdate,
-      fullname
+      fullname,
+      pushToken,
+      parentalConsentRequestId
     })
   });
 
