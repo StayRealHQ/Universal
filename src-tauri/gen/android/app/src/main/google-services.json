@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "597834451406",
+    "project_id": "stayreal-vexcited-com",
+    "storage_bucket": "stayreal-vexcited-com.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597834451406:android:d0ac40dc79d0b57cfd039f",
+        "android_client_info": {
+          "package_name": "com.vexcited.stayreal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOu-2AEviY_jL9YqdcDCxC0CG_Lfr5S-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

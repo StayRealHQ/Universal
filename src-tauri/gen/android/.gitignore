@@ -17,4 +17,3 @@ key.properties
 keystore.properties
 /.tauri
 /tauri.settings.gradle
-google-services.json
