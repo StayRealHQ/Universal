@@ -2,11 +2,7 @@ package com.vexcited.stayreal.api
 
 import android.Manifest
 import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
-import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationManagerCompat
 import app.tauri.PermissionState
 import app.tauri.annotation.Command
 import app.tauri.annotation.InvokeArg
@@ -16,6 +12,8 @@ import app.tauri.annotation.TauriPlugin
 import app.tauri.plugin.Invoke
 import app.tauri.plugin.JSObject
 import app.tauri.plugin.Plugin
+import com.google.firebase.Firebase
+import com.google.firebase.messaging.messaging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -36,7 +34,11 @@ internal class SetRegionArgs {
 
 val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
-@TauriPlugin()
+@TauriPlugin(
+  permissions = [
+    Permission(strings = [Manifest.permission.POST_NOTIFICATIONS], alias = "postNotification")
+  ]
+)
 class ApiPlugin(private val activity: Activity) : Plugin(activity) {
   private val requests = Requests(activity)
   private val cache = Cache(activity)
@@ -89,9 +91,15 @@ class ApiPlugin(private val activity: Activity) : Plugin(activity) {
 
   @Command
   fun setRegion(invoke: Invoke) {
+    Firebase.messaging.unsubscribeFromTopic(requests.preferences.getRegion())
+
     val region = invoke.parseArgs(SetRegionArgs::class.java).region
-    requests.preferences.setRegion(region)
-    invoke.resolve()
+
+    Firebase.messaging.subscribeToTopic(region)
+      .addOnCompleteListener {
+        requests.preferences.setRegion(region)
+        invoke.resolve()
+      }
   }
 
   @Command
@@ -112,5 +120,26 @@ class ApiPlugin(private val activity: Activity) : Plugin(activity) {
         with(Dispatchers.Main) { invoke.reject(error.message) }
       }
     }
+  }
+
+  @Command
+  override fun requestPermissions(invoke: Invoke){
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+      val ret = JSObject()
+      ret.put("status", getPermissionState("postNotification"))
+      invoke.resolve(ret)
+    }
+    else {
+      if (getPermissionState("postNotification") !== PermissionState.GRANTED) {
+        requestPermissionForAlias("postNotification", invoke, "requestPermissionsCallback")
+      }
+    }
+  }
+
+  @PermissionCallback
+  fun requestPermissionsCallback(invoke: Invoke){
+    val ret = JSObject()
+    ret.put("status", getPermissionState("postNotification"))
+    invoke.resolve(ret)
   }
 }
