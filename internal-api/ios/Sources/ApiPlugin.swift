@@ -1,6 +1,7 @@
 import SwiftRs
 import Tauri
 import UIKit
+import UserNotifications
 import WebKit
 
 class SetAuthDetailsArgs: Decodable {
@@ -13,7 +14,7 @@ class SetRegionArgs: Decodable {
   let region: String
 }
 
-class ApiPlugin: Plugin {
+class ApiPlugin: Plugin, UNUserNotificationCenterDelegate {
   let requests = Requests()
 
   var authentication = Authentication.shared
@@ -84,6 +85,15 @@ class ApiPlugin: Plugin {
           }
         }
       )
+    }
+  }
+
+  @objc override public func requestPermissions(_ invoke: Invoke) {
+    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+      DispatchQueue.main.async {
+        let status = granted ? "granted" : "denied"
+        invoke.resolve(["status": status])
+      }
     }
   }
 }
