@@ -54,7 +54,11 @@
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ]
+    ],
+    "iOS": {
+      "minimumSystemVersion": "13.0",
+      "developmentTeam": "WLAPHT4WXV"
+    }
   },
   "version": "0.1.10"
 }

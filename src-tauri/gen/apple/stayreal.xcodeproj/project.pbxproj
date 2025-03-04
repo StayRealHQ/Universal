@@ -14,6 +14,7 @@
 		30C9142481E8C86C46DFF0EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81A9230077CF8C4A4F160A66 /* LaunchScreen.storyboard */; };
 		423AE84D38B8F39A730912A6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25AAA7D93DE87426C36E1AAC /* QuartzCore.framework */; };
 		531538B3BC205AF52A14CA6A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94575C762FF675C61147A3AB /* CoreGraphics.framework */; };
+		77EA757D2D774D3E00445C91 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 77EA757C2D774D3E00445C91 /* FirebaseMessaging */; };
 		7CDA7E95C68661923C0BA253 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB44AEB759C75142271C4D36 /* main.mm */; };
 		89A09B53AB073CFB948098A8 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94B6F81C3B6FBC9D40741B4A /* MetalKit.framework */; };
 		B7E0EF7876916CD82E85B014 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8F341FCB7C1E55A9A731F8 /* Metal.framework */; };
@@ -47,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77EA757D2D774D3E00445C91 /* FirebaseMessaging in Frameworks */,
 				F6CFBE17D15A2A405F7DC7CF /* libapp.a in Frameworks */,
 				531538B3BC205AF52A14CA6A /* CoreGraphics.framework in Frameworks */,
 				B7E0EF7876916CD82E85B014 /* Metal.framework in Frameworks */,
@@ -189,6 +191,9 @@
 				en,
 			);
 			mainGroup = DE290F321CDF54241AF6B574;
+			packageReferences = (
+				77EA757B2D774D3E00445C91 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -311,7 +316,7 @@
 				CODE_SIGN_ENTITLEMENTS = stayreal_iOS/stayreal_iOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WLAPHT4WXV;
+				DEVELOPMENT_TEAM = "WLAPHT4WXV";
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = "arm64-sim x86_64";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -362,7 +367,7 @@
 				CODE_SIGN_ENTITLEMENTS = stayreal_iOS/stayreal_iOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WLAPHT4WXV;
+				DEVELOPMENT_TEAM = "WLAPHT4WXV";
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = "arm64-sim x86_64";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -492,6 +497,25 @@
 			defaultConfigurationName = debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		77EA757B2D774D3E00445C91 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		77EA757C2D774D3E00445C91 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 77EA757B2D774D3E00445C91 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0C73DA6E1969CCD2C404A2A2 /* Project object */;
 }
