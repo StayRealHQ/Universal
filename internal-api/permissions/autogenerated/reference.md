@@ -10,6 +10,7 @@ Default permissions for the plugin
 - `allow-fetch-last-moment`
 - `allow-compress-webp-to-size`
 - `allow-convert-jpeg-to-webp`
+- `allow-request-permissions`
 
 ## Permission Table
 
@@ -224,6 +225,32 @@ Enables the request_permission command without any pre-configured scope.
 <td>
 
 Denies the request_permission command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`internal-api:allow-request-permissions`
+
+</td>
+<td>
+
+Enables the request_permissions command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`internal-api:deny-request-permissions`
+
+</td>
+<td>
+
+Denies the request_permissions command without any pre-configured scope.
 
 </td>
 </tr>

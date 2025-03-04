@@ -41,3 +41,9 @@ pub struct CompressWebpToSizeArgs {
   pub webp: Vec<u8>,
   pub max_size: usize,
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct NotificationPermissionStatus {
+  pub status: String, // "prompt" | "denied" | "granted"
+}

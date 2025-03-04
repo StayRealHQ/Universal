@@ -66,4 +66,11 @@ impl<R: Runtime> InternalApi<R> {
       .run_mobile_plugin("fetchLastMoment", ())
       .map_err(Into::into)
   }
+
+  pub fn request_permissions(&self) -> crate::Result<NotificationPermissionStatus> {
+    self
+      .0
+      .run_mobile_plugin("requestPermissions", ())
+      .map_err(Into::into)
+  }
 }

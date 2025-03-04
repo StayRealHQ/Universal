@@ -1,5 +1,9 @@
 import { invoke } from '@tauri-apps/api/core';
 
+export type NotificationPermissionStatus = {
+  status: 'prompt' | 'denied' | 'granted'
+}
+
 export interface AuthDetails {
   deviceId: string;
   accessToken: string;
@@ -55,4 +59,8 @@ export async function compressWebpToSize(webp: Uint8Array, maxSize: number): Pro
   });
 
   return Uint8Array.from(bytes);
+}
+
+export async function requestPermissions(): Promise<NotificationPermissionStatus> {
+  return await invoke('plugin:internal-api|request_permissions')
 }

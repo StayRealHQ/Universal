@@ -217,4 +217,10 @@ impl<R: Runtime> InternalApi<R> {
 
     Ok(moment)
   }
+
+  pub fn request_permissions(&self) -> crate::Result<NotificationPermissionStatus> {
+    Ok(NotificationPermissionStatus {
+      status: "granted".into(),
+    })
+  }
 }

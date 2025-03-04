@@ -7,6 +7,7 @@ const COMMANDS: &[&str] = &[
   "fetch_last_moment",
   "convert_jpeg_to_webp",
   "compress_webp_to_size",
+  "request_permissions",
 ];
 
 fn main() {

@@ -9,6 +9,7 @@ import me from "~/stores/me";
 import moment from "~/stores/moment"
 import MdiRefresh from "~icons/mdi/refresh";
 import MdiPeople from "~icons/mdi/people";
+import { promptForPermissions } from "~/utils/permissions";
 
 const FeedLayout: FlowComponent = (props) => {
   const navigate = useNavigate();
@@ -44,8 +45,13 @@ const FeedLayout: FlowComponent = (props) => {
     }
   };
 
-  // Automatically refresh whenever the user navigates to the feed.
-  onMount(() => handleRefresh());
+  onMount(async () => {
+    // Ask the user for notification permissions.
+    await promptForPermissions();
+
+    // Automatically refresh whenever the user navigates to the feed.
+    await handleRefresh();
+  });
 
   return (
     <div>

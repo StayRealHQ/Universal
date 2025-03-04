@@ -11,4 +11,5 @@ permissions = [
   "allow-fetch-last-moment",
   "allow-compress-webp-to-size",
   "allow-convert-jpeg-to-webp",
+  "allow-request-permissions",
 ]

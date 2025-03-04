@@ -63,3 +63,10 @@ pub(crate) async fn compress_webp_to_size<R: Runtime>(
 
   Ok(compressed)
 }
+
+#[command]
+pub(crate) async fn request_permissions<R: Runtime>(
+  app_handle: AppHandle<R>,
+) -> crate::Result<NotificationPermissionStatus> {
+  app_handle.api().request_permissions()
+}

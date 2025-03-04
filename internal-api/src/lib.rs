@@ -41,7 +41,8 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
       commands::set_region,
       commands::fetch_last_moment,
       commands::convert_jpeg_to_webp,
-      commands::compress_webp_to_size
+      commands::compress_webp_to_size,
+      commands::request_permissions
     ])
     .setup(|app, api| {
       #[cfg(mobile)]
