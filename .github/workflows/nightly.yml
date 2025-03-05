@@ -327,7 +327,7 @@ jobs:
           APPLE_API_KEY: ${{ secrets.APPLE_API_KEY }}
         run: |
           export APPLE_API_KEY_PATH=$RUNNER_TEMP/apple-api-key.p8
-          pnpm tauri ios build --ci
+          pnpm tauri ios build --ci --debug
 
       - name: (Android) distribute .apk
         if: matrix.os == 'android'
