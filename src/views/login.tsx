@@ -61,7 +61,7 @@ const LoginView: Component = () => {
             localStorage.setItem("login__phoneNumber", phoneNumber);
             localStorage.setItem("login__deviceID", state.deviceID);
 
-            const url = createArkoseURL(BEREAL_ARKOSE_PUBLIC_KEY, dataExchange);
+            const url = createArkoseURL(BEREAL_ARKOSE_PUBLIC_KEY, dataExchange, state.deviceID);
             // For some odd reason, we can't use `location.href = url` here
             // so we're doing it through a Tauri command instead.
             return invoke("navigate", { url });
