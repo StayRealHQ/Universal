@@ -1,26 +1,21 @@
 {
-  "name": "notification-sender",
-  "module": "index.ts",
+  "name": "@stayreal/notification-sender",
   "type": "module",
   "private": true,
-  "devDependencies": {
-    "@types/bun": "latest",
-    "@types/express": "^5.0.0"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
   "dependencies": {
     "apns2": "^12.1.0",
-    "dotenv": "^16.4.7",
-    "express": "^5.0.1",
     "firebase-admin": "^13.1.0",
     "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.51.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
       "sqlite3"
     ]
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "typescript": "^5.8.2"
   }
 }

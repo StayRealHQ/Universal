@@ -1,4 +1,4 @@
-import express from "express";
+import uws from "uWebSockets.js";
 
 import { getLastMomentForRegion, setIOSDevice, setLastMomentForRegion } from "./database";
 import { batchApnsNotificationForRegion } from "./ios";
@@ -30,7 +30,7 @@ const routine = () => Promise.all(
 );
 
 // We need a web interface so iOS devices can register.
-const web = express();
+const web = uws.App();
 
 // Here we don't check authentication because we're
 // just trying to replicate a broadcast server.
@@ -38,16 +38,47 @@ const web = express();
 // Sadly, APNS doesn't allow us to send to a topic
 // just like FCM, so we need to register devices
 // and send to them individually.
-web.get("/ios/register/:id/:region/:token/:debug", async (req, res) => {
-  // NOTE: `debug` can be "1" or "0".
-  const { id, region, token, debug } = req.params;
+web.get("/ios/register/:id/:region/:token/:debug", async (res, req) => {
+  res.onAborted(() => {
+    res.aborted = true;
+  });
+
+  const id = req.getParameter(0);
+  const region = req.getParameter(1);
+  const token = req.getParameter(2);
+  const debug = req.getParameter(3);
+
+  if (!id || !region || !token || !debug) {
+    if (!res.aborted) {
+      res.cork(() => {
+        res
+          .writeStatus("400 Bad Request")
+          .end("Missing parameters");
+      });
+    }
+
+    return;
+  }
 
   await setIOSDevice(id, debug === "1", token, region);
-  res.status(200).send("OK");
+
+  if (!res.aborted) {
+    res.cork(() => {
+      res
+        .writeStatus("200 OK")
+        .end("OK");
+    });
+  }
+});
+
+web.any("/*", (res) => {
+  res.writeStatus("301 Moved Permanently");
+  res.writeHeader("Location", "https://stayreal.vexcited.com/");
+  res.end();
 });
 
 // Start the web server.
-web.listen(8000);
+web.listen(8000, () => void 0);
 
 // Start the routine every 5 seconds.
 setInterval(routine, 5000);
