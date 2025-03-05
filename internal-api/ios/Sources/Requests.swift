@@ -182,11 +182,11 @@ class Requests {
 
     let region = preferences.region
 
-    #if DEBUG
-      let debug = "1"
-    #else
-      let debug = "0"
-    #endif
+    guard let apnsEnvironment = Bundle.main.infoDictionary?["aps-environment"] as? String else {
+      return
+    }
+
+    let debug = (apnsEnvironment == "development") ? "1" : "0"
 
     guard
       let url = URL(
