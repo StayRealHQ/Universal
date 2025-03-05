@@ -4,16 +4,16 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - '.github/workflows/nightly.yml'
-      - 'package.json'
-      - 'uno.config.ts'
-      - 'vite.config.ts'
-      - 'index.html'
-      - 'src-tauri/**/*'
-      - 'internal-api/**/*'
-      - 'src/**/*'
+      - ".github/workflows/nightly.yml"
+      - "package.json"
+      - "uno.config.ts"
+      - "vite.config.ts"
+      - "index.html"
+      - "src-tauri/**/*"
+      - "internal-api/**/*"
+      - "src/**/*"
     branches:
-      - 'main'
+      - "main"
 
 jobs:
   build-desktop:
@@ -23,22 +23,22 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: 'macos-latest'
-            target: 'aarch64-apple-darwin'
-          - platform: 'macos-latest'
-            target: 'x86_64-apple-darwin'
+          - platform: "macos-latest"
+            target: "aarch64-apple-darwin"
+          - platform: "macos-latest"
+            target: "x86_64-apple-darwin"
 
           - platform: ubuntu-22.04
-            target: 'x86_64-unknown-linux-gnu'
+            target: "x86_64-unknown-linux-gnu"
           - platform: ubuntu-22.04
-            target: 'aarch64-unknown-linux-gnu'
+            target: "aarch64-unknown-linux-gnu"
           - platform: ubuntu-22.04
-            target: 'armv7-unknown-linux-gnueabihf'
+            target: "armv7-unknown-linux-gnueabihf"
 
-          - platform: 'windows-latest'
-            target: 'x86_64-pc-windows-msvc'
-          - platform: 'windows-latest'
-            target: 'aarch64-pc-windows-msvc'
+          - platform: "windows-latest"
+            target: "x86_64-pc-windows-msvc"
+          - platform: "windows-latest"
+            target: "aarch64-pc-windows-msvc"
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -111,8 +111,8 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'pnpm'
+          node-version: "22"
+          cache: "pnpm"
 
       - name: install frontend dependencies
         run: |
@@ -219,24 +219,24 @@ jobs:
         include:
           - platform: ubuntu-22.04
             os: android
-            target-full: 'aarch64-linux-android'
-            target-short: 'aarch64'
+            target-full: "aarch64-linux-android"
+            target-short: "aarch64"
           - platform: ubuntu-22.04
             os: android
-            target-full: 'armv7-linux-androideabi'
-            target-short: 'armv7'
+            target-full: "armv7-linux-androideabi"
+            target-short: "armv7"
           - platform: ubuntu-22.04
             os: android
-            target-full: 'i686-linux-android'
-            target-short: 'i686'
+            target-full: "i686-linux-android"
+            target-short: "i686"
           - platform: ubuntu-22.04
             os: android
-            target-full: 'x86_64-linux-android'
-            target-short: 'x86_64'
+            target-full: "x86_64-linux-android"
+            target-short: "x86_64"
           - platform: macos-latest
-            os: 'ios'
-            target-full: 'aarch64-apple-ios'
-            target-short: 'aarch64'
+            os: "ios"
+            target-full: "aarch64-apple-ios"
+            target-short: "aarch64"
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -250,8 +250,8 @@ jobs:
       - name: setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'pnpm'
+          node-version: "22"
+          cache: "pnpm"
 
       - name: install frontend dependencies
         run: |
@@ -264,8 +264,8 @@ jobs:
         if: matrix.os == 'android'
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
-          java-version: '17'
+          distribution: "zulu"
+          java-version: "17"
 
       - if: matrix.os == 'android'
         uses: android-actions/setup-android@v3
@@ -327,7 +327,7 @@ jobs:
           APPLE_API_KEY: ${{ secrets.APPLE_API_KEY }}
         run: |
           export APPLE_API_KEY_PATH=$RUNNER_TEMP/apple-api-key.p8
-          pnpm tauri ios build --ci --debug
+          pnpm tauri ios build --target ${{ matrix.target-short }} --export-method release-testing --ci
 
       - name: (Android) distribute .apk
         if: matrix.os == 'android'

@@ -3,7 +3,7 @@ name: mobile build for distribution
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
 
 jobs:
   build-mobile:
@@ -16,7 +16,7 @@ jobs:
           - platform: ubuntu-22.04
             os: android
           - platform: macos-latest
-            os: 'ios'
+            os: "ios"
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -30,7 +30,7 @@ jobs:
       - name: setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: "22"
 
       - name: install frontend dependencies
         run: |
@@ -43,8 +43,8 @@ jobs:
         if: matrix.os == 'android'
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
-          java-version: '17'
+          distribution: "zulu"
+          java-version: "17"
 
       - if: matrix.os == 'android'
         uses: android-actions/setup-android@v3
@@ -108,7 +108,7 @@ jobs:
           APPLE_API_KEY: ${{ secrets.APPLE_API_KEY }}
         run: |
           export APPLE_API_KEY_PATH=$RUNNER_TEMP/apple-api-key.p8
-          pnpm tauri ios build --export-method app-store-connect --ci
+          pnpm tauri ios build --target aarch64 --export-method app-store-connect --ci
 
       - name: (Android) distribute .aab
         if: matrix.os == 'android'
