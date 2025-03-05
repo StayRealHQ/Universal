@@ -191,7 +191,7 @@ class Requests {
     guard
       let url = URL(
         string:
-          "https://api.stayreal.vexcited.com/ios/register/\(deviceId)/\(region)/\(token)/\(debug)")
+          "https://api-stayreal.vexcited.com/ios/register/\(deviceId)/\(region)/\(token)/\(debug)")
     else {
       return
     }

@@ -31,4 +31,4 @@ docker compose down
 
 ## Where is it deployed ?
 
-<https://api.stayreal.vexcited.com> for the official deployment.
+<https://api-stayreal.vexcited.com> for the official deployment.
