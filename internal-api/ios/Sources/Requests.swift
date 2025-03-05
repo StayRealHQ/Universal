@@ -173,4 +173,42 @@ class Requests {
 
     task.resume()
   }
+
+  func registerDeviceToken(token: String) {
+    let deviceId = authentication.details.deviceId ?? ""
+    if deviceId.isEmpty {
+      return
+    }
+
+    let region = preferences.region
+
+    #if DEBUG
+      let debug = "1"
+    #else
+      let debug = "0"
+    #endif
+
+    guard
+      let url = URL(
+        string:
+          "https://api.stayreal.vexcited.com/ios/register/\(deviceId)/\(region)/\(token)/\(debug)")
+    else {
+      return
+    }
+
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
+
+    let task = URLSession.shared.dataTask(with: request) { data, response, error in
+      if let error = error {
+        return
+      }
+
+      guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+        return
+      }
+    }
+
+    task.resume()
+  }
 }
