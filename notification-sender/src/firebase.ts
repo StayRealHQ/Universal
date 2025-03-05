@@ -3,7 +3,7 @@ import { getMessaging } from "firebase-admin/messaging"
 import certificate from '../service-account.json';
 import type { MomentAPI } from './api';
 
-export const firebase = initializeApp({
+const firebase = initializeApp({
   credential: cert(<ServiceAccount>certificate),
 });
 
