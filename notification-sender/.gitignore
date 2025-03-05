@@ -1,2 +1,13 @@
+# Firebaase
 service-account.json
-saved-moments.json
+
+# APNS
+auth-key.p8
+
+# sqlite database containing the last
+# moments and registered iOS devices
+database.db
+
+# Environment variables
+.env*
+!.env.example

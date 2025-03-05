@@ -4,12 +4,23 @@
   "type": "module",
   "private": true,
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/express": "^5.0.0"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
-    "firebase-admin": "^13.1.0"
+    "apns2": "^12.1.0",
+    "dotenv": "^16.4.7",
+    "express": "^5.0.1",
+    "firebase-admin": "^13.1.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sqlite3"
+    ]
   }
 }

@@ -10,9 +10,11 @@ and sends a notification whenever a new moment is found, e.g. `id` is different 
 
 ## How to run it?
 
-You need [Bun](https://bun.sh/) to run the script, then you can simply run:
-
 ```bash
-bun install
-bun run index.ts
+pnpm install
+tsx ./src/index.ts
 ```
+
+## What about production?
+
+> A Dockerfile is cooking, stay tuned!
