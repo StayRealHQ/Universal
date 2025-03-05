@@ -142,7 +142,7 @@ export interface PostsOverview {
 export interface GetFeedsFriends {
   /** `null` if user has no posts for the on going moment. */
   userPosts: PostsOverview | null
-  friendsPosts: Array<PostsOverview>
+  friendsPosts: Array<PostsOverview> | null
 
   remainingPosts: number
   maxPostsPerMoment: number

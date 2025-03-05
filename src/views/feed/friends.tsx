@@ -54,31 +54,33 @@ const FeedFriendsView: Component = () => {
           </Show>
 
           <div class="flex flex-col gap-6 mt-8">
-            <For
-              each={[...feed().friendsPosts].sort(
-                (a, b) =>
-                  new Date(
-                    b.posts[b.posts.length - 1].postedAt
-                  ).getTime() -
-                  new Date(
-                    a.posts[a.posts.length - 1].postedAt
-                  ).getTime()
+            <Show when={feed().friendsPosts} fallback={
+              <p class="text-center text-white/75 px-4 mt-12">
+                Your friends haven't posted anything yet,<br/>come back later !
+              </p>
+            }>
+              {friends => (
+                <For
+                  each={[...friends()].sort(
+                    (a, b) =>
+                      new Date(
+                        b.posts[b.posts.length - 1].postedAt
+                      ).getTime() -
+                      new Date(
+                        a.posts[a.posts.length - 1].postedAt
+                      ).getTime()
+                  )}
+                >
+                  {(overview) => (
+                    <FeedFriendsOverview
+                      overview={overview}
+                      setScrolling={setIsScrolling}
+                    />
+                  )}
+                </For>
               )}
-            >
-              {(overview) => (
-                <FeedFriendsOverview
-                  overview={overview}
-                  setScrolling={setIsScrolling}
-                />
-              )}
-            </For>
+            </Show>
           </div>
-
-          <section class="pt-16 px-8">
-            <p class="text-center text-white/50">
-              You're at the end of your feed, come back later !
-            </p>
-          </section>
         </>
       )}
     </Show>
