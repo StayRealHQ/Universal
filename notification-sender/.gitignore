@@ -1,13 +1,12 @@
-# Firebaase
+# Firebase
 service-account.json
 
 # APNS
 auth-key.p8
 
-# sqlite database containing the last
-# moments and registered iOS devices
-database.db
+# Files containing data for the service.
+data/
 
-# Environment variables
+# Environment variables used in docker-compose.
 .env*
 !.env.example

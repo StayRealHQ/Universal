@@ -1,6 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 import { ApnsClient, Notification, Host, type ApnsOptions, ApnsError } from "apns2";
 import { clearIOSDevice, getIOSDevicesForRegion } from "./database";
 import fs from "node:fs/promises";

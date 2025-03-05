@@ -1,0 +1,18 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./data:/app/data
+      - ./auth-key.p8:/app/auth-key.p8
+      - ./service-account.json:/app/service-account.json
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - TEAM_ID=${TEAM_ID}
+      - KEY_ID=${KEY_ID}
+    ports:
+      - "8000:8000"
