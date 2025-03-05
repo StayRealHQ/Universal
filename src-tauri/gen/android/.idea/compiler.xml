@@ -2,9 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="android.tauri-android" target="21" />
       <module name="android.tauri-plugin-bereal-api" target="21" />
-      <module name="android.tauri-plugin-shell" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>

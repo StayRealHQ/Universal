@@ -47,7 +47,7 @@ class FCM : FirebaseMessagingService() {
     }
     
     val notificationBuilder = NotificationCompat.Builder(this, channelId)
-      .setSmallIcon(R.drawable.ic_launcher_foreground)
+      .setSmallIcon(R.drawable.ic_stayreal)
       .setContentTitle("It's time for the moment !")
       .setContentText(messageBody)
       .setAutoCancel(true)
