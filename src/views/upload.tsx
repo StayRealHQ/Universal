@@ -1,11 +1,12 @@
 import { type Component, createSignal, Show } from "solid-js";
-import { content_posts_create, content_posts_upload_url, upload_content } from "~/api/requests/content/posts/upload";
+import { content_posts_create, content_posts_upload_url } from "~/api/requests/content/posts/upload";
 import { useNavigate } from "@solidjs/router";
 import auth from "~/stores/auth";
 import { compressWebpToSize, convertJpegToWebp } from "@stayreal/api";
 import { wait } from "~/utils/wait";
 import MdiChevronLeft from '~icons/mdi/chevron-left'
 import { createStore } from "solid-js/store";
+import uploadToGoogleStorageBucket from "~/api/core/uploadToGoogleStorageBucket";
 
 const UploadView: Component = () => {
   const navigate = useNavigate();
@@ -197,8 +198,8 @@ const UploadView: Component = () => {
 
         // Upload the images to the bucket.
         await Promise.all([
-          upload_content(bucket[0].url, bucket[0].headers, backWebpImage),
-          upload_content(bucket[1].url, bucket[1].headers, frontWebpImage)
+          uploadToGoogleStorageBucket(bucket[0].url, bucket[0].headers, backWebpImage),
+          uploadToGoogleStorageBucket(bucket[1].url, bucket[1].headers, frontWebpImage)
         ]);
 
         // Create the post with the uploaded images.
