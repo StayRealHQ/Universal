@@ -26,19 +26,16 @@ export const content_posts_upload_url = async (): Promise<ContentPostsUploadUrls
     }
   });
 
+  // if token expired, refresh it and retry
+  if (response.status === 401) {
+    await auth.refresh();
+    return content_posts_upload_url();
+  }
+
   return response.json();
 };
 
-export const upload_content = async (url: string, headers: Record<string, string>, file: Blob): Promise<void> => {
-  const response = await fetch(url, {
-    method: "PUT",
-    body: file,
-    headers
-  });
 
-  if (response.status !== 200)
-    throw new Error("failed to upload content, image may be too big!");
-};
 
 export const content_posts_create = async (inputs: {
   isLate: boolean
@@ -84,6 +81,12 @@ export const content_posts_create = async (inputs: {
       takenAt: inputs.takenAt.toISOString()
     })
   });
+
+  // if token expired, refresh it and retry
+  if (response.status === 401) {
+    await auth.refresh();
+    return content_posts_create(inputs);
+  }
 
   if (response.status !== 201) {
     throw new Error("failed to create post");
