@@ -2,6 +2,7 @@ import { BEREAL_DEFAULT_HEADERS } from "~/api/constants";
 import { fetch } from "@tauri-apps/plugin-http";
 import { ApiMedia } from "~/api/types/media";
 import auth from "~/stores/auth";
+import { BeRealError } from "~/api/models/errors";
 
 export interface PersonProfile {
   id: string
@@ -26,6 +27,13 @@ export interface PersonProfile {
   isPrivate: boolean
 }
 
+export class PersonNotFoundError extends BeRealError {
+  constructor() {
+    super("User not found");
+    this.name = "PersonNotFoundError";
+  }
+}
+
 export const person_profile = async (id: string): Promise<PersonProfile> => {
   const response = await fetch(`https://mobile-l7.bereal.com/api/person/profiles/${id}?withPost=true`, {
     headers: {
@@ -38,6 +46,10 @@ export const person_profile = async (id: string): Promise<PersonProfile> => {
   if (response.status === 401) {
     await auth.refresh();
     return person_profile(id);
+  }
+
+  if (response.status === 404) {
+    throw new PersonNotFoundError();
   }
 
   return response.json();
