@@ -1,27 +1,36 @@
-import { JSXElement, type Component } from "solid-js";
+import { type JSXElement, type Component, createResource, Show } from "solid-js";
 import auth from "../stores/auth";
 import { useNavigate } from "@solidjs/router";
 import MdiChevronLeft from '~icons/mdi/chevron-left'
 import MdiLogout from '~icons/mdi/logout'
 import MdiGithub from '~icons/mdi/github'
 import MdiDelete from '~icons/mdi/delete'
+// import MdiEarth from '~icons/mdi/earth'
+import MdiChevronRight from '~icons/mdi/chevron-right'
+import MdiBlockHelper from '~icons/mdi/block-helper'
 import { open } from "@tauri-apps/plugin-shell";
 import { deletePersonMe, ProfileDeletionAlreadyScheduledError } from "~/api/requests/person/me";
 import { confirm, message } from '@tauri-apps/plugin-dialog';
+import { getVersion } from '@tauri-apps/api/app';
+// import me from "~/stores/me";
 
 const Settings: Component = () => {
+  const [version] = createResource(getVersion);
   const navigate = useNavigate();
 
-  const Entry: Component<{ title: string, icon: JSXElement, onClick: () => void }> = (props) => (
+  const Entry: Component<{ title: string, icon: JSXElement, chevron?: boolean, onClick: () => void }> = (props) => (
     <button
       type="button"
       onClick={props.onClick}
-      class="flex items-center justify-between w-full px-4 py-2 bg-white/10 rounded-lg"
+      class="flex items-center w-full px-4 py-3 bg-white/10 rounded-lg"
     >
       <div class="flex items-center gap-4">
         {props.icon}
-        <p>{props.title}</p>
+        <p class="font-medium">{props.title}</p>
       </div>
+      <Show when={props.chevron}>
+        <MdiChevronRight class="ml-auto text-xl text-white/50" />
+      </Show>
     </button>
   );
 
@@ -36,14 +45,25 @@ const Settings: Component = () => {
       </header>
 
       <div class="p-4">
-        <div class="flex flex-col gap-2">
-          <Entry title="Logout" icon={<MdiLogout />} onClick={async () => {
-            await auth.logout();
-            navigate("/");
-          }} />
+        <section class="flex flex-col gap-2">
+          <h2 class="uppercase font-bold text-white/50 text-sm">Privacy</h2>
+
+          <Entry title="Blocked Users" icon={<MdiBlockHelper />} onClick={() => {
+            navigate("/settings/blocked-users");
+          }} chevron />
+
+          {/* <Entry title={`Timezone: ${me.get()?.region}`} icon={<MdiEarth />} onClick={() => {
+            navigate("/settings/timezone");
+          }} chevron /> */}
+        </section>
+
+        <section class="flex flex-col gap-2">
+          <h2 class="uppercase font-bold text-white/50 text-sm mt-6">Other</h2>
+
           <Entry title="Report an issue on GitHub" icon={<MdiGithub />} onClick={() => {
             open("https://github.com/Vexcited/StayReal/issues");
           }} />
+
           <Entry title="Request account deletion" icon={<MdiDelete />} onClick={async () => {
             const confirmation = await confirm("You will be logged out immediately and your account and all your data will be scheduled to be permanently deleted in 15 days.\n\nIf you log in within those 15 days, your account will no longer be deleted.", {
               title: "So, you want to delete your account?",
@@ -72,7 +92,18 @@ const Settings: Component = () => {
             await auth.logout();
             navigate("/");
           }} />
-        </div>
+        </section>
+
+        <button type="button" class="mt-6 mb-4 text-red flex items-center font-medium justify-center gap-2 w-full p-4 bg-white/10 rounded-lg"
+          onClick={async () => {
+            await auth.logout();
+            navigate("/");
+          }}
+        >
+          <MdiLogout /> Log Out
+        </button>
+
+        <p class="text-center font-medium text-sm text-white/50">Version {version()}</p>
       </div>
     </>
   )
