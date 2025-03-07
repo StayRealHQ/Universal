@@ -64,10 +64,16 @@ const FriendsConnectionsView: Component = () => {
           </div>
         </a>
         <button type="button" class="shrink-0 bg-white/20 text-hite uppercase font-600 rounded-full text-xs px-2.5 py-1.5 disabled:opacity-50"
-          disabled={loading() || props.profile.status === "sent"}
+          disabled={loading() || props.profile.status === "sent" || props.profile.status === "accepted"}
           onClick={handleAdd}
         >
-          {props.profile.status === "sent" ? "Sent" : "Add"}
+          {
+            props.profile.status === "sent"
+              ? "Sent" :
+            props.profile.status === "accepted"
+              ? "Accepted" :
+            "Add"
+          }
         </button>
       </div>
     )
