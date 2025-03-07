@@ -57,6 +57,10 @@ const routes = [
   {
     path: "/settings",
     component: lazy(() => import("~/views/settings"))
+  },
+  {
+    path: "/settings/blocked-users",
+    component: lazy(() => import("~/views/settings/blocked-users"))
   }
 ]
 
