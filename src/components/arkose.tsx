@@ -23,20 +23,27 @@ enforcement.setConfig({
   onDataRequest(){
     const p="mobile_sdk__"
     enforcement.dataResponse(btoa(JSON.stringify({
-      [p+"app_version"]:${JSON.stringify(BEREAL_IOS_VERSION)},
-      [p+"battery_capacity"]:100,
-      [p+"manufacturer"]:"Apple",
-      [p+"app_id"]:${JSON.stringify(BEREAL_IOS_BUNDLE_ID)},
-      [p+"app_signing_credential"]:"",
-      [p+"device_orientation"]:"Un",
-      [p+"brand"]:"Apple",
-      [p+"userAgentModified"]:"",
-      [p+"battery_status"]:"Full",
-      [p+"id_for_vendor"]:${JSON.stringify(deviceId)},
-      [p+"build_version"]:"2.4.0(2.4.0)",
       [p+"os_version"]:${JSON.stringify(BEREAL_PLATFORM_VERSION)},
+      [p+"userAgentModified"]:"",
+      [p+"biometrics_proximity"]:"false,0",
+      [p+"build_version"]:"2.4.0(2.4.0)",
+      [p+"product"]:"iPhone15,3",
+      [p+"device_orientation"]:"Un",
+      [p+"battery_status"]:"Full",
+      [p+"battery_capacity"]:100,
+      [p+"device"]:"iPhone15,3",
+      [p+"app_id"]:${JSON.stringify(BEREAL_IOS_BUNDLE_ID)},
+      [p+"screen_width"]:window.innerWidth,
+      [p+"app_version"]:${JSON.stringify(BEREAL_IOS_VERSION)},
+      [p+"brand"]:"Apple",
+      [p+"storage_info"]:[],
+      [p+"manufacturer"]:"Apple",
+      [p+"screen_height"]:window.innerHeight,
+      [p+"errors"]:"[mobile_sdk__app_signing_credential,Data collection is not from within an app on device]",
+      [p+"id_for_vendor"]:${JSON.stringify(deviceId)},
+      [p+"language"]:"en",
       [p+"screen_brightness"]:100,
-      [p+"storage_info"]:[]
+      [p+"app_signing_credential"]:""
     })))
   }
 })
