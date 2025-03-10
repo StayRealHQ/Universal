@@ -2,8 +2,8 @@ import { hex } from '@scure/base';
 import { createBeRealSignature } from "./core/signature";
 
 export const BEREAL_IOS_BUNDLE_ID = "AlexisBarreyat.BeReal";
-export const BEREAL_IOS_VERSION = "4.10.0";
-export const BEREAL_IOS_BUILD = "19846";
+export const BEREAL_IOS_VERSION = "4.13.0";
+export const BEREAL_IOS_BUILD = "19929";
 export const BEREAL_TIMEZONE = new Intl.DateTimeFormat().resolvedOptions().timeZone;
 export const BEREAL_ARKOSE_PUBLIC_KEY = "CCB0863E-D45D-42E9-A6C8-9E8544E8B17E";
 export const BEREAL_HMAC_KEY = hex.decode('3536303337663461663232666236393630663363643031346532656337316233')
@@ -11,7 +11,7 @@ export const BEREAL_FIREBASE_KEY = "AIzaSyCgNTZt6gzPMh-2voYXOvrt_UR_gpGl83Q";
 export const BEREAL_CLIENT_SECRET = "962D357B-B134-4AB6-8F53-BEA2B7255420";
 
 export const BEREAL_PLATFORM = "iOS";
-export const BEREAL_PLATFORM_VERSION = "18.3";
+export const BEREAL_PLATFORM_VERSION = "18.4";
 
 export const BEREAL_DEFAULT_HEADERS = (deviceID: string) => ({
   "bereal-platform": BEREAL_PLATFORM,

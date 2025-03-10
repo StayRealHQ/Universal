@@ -6,14 +6,14 @@ class Requests {
   private var authentication = Authentication.shared
 
   private let appIOSBundleId = "AlexisBarreyat.BeReal"
-  private let appIOSVersion = "4.10.0"
-  private let appIOSBuild = "19846"
+  private let appIOSVersion = "4.13.0"
+  private let appIOSBuild = "19929"
   private let clientSecret = "962D357B-B134-4AB6-8F53-BEA2B7255420"
 
   private func defaultHeaders(deviceId: String) -> [String: String] {
     return [
       "bereal-platform": "iOS",
-      "bereal-os-version": "18.3",
+      "bereal-os-version": "18.4",
       "bereal-app-version": appIOSVersion,
       "bereal-app-version-code": appIOSBuild,
       "bereal-device-language": "en",
@@ -25,7 +25,7 @@ class Requests {
       "bereal-experiment-unlimited-bereals": "false",
       "bereal-timezone": TimeZone.current.identifier,
       "bereal-signature": BeRealSignature.create(deviceId: deviceId),
-      "user-agent": "BeReal/\(appIOSVersion) (\(appIOSBundleId); build:\(appIOSBuild); iOS 18.3.0)",
+      "user-agent": "BeReal/\(appIOSVersion) (\(appIOSBundleId); build:\(appIOSBuild); iOS 18.4.0)",
     ]
   }
 
@@ -214,17 +214,17 @@ class Requests {
   }
 }
 
-public extension UIDevice {
-  enum PushEnvironment: String {
+extension UIDevice {
+  public enum PushEnvironment: String {
     case unknown
     case development
     case production
   }
 
-  var pushEnvironment: PushEnvironment {
+  public var pushEnvironment: PushEnvironment {
     guard let provisioningProfile = try? provisioningProfile(),
-        let entitlements = provisioningProfile["Entitlements"] as? [String: Any],
-        let environment = entitlements["aps-environment"] as? String
+      let entitlements = provisioningProfile["Entitlements"] as? [String: Any],
+      let environment = entitlements["aps-environment"] as? String
     else {
       return .unknown
     }
@@ -233,19 +233,22 @@ public extension UIDevice {
   }
 
   private func provisioningProfile() throws -> [String: Any]? {
-    guard let url = Bundle.main.url(forResource: "embedded", withExtension: "mobileprovision") else {
+    guard let url = Bundle.main.url(forResource: "embedded", withExtension: "mobileprovision")
+    else {
       return nil
     }
 
     let binaryString = try String(contentsOf: url, encoding: .isoLatin1)
 
     let scanner = Scanner(string: binaryString)
-    guard scanner.scanUpToString("<plist") != nil, let plistString = scanner.scanUpToString("</plist>"),
+    guard scanner.scanUpToString("<plist") != nil,
+      let plistString = scanner.scanUpToString("</plist>"),
       let data = (plistString + "</plist>").data(using: .isoLatin1)
     else {
       return nil
     }
 
-    return try PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? [String: Any]
+    return try PropertyListSerialization.propertyList(from: data, options: [], format: nil)
+      as? [String: Any]
   }
 }

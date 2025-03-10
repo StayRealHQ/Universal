@@ -18,14 +18,14 @@ class Requests(private val context: Context) {
   val preferences = Preferences(context)
 
   private val appIOSBundleId = "AlexisBarreyat.BeReal"
-  private val appIOSVersion = "4.10.0"
-  private val appIOSBuild = "19846"
+  private val appIOSVersion = "4.13.0"
+  private val appIOSBuild = "19929"
   private val clientSecret = "962D357B-B134-4AB6-8F53-BEA2B7255420"
 
   private fun defaultHeaders(deviceId: String): Headers {
     return Headers.Builder()
             .add("bereal-platform", "iOS")
-            .add("bereal-os-version", "18.3")
+            .add("bereal-os-version", "18.4")
             .add("bereal-app-version", appIOSVersion)
             .add("bereal-app-version-code", appIOSBuild)
             .add("bereal-device-language", "en")
@@ -39,7 +39,7 @@ class Requests(private val context: Context) {
             .add("bereal-signature", BeRealSignature.create(deviceId))
             .add(
                     "user-agent",
-                    "BeReal/$appIOSVersion ($appIOSBundleId; build:$appIOSBuild; iOS 18.3.0)"
+                    "BeReal/$appIOSVersion ($appIOSBundleId; build:$appIOSBuild; iOS 18.4.0)"
             )
             .build()
   }
