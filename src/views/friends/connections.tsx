@@ -8,20 +8,20 @@ import {
 
 import MdiMagnify from "~icons/mdi/magnify";
 
-import { relationships_friends } from "../../api/requests/relationships/friends/list";
+import { getRelationshipsFriends } from "../../api/requests/relationships/friends/list";
 import { getSearchProfile, type GetSearchProfile } from "~/api/requests/search/profile";
 import ProfilePicture from "~/components/profile-picture";
 import { postRelationshipsFriendRequests } from "~/api/requests/relationships/friends/send";
 import InviteCallout from "~/components/friends/invite-callout";
 
 const FriendsConnectionsView: Component = () => {
-  const [friends] = createResource(relationships_friends);
+  const [friends] = createResource(() => getRelationshipsFriends());
   const [searchQuery, setSearchQuery] = createSignal("");
   const [profilesQuery, { refetch: profilesQueryRefetch }] = createResource(searchQuery, (query) => getSearchProfile(query).catch(() => void 0));
 
   const filteredFriends = () => {
     const query = searchQuery().toLowerCase();
-    const friendsList = friends()?.data || [];
+    const friendsList = friends() || [];
 
     if (!query) return friendsList;
 
