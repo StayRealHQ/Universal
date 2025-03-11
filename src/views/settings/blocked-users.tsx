@@ -66,7 +66,7 @@ const BlockedUsersView: Component = () => {
                 <div class="flex flex-col w-full">
                   <p class="font-medium">{entry.user.fullname}</p>
                   <p class="text-sm text-white/60">{entry.user.username}</p>
-                  <p class="text-xs text-white/50">Blocked on {new Date(entry.blockedAt).toLocaleDateString("en-US", { dateStyle: "long"})}</p>
+                  <p class="text-xs text-white/50">Blocked on {new Date(entry.blockedAt).toLocaleDateString(void 0, { dateStyle: "long"})}</p>
                 </div>
 
                 <button type="button" class="ml-2 -mr-2 p-2 rounded-full flex-shrink-0"

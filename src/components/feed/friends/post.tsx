@@ -7,6 +7,7 @@ import me from "~/stores/me";
 import SolarSmileCircleBold from '~icons/solar/smile-circle-bold'
 import ReactionBar from "../ReactionBar";
 import { Gesture } from "@use-gesture/vanilla";
+import toast from "solid-toast";
 
 const FeedFriendsPost: Component<{
   post: Post
@@ -166,8 +167,7 @@ const FeedFriendsPost: Component<{
       await feed.refetch();
     }
     catch (error) {
-      // TODO: show toast with error message
-      console.error((error as Error).message);
+      toast.error("Failed to repost, please retry.");
     }
     finally {
       setIsReposting(false);

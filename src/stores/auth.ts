@@ -5,6 +5,7 @@ import { wait } from "../utils/wait";
 import feed from "./feed";
 import me from "./me";
 import { DEMO_ACCESS_TOKEN, DEMO_REFRESH_TOKEN } from "~/utils/demo";
+import toast from "solid-toast";
 
 export default createRoot(() => {
   const [store, setStore] = createStore<{ loading: boolean } & AuthDetails>({
@@ -38,8 +39,7 @@ export default createRoot(() => {
         return refresh(retry + 1);
       }
       else {
-        console.error("auth.refresh:", error);
-        // TODO: show a toast telling the user to restart the app in a few minutes or when back online
+        toast.error("Couldn't connect you to the servers, please retry later.");
       }
     }
   };

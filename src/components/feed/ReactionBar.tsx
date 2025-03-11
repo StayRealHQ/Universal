@@ -1,4 +1,5 @@
 import { createMemo, createSignal, For, Show, type Component } from "solid-js";
+import toast from "solid-toast";
 import { content_realmojis_delete, content_realmojis_put } from "~/api/requests/content/realmojis";
 import { type PostsOverview } from "~/api/requests/feeds/friends";
 import me from "~/stores/me";
@@ -28,8 +29,7 @@ const ReactionBar: Component<{
       }
     }
     catch {
-      // TODO
-      console.error("failed to react to the post.");
+      toast.error("Failed to react to the post.");
     }
     finally {
       setLoading(false);
