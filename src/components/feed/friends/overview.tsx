@@ -14,10 +14,11 @@ import { content_posts_comment } from "~/api/requests/content/posts/comment";
 import feed from "~/stores/feed";
 import ProfilePicture from "~/components/profile-picture";
 import Drawer from "@corvu/drawer";
-import toast from "solid-toast";
 import { confirm } from "@tauri-apps/plugin-dialog";
 import { postModerationBlockUsers } from "~/api/requests/moderation/block-users";
 import MdiLaunch from '~icons/mdi/launch'
+import MdiChevronRight from '~icons/mdi/chevron-right'
+import { postModerationReportsPost, PostReportReason, REPORT_REASONS } from "~/api/requests/moderation/reports/post";
 
 const FeedFriendsOverview: Component<{
   overview: PostsOverview
@@ -48,6 +49,28 @@ const FeedFriendsOverview: Component<{
 
   const [isActionsDrawerOpened, setActionsDrawerOpen] = createSignal(false);
   const [isReportDrawerOpened, setReportDrawerOpen] = createSignal(false);
+  const [reportReason, setReportReason] = createSignal<PostReportReason>();
+  const [reportComments, setReportComments] = createSignal("");
+  const [reportLoading, setReportLoading] = createSignal(false);
+
+  const handlePostReport = async () => {
+    if (!reportReason() || !reportComments()) return;
+    if (reportComments().length < 10) return;
+
+    setReportLoading(true);
+
+    try {
+      await postModerationReportsPost("feed", reportReason()!, post().id, reportComments());
+    }
+    finally {
+      batch(() => {
+        setReportDrawerOpen(false);
+        setReportLoading(false);
+        setReportComments("");
+        setReportReason(void 0);
+      });
+    }
+  }
 
   return (
     <>
@@ -68,14 +91,8 @@ const FeedFriendsOverview: Component<{
                 })`,
               }}
             />
-            <Drawer.Content class="corvu-transitioning:transition-transform corvu-transitioning:duration-500 corvu-transitioning:ease-[cubic-bezier(0.32,0.72,0,1)] fixed inset-x-0 bottom-0 z-50 flex h-full max-h-72 flex-col rounded-t-xl bg-[#141414] pt-3 px-4 after:absolute after:inset-x-0 after:top-[calc(100%-1px)] after:h-1/2 after:bg-inherit md:select-none">
-              <div class="h-1 w-10 self-center rounded-full bg-white/40 " />
-              {/* <Drawer.Label class="mt-2 text-center text-xl font-bold">
-                Hello, I'm the first drawer :)
-              </Drawer.Label>
-              <Drawer.Description class="mt-1 text-center">
-                Click on the button below if you're cute
-              </Drawer.Description> */}
+            <Drawer.Content class="corvu-transitioning:transition-transform corvu-transitioning:duration-500 corvu-transitioning:ease-[cubic-bezier(0.32,0.72,0,1)] fixed inset-x-0 bottom-0 z-50 flex h-full max-h-70 flex-col rounded-t-xl bg-[#141414] pt-3 px-4 after:absolute after:inset-x-0 after:top-[calc(100%-1px)] after:h-1/2 after:bg-inherit md:select-none">
+              <div class="h-1 w-10 self-center rounded-full bg-white/40" />
 
               <div class="flex flex-col gap-2 mt-6">
                 <div class="flex gap-2 mb-4">
@@ -146,11 +163,22 @@ const FeedFriendsOverview: Component<{
       </Drawer>
 
       <Drawer
+        transitionResize
         trapFocus={false}
         onOutsideFocus={e => e.preventDefault()}
         open={isReportDrawerOpened()}
-        onOpenChange={setReportDrawerOpen}
         breakPoints={[0.75]}
+        onOpenChange={(open) => {
+          setReportDrawerOpen(open);
+          setTimeout(() => {
+            if (!open) {
+              batch(() => {
+                setReportReason(void 0);
+                setReportComments("");
+              })
+            }
+          }, 1250);
+        }}
       >
         {(drawer) => (
           <Drawer.Portal>
@@ -162,55 +190,49 @@ const FeedFriendsOverview: Component<{
                 })`,
               }}
             />
-            <Drawer.Content class="corvu-transitioning:transition-transform corvu-transitioning:duration-500 corvu-transitioning:ease-[cubic-bezier(0.32,0.72,0,1)] fixed inset-x-0 bottom-0 z-50 flex h-full flex-col rounded-t-lg bg-[#141414] pt-3 px-4 after:absolute after:inset-x-0 after:top-[calc(100%-1px)] after:h-1/2 after:bg-inherit md:select-none">
+            <Drawer.Content class="corvu-transitioning:transition-[transform,height] corvu-transitioning:duration-500 corvu-transitioning:ease-[cubic-bezier(0.32,0.72,0,1)] fixed inset-x-0 bottom-0 z-50 flex flex-col rounded-t-lg bg-[#141414] pt-3 px-4 after:absolute after:inset-x-0 after:top-[calc(100%-1px)] after:h-1/2 after:bg-inherit md:select-none">
               <div class="h-1 w-10 self-center rounded-full bg-white/40" />
 
               <Drawer.Label class="mt-4 text-center text-xl font-bold">
-                Report a moment
+                Report a post
               </Drawer.Label>
-              <Drawer.Description class="mt-1 text-center">
+              <Drawer.Description class="mt-1 text-center text-white/75">
                 Your report is confidential.
               </Drawer.Description>
 
-              <button type="button" class="w-full rounded-lg bg-white/5 px-4 py-3 text-lg font-medium transition-all duration-100 hover:bg-white/10 active:opacity-50">
-                Spam
-              </button>
-              <button type="button" class="w-full rounded-lg bg-white/5 px-4 py-3 text-lg font-medium transition-all duration-100 hover:bg-white/10 active:opacity-50">
-                Scam or untrue information
-              </button>
-              <button type="button" class="w-full rounded-lg bg-white/5 px-4 py-3 text-lg font-medium transition-all duration-100 hover:bg-white/10 active:opacity-50">
-                Inappropriate caption
-              </button>
-              <button type="button" class="w-full rounded-lg bg-white/5 px-4 py-3 text-lg font-medium transition-all duration-100 hover:bg-white/10 active:opacity-50">
-                Just not for me
-              </button>
-              <button type="button" class="w-full rounded-lg bg-white/5 px-4 py-3 text-lg font-medium transition-all duration-100 hover:bg-white/10 active:opacity-50">
-                Nudity or sexual
-              </button>
-              <button type="button" class="w-full rounded-lg bg-white/5 px-4 py-3 text-lg font-medium transition-all duration-100 hover:bg-white/10 active:opacity-50">
-                Violent or dangerous
-              </button>
-              <button type="button" class="w-full rounded-lg bg-white/5 px-4 py-3 text-lg font-medium transition-all duration-100 hover:bg-white/10 active:opacity-50">
-                Hate speech or symbols
-              </button>
-              <button type="button" class="w-full rounded-lg bg-white/5 px-4 py-3 text-lg font-medium transition-all duration-100 hover:bg-white/10 active:opacity-50">
-                Suicide or self-harm
-              </button>
-              <button type="button" class="w-full rounded-lg bg-white/5 px-4 py-3 text-lg font-medium transition-all duration-100 hover:bg-white/10 active:opacity-50">
-                Something else
-              </button>
+              <Show when={reportReason()} fallback={
+                <div class="flex flex-col gap-2 mt-3 grow overflow-y-auto pb-4">
+                  <For each={Object.entries(REPORT_REASONS)}>
+                    {([reason, label]) => (
+                      <button type="button" class="w-full flex items-center justify-between rounded-lg bg-white/5 px-4 py-3 text-lg font-medium transition-all duration-100 hover:bg-white/10 active:opacity-50"
+                        onClick={() => {
+                          setReportReason(reason as PostReportReason);
+                        }}
+                      >
+                        {label} <MdiChevronRight class="text-lg" />
+                      </button>
+                    )}
+                  </For>
+                </div>
+              }>
+                <div class="mt-3 h-full overflow-y-auto pb-4">
+                  <p class="text-sm text-white/50 mb-2">If you or someone you know is in immediate danger, contact local law enforcement or your local emergency services immediately.</p>
 
-              <button type="button" onClick={async () => {
-                toast.promise(new Promise((res) => setTimeout(res, 1_200)), {
-                  loading: "Reporting...",
-                  success: "Post reported to the moderation team.",
-                  error: "Failed to report the post." // should never happen
-                });
+                  <textarea placeholder="Help us understand, tell us more..." value={reportComments()} onInput={event => setReportComments(event.currentTarget.value)}
+                    class="outline-none w-full bg-white/10 text-white p-2 rounded-lg mt-3 h-28"
+                  />
 
-                setReportDrawerOpen(false);
-              }}>
-                REPORT
-              </button>
+                  <p class="text-white/50 text-sm mb-4">
+                    Minimum of 10 characters required.
+                  </p>
+
+                  <button type="button" onClick={handlePostReport} class="w-full rounded-lg bg-white/5 hover:text-white px-4 py-3 text-lg font-medium transition-all duration-100 hover:bg-white/10 active:opacity-50 disabled:opacity-50"
+                    disabled={reportLoading() || reportComments().length < 10}
+                  >
+                    Send
+                  </button>
+                </div>
+              </Show>
             </Drawer.Content>
           </Drawer.Portal>
         )}

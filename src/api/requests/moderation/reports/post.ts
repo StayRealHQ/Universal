@@ -19,6 +19,18 @@ export enum PostReportReason {
   Other = "other" // = "Something else"
 }
 
+export const REPORT_REASONS = {
+  [PostReportReason.Spam]: "Spam",
+  [PostReportReason.ScamOrUntrue]: "Scam or untrue information",
+  [PostReportReason.InappropriateCaption]: "Inappropriate caption",
+  [PostReportReason.JustNotForMe]: "Just not for me",
+  [PostReportReason.NudityOrSexual]: "Nudity or sexual",
+  [PostReportReason.ViolentOrDangerous]: "Violent or dangerous",
+  [PostReportReason.HateSpeechOrSymbols]: "Hate speech or symbols",
+  [PostReportReason.SuicideOrSelfHarm]: "Suicide or self-harm",
+  [PostReportReason.Other]: "Something else",
+} as const;
+
 /**
  * report a post for moderation.
  * @returns a report id
