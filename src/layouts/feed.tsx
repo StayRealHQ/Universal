@@ -96,9 +96,7 @@ const FeedLayout: FlowComponent = (props) => {
       </header>
 
       <div class="py-16 mt-[env(safe-area-inset-top)] mb-[env(safe-area-inset-bottom)]">
-        <PullableScreen onRefresh={handleRefresh}
-          shouldPullToRefresh={true} // TODO
-        >
+        <PullableScreen onRefresh={handleRefresh}>
           <main>
             {props.children}
           </main>
