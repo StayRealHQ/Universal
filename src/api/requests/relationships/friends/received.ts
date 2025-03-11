@@ -13,7 +13,7 @@ export interface RelationshipsFriendsReceived {
     mutualFriends: number
     updatedAt: string
   }>
-  next: unknown | null
+  next: string | null
 }
 
 export const relationships_friends_received = async (): Promise<RelationshipsFriendsReceived> => {
