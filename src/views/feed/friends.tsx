@@ -1,4 +1,4 @@
-import { createSignal, For, Show, type Component } from "solid-js";
+import { For, Show, type Component } from "solid-js";
 import FeedFriendsOverview from "~/components/feed/friends/overview";
 import feed from "~/stores/feed";
 import FeedUserOverview from "~/components/feed/user/overview";
@@ -6,8 +6,6 @@ import MdiCamera from '~icons/mdi/camera'
 import moment from "~/stores/moment";
 
 const FeedFriendsView: Component = () => {
-  const [isScrolling, setIsScrolling] = createSignal(false);
-
   return (
     <Show
       when={feed.get()}
@@ -46,10 +44,7 @@ const FeedFriendsView: Component = () => {
             }
           >
             {(overview) => (
-              <FeedUserOverview
-                overview={overview()}
-                setScrolling={setIsScrolling}
-              />
+              <FeedUserOverview overview={overview()} />
             )}
           </Show>
 
@@ -72,10 +67,7 @@ const FeedFriendsView: Component = () => {
                   )}
                 >
                   {(overview) => (
-                    <FeedFriendsOverview
-                      overview={overview}
-                      setScrolling={setIsScrolling}
-                    />
+                    <FeedFriendsOverview overview={overview} />
                   )}
                 </For>
               )}

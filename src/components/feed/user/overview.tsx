@@ -1,4 +1,4 @@
-import { createEffect, createSignal, For, type Setter, type Component, Show } from "solid-js";
+import { createEffect, createSignal, For, type Component, Show } from "solid-js";
 import type { Post, PostsOverview } from "~/api/requests/feeds/friends";
 import PostRealMojis from "~/components/feed/realmojis";
 // import { useNavigate } from "@solidjs/router";
@@ -9,9 +9,9 @@ import type { EmblaCarouselType, EmblaEventType } from "embla-carousel"
 import { numberWithinRange } from "~/utils/number-within";
 import PostSmallComments from "./post-small-comments";
 import MdiFullscreen from '~icons/mdi/fullscreen'
+
 const FeedUserOverview: Component<{
   overview: PostsOverview,
-  setScrolling: Setter<boolean>
 }> = (props) => {
   const [emblaRef, emblaApi] = createEmblaCarousel(
     () => ({
@@ -72,9 +72,6 @@ const FeedUserOverview: Component<{
       .on('scroll', tweenScale)
       .on('slideFocus', tweenScale)
       .on('select', setActiveNode)
-      // To prevent pull to refresh to trigger while we're scrolling on a post.
-      .on("pointerDown", () => props.setScrolling(true))
-      .on("pointerUp", () => props.setScrolling(false))
   })
 
   return (
