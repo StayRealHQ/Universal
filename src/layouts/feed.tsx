@@ -55,7 +55,7 @@ const FeedLayout: FlowComponent = (props) => {
 
   return (
     <div>
-      <header class="z-20 fixed top-0 inset-x-0 bg-gradient-to-b from-black to-transparent pt-[env(safe-area-inset-top)]">
+      <header class="z-50 fixed top-0 inset-x-0 bg-gradient-to-b from-black to-transparent pt-[env(safe-area-inset-top)]">
         <nav class="flex items-center justify-between px-4 h-[72px]">
           <a href="/friends/connections" aria-label="Relationships">
             <MdiPeople class="text-xl" />
