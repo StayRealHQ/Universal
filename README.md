@@ -19,6 +19,9 @@
   <a href="https://github.com/Vexcited/StayReal/tree/main/LICENSE.md">
     <img src="https://img.shields.io/github/license/Vexcited/StayReal.svg?color=green" alt="License Badge">
   </a>
+  <a href="https://dsc.gg/stayreal">
+    <img src="https://img.shields.io/discord/1349527052365336636" alt="Discord">
+  </a>
 </p>
 
 ## 📥 Download
