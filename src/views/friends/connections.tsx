@@ -82,7 +82,7 @@ const FriendsConnectionsView: Component = () => {
   return (
     <>
       {/* Query input to search for friends or new users. */}
-      <div class="px-4 mb-6">
+      <div class="mb-6">
         <div class="relative flex items-center">
           <MdiMagnify class="absolute w-6 h-6 left-4 text-white/40 text-2xl" />
           <input
@@ -99,7 +99,7 @@ const FriendsConnectionsView: Component = () => {
 
       {/* Show friends and also friends related to the query. */}
       <Show when={friends() && ((searchQuery().length >= 3 && filteredFriends().length !== 0) || searchQuery().length < 3)}>
-        <section class="px-4">
+        <section>
           <h2 class="text-sm text-white/60 uppercase font-600 mb-4">
             My Friends ({filteredFriends().length})
           </h2>
@@ -131,7 +131,7 @@ const FriendsConnectionsView: Component = () => {
       {/* Show results of the query. */}
       <Show when={searchQuery().length >= 3 && profilesQuery()}>
         {profiles => (
-          <section class="px-4 mt-4">
+          <section class="mt-4">
             <h2 class="text-sm text-white/60 uppercase font-600 mb-4">
               More Results ({profiles().data.length})
             </h2>

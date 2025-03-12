@@ -43,7 +43,7 @@ const PostRealMojis: Component<{
         <For each={sample()}>
           {(realMojis, index) => (
             <img
-              class="shrink-0 rounded-full border-2 border-black"
+              class="shrink-0 rounded-full border-2 border-white/25"
               src={realMojis.media.url}
               aria-hidden="true"
               style={{
@@ -55,7 +55,7 @@ const PostRealMojis: Component<{
           )}
         </For>
         <Show when={total() > 0}>
-          <div class="shrink-0  rounded-full border-2 border-black bg-#1a1a1c text-white flex justify-center items-center" aria-hidden="true"
+          <div class="shrink-0 rounded-full border-2 border-white/25 bg-#1a1a1c text-white flex justify-center items-center" aria-hidden="true"
             style={{
               "z-index": `${props.shouldReverseZIndex ? 0 : 2}`,
               height: `${props.size}rem`,

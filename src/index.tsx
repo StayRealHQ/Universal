@@ -66,7 +66,10 @@ const routes = [
 
 render(() => (
   <>
-    <Toaster position="bottom-center"
+    <Toaster position="top-center"
+      containerStyle={{
+        "margin-top": "env(safe-area-inset-top)",
+      }}
       toastOptions={{
         iconTheme: {
           primary: '#fff',

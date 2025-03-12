@@ -1,12 +1,13 @@
 import { batch, type Component, createMemo, createSignal, For, Show } from "solid-js";
 import type { PostsOverview } from "~/api/requests/feeds/friends";
-import MdiDotsVertical from '~icons/mdi/dots-vertical';
 import MdiRepost from '~icons/mdi/repost';
 import MdiCommentOutline from '~icons/mdi/comment-outline'
-import MdiMapSearch from '~icons/mdi/map-search'
 import FeedFriendsPost from "./post";
+import MingcuteMore4Fill from '~icons/mingcute/more-4-fill'
 import Location from "~/components/location";
 import { Duration } from "luxon";
+import MingcuteLocationFill from '~icons/mingcute/location-fill'
+import MingcuteTimeFill from '~icons/mingcute/time-fill'
 import { open } from "@tauri-apps/plugin-shell"
 import MdiSend from '~icons/mdi/send'
 import me from "~/stores/me";
@@ -25,9 +26,6 @@ const FeedFriendsOverview: Component<{
 }> = (props) => {
   const post = () => props.overview.posts[0];
   const postDate = () => new Date(post().postedAt);
-
-  // Show up to 2 comments as a sample.
-  const commentsSample = () => post().comments.slice(0, 2);
 
   const lateDuration = createMemo(() => {
     if (post().lateInSeconds > 0) {
@@ -239,7 +237,7 @@ const FeedFriendsOverview: Component<{
       </Drawer>
 
       <div>
-        <div class="flex items-center gap-3 px-4 bg-white/6 py-2.5 rounded-t-2xl">
+        <div class="flex items-center gap-3 px-4 py-2.5 rounded-t-2xl">
           <ProfilePicture
             username={props.overview.user.username}
             media={props.overview.user.profilePicture}
@@ -247,88 +245,59 @@ const FeedFriendsOverview: Component<{
             textSize={12}
           />
 
-          <div class="flex flex-col gap-.5">
-            <p class="font-600 w-fit">
-              {props.overview.user.username}
-            </p>
-            <Show when={post().origin === "repost"}>
-              <p class="w-fit text-white/80 flex items-center gap-1 bg-white/20 pl-2 pr-2.5 rounded-full text-xs">
-                <MdiRepost /> {post().parentPostUsername}
+          <div class="flex-col">
+            <div class="flex gap-4">
+              <p class="font-600 w-fit">
+                {props.overview.user.username}
               </p>
-            </Show>
-          </div>
-
-          <button type="button"
-            onClick={() => setActionsDrawerOpen(true)}
-            class="ml-auto hover:bg-white/8 rounded-full p-1.5 -mr-1.5 transition-colors"
-          >
-            <MdiDotsVertical class="text-xl" />
-          </button>
-        </div>
-
-        <div class="bg-white/4 pb-4 rounded-b-2xl">
-          <div class="flex flex-col w-full px-4 py-2 rounded-t-2xl">
-            <div class="flex flex-col py-2">
-              <div class="flex text-sm text-white/60 space-x-1">
-                <time class="shrink-0">
-                  <span class="tts-only">Posted</span>{" "}
-                  {postDate().getDate() === new Date().getDate() ? "Today" : "Yesterday"}
-                  {", "}<span class="tts-only">at</span>{" "}
-                  <span class="text-white/80">{postDate().toLocaleTimeString()}</span>
-                </time>
-                <span>•</span>
-                <p class="truncate">
-                  {post().isMain
-                    ? lateDuration()
-                      ? `Late of ${lateDuration()}`
-                      : "Just in time"
-                    : "Additional moment"
-                  }
+              <Show when={post().origin === "repost"}>
+                <p class="w-fit text-white/80 flex items-center gap-1 bg-white/20 pl-2 pr-2.5 rounded-full text-xs">
+                  <MdiRepost />{post().parentPostUsername}
                 </p>
+              </Show>
+            </div>
+
+            <div class="flex items-center gap-2 text-sm text-white/50">
+              <div class="flex items-center gap-1 shrink-0">
+                <MingcuteTimeFill />
+                <p>{postDate().toLocaleTimeString(void 0, {
+                  hour: "2-digit",
+                  minute: "2-digit"
+                })}</p>
               </div>
+
               <Show when={post().location}>
                 {location => (
-                  <div class="flex items-center gap-1 text-white/60">
-                    <p class="text-sm flex items-center gap-1">
-                      Took at{" "}
-                      <button type="button"
-                        onClick={() => open(`https://maps.google.com/?q=${location().latitude},${location().longitude}`)}
-                        class="bg-white/10 flex items-center gap-1 py-.5 px-2 rounded-md text-white/80"
-                      >
-                        <Location
-                          latitude={location().latitude}
-                          longitude={location().longitude}
-                        />
-                        <MdiMapSearch />
-                      </button>
+                  <button type="button"
+                    onClick={() => open(`https://maps.google.com/?q=${location().latitude},${location().longitude}`)}
+                    class="flex items-center gap-1 overflow-hidden"
+                  >
+                    <MingcuteLocationFill class="shrink-0" />
+                    <p class="truncate">
+                      <Location
+                        latitude={location().latitude}
+                        longitude={location().longitude}
+                      />
                     </p>
-                  </div>
+                  </button>
                 )}
               </Show>
             </div>
           </div>
 
-          <div class="overflow-hidden relative">
-            <div class="flex">
-              <For each={props.overview.posts}>
-                {(post) => (
-                  <div class="min-w-0 transition-all"
-                    classList={{
-                      "flex-[0_0_auto] max-w-94%": props.overview.posts.length > 1,
-                      "flex-[0_0_100%] max-w-full": props.overview.posts.length === 1,
-                    }}
-                  >
-                    <div class="relative">
-                      <FeedFriendsPost
-                        post={post}
-                        postUserId={props.overview.user.id}
-                      />
-                    </div>
-                  </div>
-                )}
-              </For>
-            </div>
-          </div>
+          <button type="button"
+            onClick={() => setActionsDrawerOpen(true)}
+            class="ml-auto opacity-50"
+          >
+            <MingcuteMore4Fill class="text-xl" />
+          </button>
+        </div>
+
+        <div class="relative overflow-hidden">
+          <FeedFriendsPost
+            post={props.overview.posts[0]}
+            postUserId={props.overview.user.id}
+          />
         </div>
 
         <div class="px-6 pt-4 mb-2">
@@ -337,22 +306,6 @@ const FeedFriendsOverview: Component<{
           </p>
 
           <div class="text-sm font-300">
-            <Show when={commentsSample().length > 0}>
-              <div class="flex items-center gap-1 opacity-50">
-                <MdiCommentOutline class="text-xs" />
-                <p>See the comments</p>
-              </div>
-            </Show>
-
-            <For each={commentsSample()}>
-              {comment => (
-                <div class="flex items-center gap-1">
-                  <p class="font-600">{comment.user.username}</p>
-                  <p>{comment.content}</p>
-                </div>
-              )}
-            </For>
-
             <form onSubmit={handlePostComment} class="flex items-center gap-2 mt-2">
               <ProfilePicture
                 username={me.get()!.username}

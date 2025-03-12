@@ -140,7 +140,7 @@ const FriendsRequestsView: Component = () => {
       <InviteCallout />
 
       <Show when={requests()}>
-        <section class="px-4">
+        <section>
           <h2 class="text-sm text-white/60 uppercase font-600">
             Friend Requests ({requests()!.data.length})
           </h2>
@@ -164,7 +164,7 @@ const FriendsRequestsView: Component = () => {
       </Show>
 
       <Show when={sentRequests() && sentRequests()!.data.length > 0}>
-        <section class="px-4 mt-4">
+        <section class="mt-4">
           <h2 class="text-sm text-white/60 uppercase font-600">
             Sent Requests ({sentRequests()!.data.length})
           </h2>

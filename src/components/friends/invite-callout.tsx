@@ -11,7 +11,7 @@ const isAndroid = type() === "android";
  */
 const InviteCallout: Component = () => {
   return (
-    <div class="px-4 mb-6 cursor-pointer focus:scale-[0.98] active:scale-95 transition-transform">
+    <div class="mb-6 cursor-pointer focus:scale-[0.98] active:scale-95 transition-transform">
       <div class="relative bg-[#121212] rounded-2xl p-3.5 overflow-hidden">
         <Show when={!isAndroid && me.get()!.profilePicture}>
           {(profilePicture) => (

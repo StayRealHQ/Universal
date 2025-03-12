@@ -1,4 +1,4 @@
-import { type Component, createEffect, createSignal, on, onCleanup, Show } from "solid-js";
+import { type Component, createEffect, createSignal, For, on, onCleanup, Show } from "solid-js";
 import { content_posts_repost } from "~/api/requests/content/posts/repost";
 import { Post } from "~/api/requests/feeds/friends";
 import PostRealMojis from "~/components/feed/realmojis";
@@ -8,6 +8,7 @@ import SolarSmileCircleBold from '~icons/solar/smile-circle-bold'
 import ReactionBar from "../ReactionBar";
 import { Gesture } from "@use-gesture/vanilla";
 import toast from "solid-toast";
+import MingcuteEmojiFill from '~icons/mingcute/emoji-fill'
 
 const FeedFriendsPost: Component<{
   post: Post
@@ -26,6 +27,9 @@ const FeedFriendsPost: Component<{
 
   const primaryURL = () => isReversed() ? props.post.secondary.url : props.post.primary.url;
   const secondaryURL = () => isReversed() ? props.post.primary.url : props.post.secondary.url;
+
+  // Show up to 2 comments as a sample.
+  const commentsSample = () => props.post.comments.slice(0, 2);
 
   // On mobile, when having pointer down and scrolling
   // doesn't trigger `pointerup`, but `pointercancel` instead.
@@ -182,7 +186,7 @@ const FeedFriendsPost: Component<{
   return (
     <div class="z-20 relative mx-auto w-fit">
       <img
-        class="z-30 h-40 w-auto absolute top-4 left-4 rounded-xl border-2 border-black shadow-l transition-opacity"
+        class="z-30 h-40 w-auto absolute top-4 right-4 rounded-xl inline-block border border-white/25 shadow-xl transition-opacity"
         onClick={() => setIsReversed(prev => !prev)}
         alt="Secondary image"
         src={secondaryURL()}
@@ -192,7 +196,7 @@ const FeedFriendsPost: Component<{
       />
 
       <img ref={setImage}
-        class="rounded-2xl max-h-80vh"
+        class="max-h-80vh"
         alt="Primary image"
         src={primaryURL()}
         onPointerDown={handleFocus}
@@ -200,7 +204,7 @@ const FeedFriendsPost: Component<{
 
       <Show when={props.post.postType === "bts"}>
         <video ref={setVideo}
-          class="hidden absolute inset-0 rounded-2xl max-h-80vh"
+          class="hidden absolute inset-0 max-h-80vh"
           src={props.post.btsMedia!.url}
           controls={false}
           autoplay={false}
@@ -209,18 +213,18 @@ const FeedFriendsPost: Component<{
           onEnded={handleUnfocus}
         ></video>
 
-        <div class="z-25 absolute top-4 right-4 bg-black/50 px-3.5 py-1 rounded-2xl transition-opacity"
+        <p class="z-25 absolute top-4 left-4 bg-black/20 text-white px-3 py-.5 transition-opacity rounded-xl backdrop-blur font-600"
           classList={{
             "opacity-0 pointer-events-none": isFocusing()
           }}
         >
-          <p class="font-600">BTS</p>
-        </div>
+          BTS
+        </p>
       </Show>
 
       {/* dimmed background overlay */}
-      <Show when={isReacting()}>
-        <div class="z-25 absolute inset-x-0 h-50px bottom-0 bg-gradient-to-t from-black/50 to-transparent" />
+      <Show when={!isFocusing()}>
+        <div class="z-25 absolute inset-x-0 h-300px bottom-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
       </Show>
 
       {/* small realmojis in the bottom left */}
@@ -230,7 +234,7 @@ const FeedFriendsPost: Component<{
             "opacity-0 pointer-events-none": isFocusing() || isReacting()
           }}
         >
-          <PostRealMojis post={props.post} size={2} shouldReverseZIndex />
+          <PostRealMojis post={props.post} size={2} />
         </div>
       </div>
 
@@ -243,7 +247,7 @@ const FeedFriendsPost: Component<{
           <button type="button"
             onClick={() => setIsReacting(true)}
           >
-            <SolarSmileCircleBold class="text-white text-3xl text-shadow-xl" />
+            <MingcuteEmojiFill class="text-white text-3xl" />
           </button>
         </div>
       </div>
@@ -261,6 +265,21 @@ const FeedFriendsPost: Component<{
             feed.refetch();
           }}
         />
+      </div>
+
+      <div class="z-30 absolute left-4 bottom-16 overflow-hidden right-8 transition-all"
+        classList={{
+          "opacity-0 pointer-events-none": isFocusing() || isReacting()
+        }}
+      >
+        <For each={commentsSample()}>
+          {comment => (
+            <div class="flex items-center gap-1.5">
+              <p class="shrink-0 font-500">{comment.user.username}</p>
+              <p class="truncate">{comment.content}</p>
+            </div>
+          )}
+        </For>
       </div>
 
       {/*

@@ -1,9 +1,9 @@
 import { For, Show, type Component } from "solid-js";
 import FeedFriendsOverview from "~/components/feed/friends/overview";
 import feed from "~/stores/feed";
-import FeedUserOverview from "~/components/feed/user/overview";
-import MdiCamera from '~icons/mdi/camera'
-import moment from "~/stores/moment";
+// import FeedUserOverview from "~/components/feed/user/overview";
+// import MdiCamera from '~icons/mdi/camera'
+// import moment from "~/stores/moment";
 
 const FeedFriendsView: Component = () => {
   return (
@@ -15,7 +15,7 @@ const FeedFriendsView: Component = () => {
     >
       {(feed) => (
         <>
-          <Show
+          {/* <Show
             when={feed().userPosts}
             fallback={
               <div class="text-center flex flex-col gap-1 px-4 mx-4 bg-white/10 py-4 rounded-2xl">
@@ -46,9 +46,9 @@ const FeedFriendsView: Component = () => {
             {(overview) => (
               <FeedUserOverview overview={overview()} />
             )}
-          </Show>
+          </Show> */}
 
-          <div class="flex flex-col gap-6 mt-8">
+          <div class="flex flex-col gap-6">
             <Show when={feed().friendsPosts} fallback={
               <p class="text-center text-white/75 px-4 mt-12">
                 Your friends haven't posted anything yet,<br/>come back later !

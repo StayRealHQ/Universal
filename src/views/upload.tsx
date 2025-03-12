@@ -359,9 +359,9 @@ const UploadView: Component = () => {
           autoplay={true}
         />
 
-        <div class="absolute top-4 left-4 w-full max-w-[calc(20vh*(1500/2000))] h-20vh">
+        <div class="absolute top-4 right-4 w-full max-w-[calc(20vh*(1500/2000))] h-20vh">
           <canvas ref={!state.reversed ? setFrontVideoPreview : setBackVideoPreview}
-            class="absolute inset-0 z-15 rounded-xl h-full w-full object-cover border-2 border-black"
+            class="absolute inset-0 z-15 rounded-xl h-full w-full object-cover border-2 border-white/25"
             classList={{ "opacity-0": (!state.reversed ? frontImage() === undefined : backImage() === undefined) || isCapturingPrimary() }}
           />
         </div>

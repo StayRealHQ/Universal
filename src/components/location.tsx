@@ -4,7 +4,6 @@ import { reverseGeocoding, type ReverseGeocoding } from "~/api/requests/geocodin
 const Location: Component<{
   latitude: number
   longitude: number
-  class?: string
 }> = (props) => {
   const [geocoding, setGeocoding] = createSignal<ReverseGeocoding | null>(null);
 

@@ -38,7 +38,7 @@ const ReactionBar: Component<{
   };
 
   return (
-    <div class="flex items-center justify-center gap-2 animate-duration-450"
+    <div class="flex items-center justify-center gap-2.5 animate-duration-450"
       classList={{
         "animate-pulse": loading(),
       }}
@@ -48,7 +48,7 @@ const ReactionBar: Component<{
       }>
         {(realmoji) => (
           <button type="button" class="relative" onClick={() => react(realmoji.emoji)}>
-            <p class="absolute bottom-0 right-0 text-sm z-40"
+            <p class="absolute -bottom-1 -right-1 text-sm z-40"
               classList={{
                 "opacity-70": currentReaction() !== null && currentReaction()?.emoji !== realmoji.emoji,
               }}
@@ -61,7 +61,7 @@ const ReactionBar: Component<{
             </Show>
 
             <img
-              class="shrink-0 rounded-full border-2 border-black w-13 h-13 bg-black z-30"
+              class="shrink-0 rounded-xl border border-white/25 shadow-2xl w-13 h-13 z-30"
               src={realmoji.media.url}
               classList={{
                 "outline outline-1 outline-white": currentReaction()?.emoji === realmoji.emoji,
