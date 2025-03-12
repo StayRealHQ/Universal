@@ -52,6 +52,7 @@
         <b>aarch64</b> : <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-aarch64-apple-darwin-dmg.zip">&nearr;&nbsp;DMG</a>
         <br>
         <b>x86_64</b> : <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-x86_64-apple-darwin-dmg.zip">&nearr;&nbsp;DMG</a>
+        <br><br><i>You have to run <code>xattr -c StayReal.app</code> to make the app executable in some cases.</i>
       </div>
     </td>
     <td width="40%">
@@ -97,6 +98,7 @@
     <td width="50%">
       <div align="center">
         <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-ios-aarch64-ipa.zip">&nearr;&nbsp;aarch64</a>
+        <br><br><i>Do not change the Bundle ID if you want to preserve Push Notifications.</i>
       </div>
     </td>
   </tr>
