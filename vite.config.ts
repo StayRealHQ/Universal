@@ -1,13 +1,23 @@
 import { defineConfig } from "vite";
 import solid from "vite-plugin-solid";
 import icons from "unplugin-icons/vite";
+import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import unocss from "unocss/vite";
 import path from "node:path";
 
 const host = process.env.TAURI_DEV_HOST;
 
 export default defineConfig(async () => ({
-  plugins: [unocss(), icons({ compiler: "solid" }), solid()],
+  plugins: [
+    unocss(),
+    icons({
+      compiler: "solid",
+      customCollections: {
+        stayreal: FileSystemIconLoader(path.resolve(__dirname, "icons"))
+      }
+    }),
+    solid()
+  ],
 
   resolve: {
     alias: {

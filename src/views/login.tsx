@@ -20,6 +20,8 @@ import { BeRealError } from "~/api/models/errors";
 import { invoke } from "@tauri-apps/api/core";
 import { open } from "@tauri-apps/plugin-shell";
 
+import StayRealLogo from "~icons/stayreal/logo";
+
 const LoginView: Component = () => {
   const navigate = useNavigate();
   const [params, setParams] = useSearchParams<{ arkoseToken: string }>()
@@ -142,9 +144,11 @@ const LoginView: Component = () => {
 
   return (
     <main class="h-screen flex flex-col px-4 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
-      <header class="shrink-0 flex items-center relative w-full h-8 pt-6">
+      <header class="relative flex items-center justify-center relative w-full mt-6">
         <Show when={state.step === "otp"}>
-          <button type="button"
+          <button
+            class="absolute left-4"
+            type="button"
             onClick={() => {
               setState({
                 step: "phone",
@@ -152,16 +156,14 @@ const LoginView: Component = () => {
               });
             }}
           >
-            <MdiChevronLeft class="text-xl" />
+            <MdiChevronLeft class="text-2xl " />
           </button>
         </Show>
 
-        <div class="absolute inset-x-0 w-fit mx-auto text-2xl text-center text-white font-700" role="banner">
-          StayReal.
-        </div>
+        <StayRealLogo class="text-3xl" />
       </header>
 
-      <h1 class="my-10 w-fit mx-auto text-center font-600">
+      <h1 class="mt-4 mb-10 w-fit mx-auto text-center font-600">
         {state.step === "phone" ? "What's your phone number?" : "Check your number"}
       </h1>
 
@@ -208,9 +210,9 @@ const LoginView: Component = () => {
           </Show>
 
           <button type="submit" disabled={state.loading || !state.phoneNumber}
-            class="text-black bg-white rounded-2xl w-full py-3 mt-auto focus:(outline outline-white outline-offset-2) disabled:opacity-30 transition-all"
+            class="text-black font-medium bg-white rounded-2xl w-full py-3 mt-auto focus:(outline outline-white outline-offset-2) disabled:opacity-30 transition-all"
           >
-            <Show when={state.loading} fallback={"Send Verification Text"}>
+            <Show when={state.loading} fallback={"Send me a verification code"}>
               <div class="flex items-center justify-center">
                 <MdiLoading class="text-black text-xl animate-spin animate-duration-750" />
               </div>
