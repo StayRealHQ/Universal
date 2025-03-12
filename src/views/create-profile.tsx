@@ -66,13 +66,14 @@ const CreateProfileView: Component = () => {
         <h1 class="font-600">
           Create a profile
         </h1>
-        <p class="text-xs opacity-60">By creating an account, you agree to the <br/>
+        <p class="text-xs opacity-60">By creating an account, you agree to <br/>
           <button
             type="button"
             onClick={() => open("https://bereal.com/terms/")}
-            class="hover:text-white/80 underline underline-offset-2 transition-colors">
-              Terms of Service of BeReal
-            </button>
+            class="hover:text-white/80 underline underline-offset-2 transition-colors"
+          >
+              BeReal's Terms of Service
+          </button>
         </p>
       </div>
 

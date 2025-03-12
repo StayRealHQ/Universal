@@ -18,6 +18,7 @@ import Otp from "~/components/otp";
 import MdiLoading from '~icons/mdi/loading'
 import { BeRealError } from "~/api/models/errors";
 import { invoke } from "@tauri-apps/api/core";
+import { open } from "@tauri-apps/plugin-shell";
 
 const LoginView: Component = () => {
   const navigate = useNavigate();
@@ -185,6 +186,19 @@ const LoginView: Component = () => {
 
           <p class="mt-8 text-sm text-center px-4 text-white/75">
             By continuing, you agree that StayReal is not affiliated with BeReal and that you are using this service at your own risk.
+            <br/><br/>
+
+            You also agree to <button
+              type="button"
+              onClick={() => open("https://stayreal.vexcited.com/privacy-policy")}
+              class="text-white/55 font-bold transition-colors"
+            >StayReal's Privacy Policy</button> and <button
+              type="button"
+              onClick={() => open("https://bereal.com/terms/")}
+              class="text-white/55 font-bold transition-colors"
+            >
+              BeReal's Terms of Service
+            </button>.
           </p>
 
           <Show when={state.error}>
