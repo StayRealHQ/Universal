@@ -11,15 +11,15 @@ export const DEMO_FEEDS_FRIENDS: GetFeedsFriends = {
       region: "europe-west",
       user: {
         countryCode: "FR",
-        id: DEMO_RELATIONSHIPS_FRIENDS_LIST.data[0].id,
+        id: DEMO_RELATIONSHIPS_FRIENDS_LIST[0].id,
         profilePicture: null,
         type: "USER",
-        username: DEMO_RELATIONSHIPS_FRIENDS_LIST.data[0].username
+        username: DEMO_RELATIONSHIPS_FRIENDS_LIST[0].username
       },
       posts: [{
         comments: [],
         creationDate: new Date().toISOString(),
-        id: DEMO_RELATIONSHIPS_FRIENDS_LIST.data[0].id + "-post-123456",
+        id: DEMO_RELATIONSHIPS_FRIENDS_LIST[0].id + "-post-123456",
         isFirst: true,
         isLate: false,
         isMain: true,

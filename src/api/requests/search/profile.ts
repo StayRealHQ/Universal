@@ -17,6 +17,10 @@ export interface GetSearchProfile {
 }
 
 export const getSearchProfile = async (query: string, limit = 20): Promise<GetSearchProfile> => {
+  if (auth.isDemo()) {
+    return { data: [] };
+  }
+
   const response = await fetch(`https://mobile-l7.bereal.com/api/search/profile?query=${encodeURIComponent(query)}&limit=${limit}`, {
     headers: {
       ...BEREAL_DEFAULT_HEADERS(auth.store.deviceId),

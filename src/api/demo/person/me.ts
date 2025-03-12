@@ -3,7 +3,7 @@ import { DEMO_PHONE_NUMBER } from "~/utils/demo";
 
 export const DEMO_PERSON_ME = {
   region: "europe-west",
-  biography: "Hey ! I am a demonstration account, I am here to let you try the app.",
+  biography: "Hey ! I am a demonstration account, I am here to let you try the app. Blocking and reporting users won't do anything since friends are immutable here.",
   birthdate: "2000-12-25T00:00:00.000Z",
   canDeletePost: true,
   canPost: true,

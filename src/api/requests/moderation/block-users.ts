@@ -17,6 +17,10 @@ export interface GetModerationBlockUsers {
 
 /** Get a full list of already blocked users. */
 export const getModerationBlockUsers = async (): Promise<GetModerationBlockUsers> => {
+  if (auth.isDemo()) {
+    return { data: [] };
+  }
+
   const response = await fetch(`https://mobile-l7.bereal.com/api/moderation/block-users?page`, {
     method: "GET",
     headers: {
