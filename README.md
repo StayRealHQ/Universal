@@ -165,7 +165,7 @@
 
 ### Settings
 
-- [ ] Notifications (removed, waiting for a proper solution)
+- [x] Notifications
 - [ ] Update region for moments
 
 ### Advanced
