@@ -140,7 +140,7 @@ extension ApiPlugin: UIApplicationDelegate {
     _ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
   ) {
     let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-    requests.registerDeviceToken(token: token)
+    requests.registerDeviceToken(token)
     self.originalDelegate?.application?(
       application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
   }
