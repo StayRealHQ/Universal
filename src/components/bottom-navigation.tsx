@@ -29,7 +29,7 @@ const BottomNavigation: Component = () => {
       if (props.label === "Messages") {
         toast("Messages are not available yet.");
       }
-    }} class="shrink-0 flex flex-col text-white justify-center items-center gap-1"
+    }} class="w-full flex flex-col text-white justify-center items-center gap-1"
       classList={{
         "opacity-50": !props.selected
       }}
@@ -48,7 +48,7 @@ const BottomNavigation: Component = () => {
 
   return (
     <nav class="z-50 fixed bottom-0 inset-x-0 bg-gradient-to-t from-#0D0E12/90 from-4% to-#0D0E12/0 pb-[env(safe-area-inset-bottom)] flex items-center">
-      <div class="my-auto flex items-center justify-between px-8 grow py-6">
+      <div class="my-auto flex items-center gap-4 px-8 grow py-6">
         <Entry href="/feed/friends"
           filledIcon={<MingcuteSunFill />}
           outlineIcon={<MingcuteSunLine />}
@@ -73,7 +73,7 @@ const BottomNavigation: Component = () => {
           selected={location.pathname.startsWith("/messages")}
         />
 
-        <a href="/profile" aria-label="My profile" class="shrink-0 flex flex-col text-white justify-center items-center gap-1"
+        <a href="/profile" aria-label="My profile" class="w-full flex flex-col text-white justify-center items-center gap-1"
           classList={{
             "opacity-50": location.pathname !== "/profile"
           }}
