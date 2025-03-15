@@ -142,6 +142,7 @@
 - [ ] Caption
 - [ ] Location
 - [ ] Retry count
+- [x] Upload above the daily limit
 
 ### Feed
 
