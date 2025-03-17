@@ -1,5 +1,5 @@
 #[tauri::command]
-fn navigate(mut webview_window: tauri::WebviewWindow, url: String) {
+fn navigate(webview_window: tauri::WebviewWindow, url: String) {
   _ = webview_window.navigate(tauri::Url::parse(&url).unwrap());
 }
 
