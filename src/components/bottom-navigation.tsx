@@ -14,6 +14,7 @@ import ProfilePicture from "./profile-picture";
 import me from "~/stores/me";
 import toast from "solid-toast";
 import { useLocation } from "@solidjs/router";
+import { isSmallerThan386px } from "~/utils/responsive";
 
 const BottomNavigation: Component = () => {
   const location = useLocation();
@@ -29,7 +30,7 @@ const BottomNavigation: Component = () => {
       if (props.label === "Messages") {
         toast("Messages are not available yet.");
       }
-    }} class="w-full flex flex-col text-white justify-center items-center gap-1"
+    }} class="grow flex flex-col text-white justify-center items-center gap-1"
       classList={{
         "opacity-50": !props.selected
       }}
@@ -40,7 +41,11 @@ const BottomNavigation: Component = () => {
         </Show>
       </div>
 
-      <p class="text-sm text-shadow-xl">
+      <p class="text-sm text-shadow-xl"
+        classList={{
+          "hidden": isSmallerThan386px()
+        }}
+      >
         {props.label}
       </p>
     </a>
@@ -73,7 +78,7 @@ const BottomNavigation: Component = () => {
           selected={location.pathname.startsWith("/messages")}
         />
 
-        <a href="/profile" aria-label="My profile" class="w-full flex flex-col text-white justify-center items-center gap-1"
+        <a href="/profile" aria-label="My profile" class="shrink-0 grow flex flex-col text-white justify-center items-center gap-1"
           classList={{
             "opacity-50": location.pathname !== "/profile"
           }}
@@ -85,7 +90,11 @@ const BottomNavigation: Component = () => {
             textSize={10}
           />
 
-          <p class="text-sm text-shadow-xl">
+          <p class="text-sm text-shadow-xl"
+            classList={{
+              "hidden": isSmallerThan386px()
+            }}
+          >
             Profile
           </p>
         </a>
