@@ -1,13 +1,11 @@
 diff --git a/src/android/kotlin/RustWebView.kt b/src/android/kotlin/RustWebView.kt
-index cb7b001..2bc1999 100644
+index 8debc1c..e0471bc 100644
 --- a/src/android/kotlin/RustWebView.kt
 +++ b/src/android/kotlin/RustWebView.kt
-@@ -16,7 +16,19 @@ import kotlin.collections.Map
- @SuppressLint("RestrictedApi")
+@@ -17,6 +17,18 @@ import kotlin.collections.Map
  class RustWebView(context: Context, val initScripts: Array<String>, val id: String): WebView(context) {
      val isDocumentStartScriptEnabled: Boolean
--  
-+
+ 
 +    val ajaxRequestContents = mutableMapOf<String, String>()
 +    fun addAjaxRequest (id: String, body: String){
 +      ajaxRequestContents.put(id, body);
