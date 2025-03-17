@@ -309,6 +309,7 @@ const FeedFriendsOverview: Component<{
             <form onSubmit={handlePostComment} class="flex items-center gap-2 mt-2">
               <ProfilePicture
                 username={me.get()!.username}
+                fullName={me.get()!.fullname}
                 media={me.get()?.profilePicture}
                 size={24}
                 textSize={8}

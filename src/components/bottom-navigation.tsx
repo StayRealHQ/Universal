@@ -86,6 +86,7 @@ const BottomNavigation: Component = () => {
           <ProfilePicture
             media={me.get()?.profilePicture}
             username={me.get()?.username || ""}
+            fullName={me.get()?.fullname || ""}
             size={24}
             textSize={10}
           />
