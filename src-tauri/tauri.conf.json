@@ -12,11 +12,11 @@
     "windows": [
       {
         "title": "StayReal",
-        "width": 400,
+        "width": 436,
         "height": 800,
         "fullscreen": false,
         "backgroundColor": "#000000",
-        "minWidth": 400,
+        "minWidth": 436,
         "theme": "Dark",
         "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_4_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148"
       }
