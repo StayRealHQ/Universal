@@ -245,7 +245,7 @@ const FeedFriendsOverview: Component<{
             textSize={12}
           />
 
-          <div class="flex-col">
+          <div class="flex-col w-full overflow-hidden">
             <div class="flex gap-4">
               <p class="font-600 w-fit">
                 {props.overview.user.username}
