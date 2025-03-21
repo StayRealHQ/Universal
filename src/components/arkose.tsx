@@ -1,7 +1,11 @@
 import { BEREAL_IOS_BUNDLE_ID, BEREAL_IOS_VERSION, BEREAL_PLATFORM_VERSION } from "~/api/constants";
 
+import { sha256 } from '@noble/hashes/sha2';
+import { bytesToHex } from '@noble/hashes/utils';
+
 export const createArkoseURL = (key: string, dataExchange: string, deviceId: string) => {
   const href = window.location.origin + window.location.pathname;
+  const locales = `[${navigator.languages.join(", ")}]`;
 
   const html = `<html><head><meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=0"><style>html,body{display:flex;justify-content:center;align-items:center;background:#0D0E12;height:100%;width:100%;overflow:hidden;position:fixed;margin:0;padding:0;color:#fff}.spin{transition: opacity .175s; animation: spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}</style>`
     + `<script crossorigin="anonymous" data-callback="setup" src="https://client-api.arkoselabs.com/v2/api.js" async defer></script>`
@@ -43,7 +47,8 @@ enforcement.setConfig({
       [p+"id_for_vendor"]:${JSON.stringify(deviceId)},
       [p+"language"]:"en",
       [p+"screen_brightness"]:100,
-      [p+"app_signing_credential"]:""
+      [p+"app_signing_credential"]:"",
+      [p+"locale_hash"]:${JSON.stringify(bytesToHex(sha256(locales)))}
     })))
   }
 })
