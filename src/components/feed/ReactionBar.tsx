@@ -1,18 +1,25 @@
 import { createMemo, createSignal, For, Show, type Component } from "solid-js";
 import toast from "solid-toast";
+import { BeRealError } from "~/api/models/errors";
 import { content_realmojis_delete, content_realmojis_put } from "~/api/requests/content/realmojis";
 import { type PostsOverview } from "~/api/requests/feeds/friends";
+import { FriendsOfFriendsPost } from "~/api/requests/feeds/friends-of-friends";
 import me from "~/stores/me";
 
 const ReactionBar: Component<{
-  post: PostsOverview["posts"][number]
+  post: PostsOverview["posts"][number] | FriendsOfFriendsPost
   postUserId: string
   onReact: () => void
 }> = (props) => {
+  const realmojis = () => ("realmojis" in props.post
+    ? props.post.realmojis.self ? [...props.post.realmojis.sample, props.post.realmojis.self] : props.post.realmojis.sample
+    : props.post.realMojis
+  );
+
   const [loading, setLoading] = createSignal(false);
 
   const currentReaction = createMemo(() => {
-    const reaction = props.post.realMojis.find(r => r.user?.id === me.get()?.id);
+    const reaction = realmojis().find(r => r.user?.id === me.get()?.id);
     return reaction ?? null;
   });
 
@@ -28,8 +35,10 @@ const ReactionBar: Component<{
         await content_realmojis_put(props.post.id, props.postUserId, emoji);
       }
     }
-    catch {
-      toast.error("Failed to react to the post.");
+    catch (e) {
+      if (e instanceof BeRealError) {
+        toast.error(e.message);
+      }
     }
     finally {
       setLoading(false);
@@ -57,7 +66,7 @@ const ReactionBar: Component<{
             </p>
 
             <Show when={currentReaction() !== null && currentReaction()?.emoji !== realmoji.emoji}>
-              <div class="z-35 inset-0 absolute bg-black/40 rounded-full" />
+              <div class="z-35 inset-0 absolute bg-black/40 rounded-xl" />
             </Show>
 
             <img

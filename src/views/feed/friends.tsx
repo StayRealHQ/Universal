@@ -1,16 +1,13 @@
 import { For, Show, type Component } from "solid-js";
 import FeedFriendsOverview from "~/components/feed/friends/overview";
 import feed from "~/stores/feed";
-// import FeedUserOverview from "~/components/feed/user/overview";
-// import MdiCamera from '~icons/mdi/camera'
-// import moment from "~/stores/moment";
 
 const FeedFriendsView: Component = () => {
   return (
     <Show
       when={feed.get()}
       fallback={
-        <p class="text-center text-white/50">finding your feed...</p>
+        <p class="text-center text-white/50">finding your friends feed...</p>
       }
     >
       {(feed) => (

@@ -83,7 +83,7 @@ export interface Post {
   isMain: boolean
   isFirst: boolean
   isResurrected: boolean
-  visibility: ("friends" | "friends-of-friends")[]
+  visibility: ("friends" | "friends-of-friends" | "public")[]
   postedAt: string
   takenAt: string
   creationDate: string

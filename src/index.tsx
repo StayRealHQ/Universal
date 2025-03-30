@@ -21,7 +21,11 @@ const routes = [
       {
         path: "/friends",
         component: lazy(() => import("~/views/feed/friends"))
-      }
+      },
+      {
+        path: "/friends-of-friends",
+        component: lazy(() => import("~/views/feed/friends-of-friends"))
+      },
     ]
   },
   {
