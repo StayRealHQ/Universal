@@ -254,8 +254,6 @@ A lot of similar projects and researches have been made, and we would like to th
 
 - [&nearr;&nbsp;BeFake, an API wrapper written in Python](https://github.com/Smart123s/BeFake)
 - [&nearr;&nbsp;TooFake, an alternative web client](https://github.com/s-alad/toofake)
-- [&nearr;&nbsp;BeUnblurred, an alternative web client](https://github.com/macedonga/beunblurred)
-- [&nearr;&nbsp;Fowled's researches](https://bereal.fowled.dev)
 - [&nearr;&nbsp;userbradley's researches](https://github.com/userbradley/BeReal)
 
 ## 📄 License
