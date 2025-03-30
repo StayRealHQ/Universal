@@ -155,6 +155,7 @@
 - [x] See reactions on a post (you can only see a sample)
 - [x] React to a post with your Realmojis
 - [x] Open primary/secondary image in your browser (through image URL)
+- [x] See your Friends of Friends feed, even after the latest updates
 
 ### Relationships
 
