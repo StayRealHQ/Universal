@@ -6,6 +6,7 @@ export type ReverseGeocoding = {
     village?: string
     municipality: string
     country: string
+    town?: string
   }
 }
 
@@ -23,16 +24,16 @@ const cache = (latitude: number, longitude: number, geocoding: ReverseGeocoding)
 export const reverseGeocoding = async (latitude: number, longitude: number): Promise<ReverseGeocoding> => {
   const pre = cached(latitude, longitude);
   if (pre) return pre;
-  
+
   const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
-  
-  // too many requests, 
+
+  // too many requests,
   if (response.status !== 200) {
     // wait for a second and retry
     await new Promise(resolve => setTimeout(resolve, 1000));
     return reverseGeocoding(latitude, longitude);
   }
-  
+
   const output = await response.json() as ReverseGeocoding;
   cache(latitude, longitude, output);
   return output;

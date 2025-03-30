@@ -9,6 +9,7 @@ const Location: Component<{
 
   createEffect(async () => {
     const geocoding = await reverseGeocoding(props.latitude, props.longitude);
+    console.log("[Location] geocoding:", geocoding);
     setGeocoding(geocoding);
   })
 
@@ -17,7 +18,7 @@ const Location: Component<{
       "..."
     }>
       {geocoding => (
-        `${geocoding().address.village || geocoding().address.city || geocoding().address.municipality}, ${geocoding().address.country}`
+        `${geocoding().address.town || geocoding().address.village || geocoding().address.city || geocoding().address.municipality}, ${geocoding().address.country}`
       )}
     </Show>
   )
