@@ -11,7 +11,7 @@ export const BEREAL_FIREBASE_KEY = "AIzaSyCgNTZt6gzPMh-2voYXOvrt_UR_gpGl83Q";
 export const BEREAL_CLIENT_SECRET = "962D357B-B134-4AB6-8F53-BEA2B7255420";
 
 export const BEREAL_PLATFORM = "iOS";
-export const BEREAL_PLATFORM_VERSION = "18.4";
+export const BEREAL_PLATFORM_VERSION = "18.5";
 
 export const BEREAL_DEFAULT_HEADERS = (deviceID: string) => ({
   "bereal-platform": BEREAL_PLATFORM,

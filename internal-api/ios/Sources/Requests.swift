@@ -13,7 +13,7 @@ class Requests {
   private func defaultHeaders(deviceId: String) -> [String: String] {
     return [
       "bereal-platform": "iOS",
-      "bereal-os-version": "18.4",
+      "bereal-os-version": "18.5",
       "bereal-app-version": appIOSVersion,
       "bereal-app-version-code": appIOSBuild,
       "bereal-device-language": "en",
@@ -21,7 +21,7 @@ class Requests {
       "bereal-device-id": deviceId,
       "bereal-timezone": TimeZone.current.identifier,
       "bereal-signature": BeRealSignature.create(deviceId: deviceId),
-      "user-agent": "BeReal/\(appIOSVersion) (\(appIOSBundleId); build:\(appIOSBuild); iOS 18.4.0)",
+      "user-agent": "BeReal/\(appIOSVersion) (\(appIOSBundleId); build:\(appIOSBuild); iOS 18.5.0)",
     ]
   }
 

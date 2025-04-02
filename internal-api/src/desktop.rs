@@ -63,7 +63,7 @@ impl<R: Runtime> InternalApi<R> {
   fn bereal_default_headers(&self, device_id: &str) -> HeaderMap {
     let mut headers = HeaderMap::new();
     headers.insert("bereal-platform", HeaderValue::from_static("iOS"));
-    headers.insert("bereal-os-version", HeaderValue::from_static("18.4"));
+    headers.insert("bereal-os-version", HeaderValue::from_static("18.5"));
     headers.insert(
       "bereal-app-version",
       HeaderValue::from_static(BEREAL_IOS_VERSION),
@@ -83,7 +83,7 @@ impl<R: Runtime> InternalApi<R> {
     headers.insert("bereal-signature", bereal_signature.parse().unwrap());
 
     let user_agent = format!(
-      "BeReal/{BEREAL_IOS_VERSION} ({BEREAL_IOS_BUNDLE_ID}; build:{BEREAL_IOS_BUILD}; iOS 18.4.0)"
+      "BeReal/{BEREAL_IOS_VERSION} ({BEREAL_IOS_BUNDLE_ID}; build:{BEREAL_IOS_BUILD}; iOS 18.5.0)"
     );
     headers.insert("user-agent", user_agent.parse().unwrap());
 
