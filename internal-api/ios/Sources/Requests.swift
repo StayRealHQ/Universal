@@ -179,7 +179,7 @@ class Requests {
 
     // We should note that simulators do not support push notifications
     // and thus this method will never be called so we don't need to worry
-    // about `.unknown` push environment, see <https://github.com/Vexcited/StayReal/issues/68>.
+    // about `.unknown` push environment, see <https://github.com/StayRealHQ/Universal/issues/68>.
     let debug = UIDevice.current.pushEnvironment == .development ? "1" : "0"
     let region = preferences.region
 

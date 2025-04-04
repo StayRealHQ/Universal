@@ -2,7 +2,7 @@
   "name": "stayreal",
   "version": "0.4.0",
   "author": "Mikkel ALMONTE--RINGAUD <contact@vexcited.com>",
-  "repository": "https://github.com/Vexcited/StayReal",
+  "repository": "https://github.com/StayRealHQ/Universal",
   "type": "module",
   "scripts": {
     "dev:web": "vite",

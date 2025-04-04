@@ -61,7 +61,7 @@ const Settings: Component = () => {
           <h2 class="uppercase font-bold text-white/50 text-sm mt-6">Other</h2>
 
           <Entry title="Report an issue on GitHub" icon={<MdiGithub />} onClick={() => {
-            open("https://github.com/Vexcited/StayReal/issues");
+            open("https://github.com/StayRealHQ/Universal/issues");
           }} />
 
           <Entry title="Request account deletion" icon={<MdiDelete />} onClick={async () => {

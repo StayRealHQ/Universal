@@ -13,11 +13,11 @@
   </a>
 </p>
 <p align="center">
-  <a href="https://github.com/Vexcited/StayReal/actions/workflows/nightly.yml">
-    <img src="https://github.com/Vexcited/StayReal/actions/workflows/nightly.yml/badge.svg?branch=main" alt="Nightly Build Badge">
+  <a href="https://github.com/StayRealHQ/Universal/actions/workflows/nightly.yml">
+    <img src="https://github.com/StayRealHQ/Universal/actions/workflows/nightly.yml/badge.svg?branch=main" alt="Nightly Build Badge">
   </a>
-  <a href="https://github.com/Vexcited/StayReal/tree/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/Vexcited/StayReal.svg?color=green" alt="License Badge">
+  <a href="https://github.com/StayRealHQ/Universal/tree/main/LICENSE.md">
+    <img src="https://img.shields.io/github/license/StayRealHQ/Universal.svg?color=green" alt="License Badge">
   </a>
   <a href="https://dsc.gg/stayreal">
     <img src="https://img.shields.io/discord/1349527052365336636" alt="Discord">
@@ -45,26 +45,26 @@
   <tr>
     <td width="30%">
       <div align="center">
-        <b>x86_64</b> : <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-x86_64-pc-windows-msvc-msi.zip">&nearr;&nbsp;MSI</a>, <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-x86_64-pc-windows-msvc-nsis.zip">&nearr;&nbsp;NSIS</a>
+        <b>x86_64</b> : <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-x86_64-pc-windows-msvc-msi.zip">&nearr;&nbsp;MSI</a>, <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-x86_64-pc-windows-msvc-nsis.zip">&nearr;&nbsp;NSIS</a>
         <br>
-        <b>aarch64</b> : <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-aarch64-pc-windows-msvc-nsis.zip">&nearr;&nbsp;NSIS</a>
+        <b>aarch64</b> : <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-aarch64-pc-windows-msvc-nsis.zip">&nearr;&nbsp;NSIS</a>
       </div>
     </td>
     <td width="30%">
       <div align="center">
-        <b>aarch64</b> : <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-aarch64-apple-darwin-dmg.zip">&nearr;&nbsp;DMG</a>
+        <b>aarch64</b> : <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-aarch64-apple-darwin-dmg.zip">&nearr;&nbsp;DMG</a>
         <br>
-        <b>x86_64</b> : <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-x86_64-apple-darwin-dmg.zip">&nearr;&nbsp;DMG</a>
+        <b>x86_64</b> : <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-x86_64-apple-darwin-dmg.zip">&nearr;&nbsp;DMG</a>
         <br><br><i>You have to run <code>xattr -c StayReal.app</code> to make the app executable in some cases.</i>
       </div>
     </td>
     <td width="40%">
       <div align="center">
-        <b>x86_64</b> : <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-x86_64-unknown-linux-gnu-deb.zip">&nearr;&nbsp;DEB</a>, <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-x86_64-unknown-linux-gnu-rpm.zip">&nearr;&nbsp;RPM</a>, <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-x86_64-unknown-linux-gnu-appimage.zip">&nearr;&nbsp;AppImage</a>
+        <b>x86_64</b> : <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-x86_64-unknown-linux-gnu-deb.zip">&nearr;&nbsp;DEB</a>, <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-x86_64-unknown-linux-gnu-rpm.zip">&nearr;&nbsp;RPM</a>, <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-x86_64-unknown-linux-gnu-appimage.zip">&nearr;&nbsp;AppImage</a>
         <br>
-        <b>aarch64</b> : <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-aarch64-unknown-linux-gnu-deb.zip">&nearr;&nbsp;DEB</a>, <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-aarch64-unknown-linux-gnu-rpm.zip">&nearr;&nbsp;RPM</a>
+        <b>aarch64</b> : <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-aarch64-unknown-linux-gnu-deb.zip">&nearr;&nbsp;DEB</a>, <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-aarch64-unknown-linux-gnu-rpm.zip">&nearr;&nbsp;RPM</a>
         <br>
-        <b>armv7</b> : <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-armv7-unknown-linux-gnueabihf-deb.zip">&nearr;&nbsp;DEB</a>, <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-armv7-unknown-linux-gnueabihf-rpm.zip">&nearr;&nbsp;RPM</a>
+        <b>armv7</b> : <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-armv7-unknown-linux-gnueabihf-deb.zip">&nearr;&nbsp;DEB</a>, <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-armv7-unknown-linux-gnueabihf-rpm.zip">&nearr;&nbsp;RPM</a>
       </div>
     </td>
   </tr>
@@ -89,18 +89,18 @@
   <tr>
     <td width="50%">
       <div align="center">
-        <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-android-aarch64-apk.zip">&nearr;&nbsp;aarch64</a>
+        <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-android-aarch64-apk.zip">&nearr;&nbsp;aarch64</a>
         <br>
-        <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-android-x86_64-apk.zip">&nearr;&nbsp;x86_64</a>
+        <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-android-x86_64-apk.zip">&nearr;&nbsp;x86_64</a>
         <br>
-        <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-android-armv7-apk.zip">&nearr;&nbsp;armv7</a>
+        <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-android-armv7-apk.zip">&nearr;&nbsp;armv7</a>
         <br>
-        <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-android-i686-apk.zip">&nearr;&nbsp;i686</a>
+        <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-android-i686-apk.zip">&nearr;&nbsp;i686</a>
       </div>
     </td>
     <td width="50%">
       <div align="center">
-        <a href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-ios-aarch64-ipa.zip">&nearr;&nbsp;aarch64</a>
+        <a href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-ios-aarch64-ipa.zip">&nearr;&nbsp;aarch64</a>
         <br><br><i>Do not change the Bundle ID if you want to preserve Push Notifications.</i>
       </div>
     </td>
@@ -204,7 +204,7 @@ Also, make sure you have [&nearr;&nbsp;pnpm](https://pnpm.io) installed since it
 ### Quick start
 
 ```bash
-git clone https://github.com/Vexcited/StayReal && cd StayReal
+git clone https://github.com/StayRealHQ/Universal && cd StayReal
 
 # Install dependencies
 pnpm install

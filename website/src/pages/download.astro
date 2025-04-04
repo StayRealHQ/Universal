@@ -31,7 +31,7 @@ import Header from "../components/Header.astro";
             <option>i686</option>
           </select>
           <a
-            href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-android-aarch64-apk.zip"
+            href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-android-aarch64-apk.zip"
             id="android-download-button"
             class="bg-white text-dark outline-none rounded-full px-4 py-2 border border-white"
             >Download</a
@@ -45,7 +45,7 @@ import Header from "../components/Header.astro";
           install.
         </p>
         <a
-          href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-ios-aarch64-ipa.zip"
+          href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-ios-aarch64-ipa.zip"
           class="bg-white text-dark outline-none rounded-full px-4 py-2 border border-white block w-fit"
         >
           Download (arm64)
@@ -71,7 +71,7 @@ import Header from "../components/Header.astro";
             >
           </select>
           <a
-            href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-x86_64-pc-windows-msvc-msi.zip"
+            href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-x86_64-pc-windows-msvc-msi.zip"
             id="windows-download-button"
             class="bg-white text-dark outline-none rounded-full px-4 py-2 border border-white"
             >Download</a
@@ -86,13 +86,13 @@ import Header from "../components/Header.astro";
 
         <div class="flex items-center gap-2">
           <a
-            href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-aarch64-apple-darwin-dmg.zip"
+            href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-aarch64-apple-darwin-dmg.zip"
             id="macos-download-button"
             class="bg-white text-dark outline-none rounded-full px-4 py-2 border border-white"
             >Download (arm64)</a
           >
           <a
-            href="https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-x86_64-apple-darwin-dmg.zip"
+            href="https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-x86_64-apple-darwin-dmg.zip"
             id="macos-download-button"
             class="text-white outline-none rounded-full px-4 py-2 border border-white"
             >Download (x86_64)</a
@@ -103,7 +103,7 @@ import Header from "../components/Header.astro";
       <p class="py-6 mb-8 text-center text-white/80">
         Looking for <strong class="font-bold">Linux</strong>? Please, <a
           class="hover:text-white/90 transition-colors underline underline-offset-2"
-          href="https://github.com/Vexcited/StayReal/blob/main/README.md#-download"
+          href="https://github.com/StayRealHQ/Universal/blob/main/README.md#-download"
           target="_blank">check out the README in the repository</a
         > to find exactly what you're looking for.
       </p>
@@ -118,7 +118,7 @@ import Header from "../components/Header.astro";
 
   androidArchSelector.addEventListener("change", () => {
     const arch = androidArchSelector.value;
-    const url = `https://nightly.link/Vexcited/StayReal/workflows/nightly/main/stayreal-android-${arch}-apk.zip`;
+    const url = `https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/stayreal-android-${arch}-apk.zip`;
 
     document
       .getElementById("android-download-button")
@@ -131,7 +131,7 @@ import Header from "../components/Header.astro";
 
   windowsArchSelector.addEventListener("change", () => {
     const provider = windowsArchSelector.value;
-    const url = `https://nightly.link/Vexcited/StayReal/workflows/nightly/main/${provider}.zip`;
+    const url = `https://nightly.link/StayRealHQ/Universal/workflows/nightly/main/${provider}.zip`;
 
     document
       .getElementById("windows-download-button")
