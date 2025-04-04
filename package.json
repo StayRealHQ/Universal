@@ -24,7 +24,7 @@
     "@tauri-apps/plugin-dialog": "^2.2.0",
     "@tauri-apps/plugin-http": "^2.4.2",
     "@tauri-apps/plugin-os": "^2.2.1",
-    "@tauri-apps/plugin-shell": "^2.2.0",
+    "@tauri-apps/plugin-shell": "^2.2.1",
     "@types/luxon": "^3.4.2",
     "@unocss/reset": "66.1.0-beta.5",
     "@use-gesture/vanilla": "^10.3.1",
