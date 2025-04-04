@@ -47,7 +47,7 @@
     "typescript": "^5.8.2",
     "unocss": "66.1.0-beta.5",
     "unplugin-icons": "^22.1.0",
-    "vite": "^6.2.4",
+    "vite": "^6.2.5",
     "vite-plugin-solid": "^2.11.6"
   },
   "pnpm": {
