@@ -7,6 +7,7 @@ import MingcuteCamera2Fill from '~icons/mingcute/camera-2-fill'
 
 import MingcuteGroup2Fill from '~icons/mingcute/group-2-fill'
 import MingcuteGroup2Line from '~icons/mingcute/group-2-line'
+import MingcuteUploadLine from '~icons/mingcute/upload-line'
 
 import MingcuteGroup3Fill from '~icons/mingcute/group-3-fill'
 import MingcuteGroup3Line from '~icons/mingcute/group-3-line'
@@ -69,6 +70,10 @@ const BottomNavigation: Component = () => {
 
         <a href="/upload" class="text-black bg-white rounded-full py-2 px-4 flex">
           <MingcuteCamera2Fill class="text-2xl "/>
+        </a>
+
+        <a href="/uploadFromStorage" class="text-black bg-white rounded-full py-2 px-4 flex">
+          <MingcuteUploadLine class="text-2xl "/>
         </a>
 
         <Entry href="#"
