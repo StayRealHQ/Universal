@@ -1,5 +1,5 @@
 import {createResource, Show, type Component } from "solid-js";
-import MdiCog from '~icons/mdi/cog';
+import MdiChevronLeft from '~icons/mdi/chevron-left'
 import ProfilePicture from "~/components/profile-picture";
 import BottomNavigation from "~/components/bottom-navigation";
 import { useParams } from "@solidjs/router";
@@ -46,9 +46,9 @@ const ProfileView: Component = () => {
   return (
     <>
       <header class="pt-[env(safe-area-inset-top)]">
-        <nav class="flex items-center justify-end px-8 h-[72px]">
-          <a href="/settings" aria-label="Settings">
-            <MdiCog class="text-xl" />
+        <nav class="flex items-center justify-between px-4 h-[72px]">
+          <a href="#" class="p-2.5 rounded-full ml-[-10px]" aria-label="Back" onclick="window.history.back();">
+            <MdiChevronLeft class="text-2xl" />
           </a>
         </nav>
       </header>
