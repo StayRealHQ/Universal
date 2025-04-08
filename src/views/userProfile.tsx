@@ -1,9 +1,10 @@
-import { createSignal, onMount, Show, type Component } from "solid-js";
+import {createResource, Show, type Component } from "solid-js";
 import MdiCog from '~icons/mdi/cog';
 import ProfilePicture from "~/components/profile-picture";
 import BottomNavigation from "~/components/bottom-navigation";
 import { useParams } from "@solidjs/router";
-import { person_profile, PersonNotFoundError } from "~/api/requests/person/profile";
+import { person_profile } from "~/api/requests/person/profile";
+import { ApiMedia } from "~/api/types/media";
 
 const Chip: Component<{ content: string }> = (props) => (
   <div class="bg-white/15 rounded-full py-1.5 px-2.5">
@@ -11,36 +12,36 @@ const Chip: Component<{ content: string }> = (props) => (
   </div>
 );
 
+
+
+type UserProfile = {
+  fullname: string;
+  username: string;
+  isPrivate: boolean;
+  biography: string;
+  streakLength: number;
+  location: string;
+  createdAt: string;
+  profilePicture: ApiMedia | null;
+  relationship: {
+    friendedAt: string;
+  }
+};
+
+async function fetchUserProfile(id: string): Promise<UserProfile> {
+  const response = await person_profile(id);
+  if (!response) {
+    throw new Error('User profile not found.');
+  }
+  console.log(response)
+  return response;
+}
+
+
+
 const ProfileView: Component = () => {
   const { id } = useParams();
-  const [userProfile, setUserProfile] = createSignal<any>(null);
-
-  onMount(async () => {
-    try {
-      const profile = await person_profile(id);
-      console.log("Profile:", profile);
-
-      setUserProfile({
-        fullname: profile.fullname,
-        username: profile.username,
-        isPrivate: profile.isPrivate,
-        biography: profile.biography,
-        streakLength: profile.streakLength,
-        location: profile.location,
-        countryCode: null,
-        birthdate: null,
-        gender: null,
-        createdAt: profile.createdAt,
-        profilePicture: profile.profilePicture,
-      });
-    } catch (error) {
-      if (error instanceof PersonNotFoundError) {
-        console.error("Person not found.");
-      } else {
-        console.error("Error fetching profile:", error);
-      }
-    }
-  });
+  const [userProfile] = createResource(id, fetchUserProfile);
 
   return (
     <>
@@ -53,7 +54,7 @@ const ProfileView: Component = () => {
       </header>
 
       <main class="pb-32 px-8 space-y-8 mb-[env(safe-area-inset-bottom)]">
-        <Show when={userProfile()} fallback={<p class="text-center pt-8 animate-pulse">Loading your profile...</p>}>
+        <Show when={userProfile()} fallback={<p class="text-center pt-8 animate-pulse">Loading this user's profile...</p>}>
           {(profile) => (
             <>
               <div class="flex flex-col items-center text-center gap-4">
@@ -86,6 +87,9 @@ const ProfileView: Component = () => {
               <div>
                 <p class="text-white/50 text-center text-xs md:text-sm">
                   Joined on {new Date(profile().createdAt).toLocaleString()}
+                </p>
+                <p class="text-white/50 text-center text-xs md:text-sm">
+                  Became freinds on {new Date(profile().createdAt).toLocaleString()}
                 </p>
               </div>
             </>
