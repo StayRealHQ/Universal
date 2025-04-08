@@ -89,7 +89,7 @@ const ProfileView: Component = () => {
                   Joined on {new Date(profile().createdAt).toLocaleString()}
                 </p>
                 <p class="text-white/50 text-center text-xs md:text-sm">
-                  Became freinds on {new Date(profile().createdAt).toLocaleString()}
+                  Became friends on {new Date(profile().relationship.friendedAt).toLocaleString()}
                 </p>
               </div>
             </>
