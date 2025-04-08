@@ -71,8 +71,6 @@ const BottomNavigation: Component = () => {
           <MingcuteCamera2Fill class="text-2xl "/>
         </a>
 
-
-
         <Entry href="#"
           filledIcon={<MingcuteGroup3Fill />}
           outlineIcon={<MingcuteGroup3Line />}
