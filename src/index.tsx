@@ -45,6 +45,10 @@ const routes = [
     component: lazy(() => import("~/views/upload"))
   },
   {
+    path: "/uploadFromStorage",
+    component: lazy(() => import("~/views/uploadFromStorage"))
+  },
+  {
     path: "/friends",
     component: lazy(() => import("~/layouts/friends")),
     children: [
