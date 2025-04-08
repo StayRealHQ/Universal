@@ -49,7 +49,7 @@ const FriendsRequestsView: Component = () => {
 
     return (
       <div class="flex items-center justify-between">
-        <a href="#" class="w-full flex items-center gap-4 p-1.5 rounded-lg focus:scale-[0.98] active:scale-95 transition-transform">
+        <a href={`/user/${props.profile.id}`} class="w-full flex items-center gap-4 p-1.5 rounded-lg focus:scale-[0.98] active:scale-95 transition-transform">
           <div class="relative">
             <ProfilePicture
               fullName={props.profile.fullname}
@@ -105,7 +105,7 @@ const FriendsRequestsView: Component = () => {
 
     return (
       <div class="flex items-center justify-between">
-        <a href="#" class="w-full flex items-center gap-4 p-1.5 rounded-lg focus:scale-[0.98] active:scale-95 transition-transform">
+        <a href={`/user/${props.profile.id}`} class="w-full flex items-center gap-4 p-1.5 rounded-lg focus:scale-[0.98] active:scale-95 transition-transform">
           <div class="relative">
             <ProfilePicture
               fullName={props.profile.fullname}
