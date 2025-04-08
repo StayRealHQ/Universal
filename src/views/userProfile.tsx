@@ -33,7 +33,6 @@ async function fetchUserProfile(id: string): Promise<UserProfile> {
   if (!response) {
     throw new Error('User profile not found.');
   }
-  console.log(response)
   return response;
 }
 
