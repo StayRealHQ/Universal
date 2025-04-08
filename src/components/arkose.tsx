@@ -16,6 +16,45 @@ const conv = (v: any | Array<any>): string => {
   return JSON.stringify(v);
 };
 
+/**
+ * Prevents kernel strings to be blocked
+ * in the future.
+ */
+const anyKernel = (): string => {
+  const int = (min: number, max: number): number =>
+    Math.floor(Math.random() * (max - min + 1)) + min;
+
+  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  const weekday = weekdays[int(0, 6)];
+  const month = months[int(0, 11)];
+  const day = int(1, 31).toString().padStart(2, '0');
+  const hour = int(0, 23).toString().padStart(2, '0');
+  const minute = int(0, 59).toString().padStart(2, '0');
+  const second = int(0, 59).toString().padStart(2, '0');
+  const timezone = 'PDT';
+  const year = new Date().getFullYear();
+
+  const buildVersion = [
+    int(10000, 12000),
+    int(50, 150),
+    int(10, 99),
+    int(100, 999),
+    int(0, 9)
+  ].join('.');
+
+  const tilde = `~${int(1, 5)}`;
+  // The T8130 is the Apple A17 Pro SoC, the one for the iPhone 15 Pro Max.
+  // @see https://theapplewiki.com/wiki/T8130
+  const arch = `RELEASE_ARM64_T8130`;
+
+  const [osVersion, osSubVersion] = BEREAL_PLATFORM_VERSION.split(".");
+
+  return `Darwin Kernel Version ${23+(17-parseInt(osVersion))}.${osSubVersion}.0: ${weekday} ${month} ${day} ${hour}:${minute}:${second} ${timezone} ${year}; root:xnu-${buildVersion}${tilde}/${arch}`;
+}
+
 export const createArkoseURL = (key: string, dataExchange: string, deviceId: string) => {
   // After the challenge, we have to go back to our Tauri app.
   const callback = window.location.origin + window.location.pathname;
@@ -31,12 +70,9 @@ export const createArkoseURL = (key: string, dataExchange: string, deviceId: str
   const codecs = conv(["mp4a.40.2", "vorbis", "opus", "theora", "vorbis"]);
 
   // @see https://support.apple.com/108044
-  // Currently: iPhone 15 Pro Max (other countries and regions)
-  const model = "A3106";
-
-  // @see https://theapplewiki.com/wiki/Kernel#iOS/iPadOS
-  // Currently: iOS 18.5 beta
-  const kernel = "Darwin Kernel Version 24.5.0: Mon Mar 24 20:10:57 PDT 2025; root:xnu-11417.120.80.0.3~45/RELEASE_ARM64_T8140";
+  // Currently: iPhone 15 Pro Max (United States)
+  const model = "A2849";
+  const product = "iPhone15,3";
 
   const html = `<html><head><meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=0"><style>html,body{display:flex;justify-content:center;align-items:center;background:black;height:100%;width:100%;overflow:hidden;position:fixed;margin:0;padding:0;color:#fff}.spin{transition: opacity .175s; animation: spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}</style>`
     + `<script crossorigin="anonymous" data-callback="setup" src="https://client-api.arkoselabs.com/v2/api.js" async defer></script>`
@@ -60,13 +96,13 @@ enforcement.setConfig({
     enforcement.dataResponse(btoa(JSON.stringify({
       [p+"os_version"]:${conv(BEREAL_PLATFORM_VERSION)},
       [p+"userAgentModified"]:"",
-      [p+"biometrics_proximity"]:${conv([false, 0])},
+      [p+"biometrics_proximity"]:"false,0",
       [p+"build_version"]:"2.4.0(2.4.0)",
-      [p+"product"]:"iPhone15,3",
+      [p+"product"]:${conv(product)},
       [p+"device_orientation"]:"Un",
       [p+"battery_status"]:"Full",
       [p+"battery_capacity"]:100,
-      [p+"device"]:"iPhone15,3",
+      [p+"device"]:${conv(product)},
       [p+"app_id"]:${conv(BEREAL_IOS_BUNDLE_ID)},
       [p+"screen_width"]:window.innerWidth,
       [p+"app_version"]:${conv(BEREAL_IOS_VERSION)},
@@ -88,7 +124,9 @@ enforcement.setConfig({
       [p+"gpu"]:"Apple,Apple GPU",
       [p+"device_arch"]:"arm64e",
       [p+"model"]:${conv(model)},
-      [p+"kernel"]:${conv(kernel)},
+      [p+"kernel"]:${conv(anyKernel())},
+      [p+"country_region"]:"US",
+      [p+"timezone_offset"]:0,
       [p+"biometric_orientation"]:"1;${timestamp};0,0.00,-0.00,-0.00;26,30.00,-0.00,-0.00;78,30.00,-0.00,-0.00;138,30.00,-0.00,-0.00;312,30.00,-0.00,-0.00;376,30.00,-0.00,-0.00;434,30.00,-0.00,-0.00;534,30.00,-0.00,-0.00;643,30.00,-0.00,-0.00;747,30.00,-0.00,-0.00;834,30.00,-0.00,-0.00;934,30.00,-0.00,-0.00;1034,30.00,-0.00,-0.00;1135,30.00,-0.00,-0.00;1234,30.00,-0.00,-0.00;1334,30.00,-0.00,-0.00;1434,30.00,-0.00,-0.00;1534,30.00,-0.00,-0.00;1635,30.00,-0.00,-0.00;1739,30.00,-0.00,-0.00;1834,30.00,-0.00,-0.00;1935,30.00,-0.00,-0.00;2034,30.00,-0.00,-0.00;2135,30.00,-0.00,-0.00;2235,30.00,-0.00,-0.00;2334,30.00,-0.00,-0.00;2434,30.00,-0.00,-0.00;2535,30.00,-0.00,-0.00;2634,30.00,-0.00,-0.00;2735,30.00,-0.00,-0.00;2834,30.00,-0.00,-0.00;2935,30.00,-0.00,-0.00;3035,30.00,-0.00,-0.00;3135,30.00,-0.00,-0.00;3234,30.00,-0.00,-0.00;3334,30.00,-0.00,-0.00;3435,30.00,-0.00,-0.00;3535,30.00,-0.00,-0.00;3634,30.00,-0.00,-0.00;3735,30.00,-0.00,-0.00;3834,30.00,-0.00,-0.00;3935,30.00,-0.00,-0.00;4035,30.00,-0.00,-0.00;4135,30.00,-0.00,-0.00;4235,30.00,-0.00,-0.00;4334,30.00,-0.00,-0.00;4435,30.00,-0.00,-0.00;4724,30.00,-0.00,-0.00;4726,30.00,-0.00,-0.00;4737,30.00,-0.00,-0.00;",
       [p+"biometric_motion"]:"1;${timestamp};0,0.00,0.00,0.00,0.00,0.00,-9.81,0.00,0.00,0.00;26,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,286.33,-76.72;78,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;138,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;312,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;376,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;434,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;534,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;643,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;747,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;834,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;934,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;1034,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;1135,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;1234,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;1334,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;1434,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;1534,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;1635,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;1739,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;1834,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;1935,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;2034,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;2135,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;2235,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;2334,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;2434,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;2535,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;2634,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;2735,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;2834,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;2935,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;3035,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;3135,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;3234,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;3334,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;3435,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;3535,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;3634,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;3735,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;3834,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;3935,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;4035,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;4135,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;4235,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;4334,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;4435,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;4724,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;4726,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;4737,0.00,0.00,0.00,0.00,-4.91,-8.50,0.00,0.00,0.00;"
     })))
