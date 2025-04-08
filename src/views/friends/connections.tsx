@@ -48,7 +48,7 @@ const FriendsConnectionsView: Component = () => {
 
     return (
       <div class="flex items-center justify-between">
-        <a href="#" class="w-full flex items-center gap-4 p-1.5 rounded-lg focus:scale-[0.98] active:scale-95 transition-transform">
+        <a href={`/user/${props.profile.id}`} class="w-full flex items-center gap-4 p-1.5 rounded-lg focus:scale-[0.98] active:scale-95 transition-transform">
           <div class="relative">
             <ProfilePicture
               fullName={props.profile.fullname}
@@ -105,9 +105,9 @@ const FriendsConnectionsView: Component = () => {
           </h2>
 
           <div class="flex flex-col gap-2">
-            <For each={filteredFriends()} fallback={<p class="text-sm">No friends found, add some !</p>}>
+            <For each={filteredFriends()} fallback={<p class="text-sm">No friends found, add some!</p>}>
               {(friend) => (
-                <a href="#" class="flex items-center gap-4 p-1.5 rounded-lg focus:scale-[0.98] active:scale-95 transition-transform">
+                <a href={`/user/${friend.id}`} class="flex items-center gap-4 p-1.5 rounded-lg focus:scale-[0.98] active:scale-95 transition-transform">
                   <div class="relative">
                     <ProfilePicture
                       fullName={friend.fullname}

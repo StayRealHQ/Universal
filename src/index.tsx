@@ -41,6 +41,10 @@ const routes = [
     component: lazy(() => import("~/views/profile"))
   },
   {
+    path: "/user/:id",
+    component: lazy(() => import("~/views/userProfile"))
+  },
+  {
     path: "/upload",
     component: lazy(() => import("~/views/upload"))
   },

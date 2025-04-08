@@ -5,6 +5,8 @@ import auth from "~/stores/auth";
 import { BeRealError } from "~/api/models/errors";
 
 export interface PersonProfile {
+  biography: string;
+  location: string;
   id: string
   username: string
   fullname: string
