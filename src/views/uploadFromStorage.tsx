@@ -140,7 +140,7 @@ const UploadFileView: Component = () => {
     <div class="min-h-screen flex flex-col pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
       <header>
         <nav class="flex items-center justify-between px-4 h-[72px]">
-          <a href="/feed/friends" class="p-2.5 rounded-full ml-[-10px]" aria-label="Back to feed">
+          <a href="/upload" class="p-2.5 rounded-full ml-[-10px]" aria-label="Back to feed">
             <MdiChevronLeft class="text-2xl" />
           </a>
         </nav>

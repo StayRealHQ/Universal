@@ -7,6 +7,8 @@ import { wait } from "~/utils/wait";
 import MdiChevronLeft from '~icons/mdi/chevron-left'
 import { createStore } from "solid-js/store";
 import uploadToGoogleStorageBucket from "~/api/core/uploadToGoogleStorageBucket";
+import MingcuteUploadLine from '~icons/mingcute/upload-line'
+
 
 const UploadView: Component = () => {
   const navigate = useNavigate();
@@ -378,17 +380,31 @@ const UploadView: Component = () => {
           autoplay={true}
         />
       </div>
-
-      <div class="pb-8 pt-4 flex justify-center px-4 items-center">
+      <div class="relative pb-8 pt-4 flex justify-center px-4 items-center">
         <Show when={!frontImage() || !backImage()}>
-          <button
-            type="button"
-            title="Capture"
-            disabled={state.capturing}
-            class="h-24 w-24 bg-white/5 border-6 border-white rounded-full disabled:(bg-white animate-pulse animation-duration-100)"
-            onClick={() => handleCapture()}
-          />
+          <div class="relative">
+            <button
+              type="button"
+              title="Capture"
+              disabled={state.capturing}
+              class="p-4 h-24 w-24 bg-white/5 border-6 border-white rounded-full disabled:(bg-white animate-pulse animation-duration-100)"
+              onClick={() => handleCapture()}
+            />
+            <a
+              href="/uploadFromStorage"
+              class="absolute top-1/2 left-full ml-4 -translate-y-1/2 text-black bg-white rounded-full py-2 px-4 flex items-center"
+            >
+              <MingcuteUploadLine class="text-2xl" />
+            </a>
+          </div>
         </Show>
+
+
+
+
+
+
+
 
         <Show when={frontImage() && backImage()}>
           <button type="button"
