@@ -247,12 +247,41 @@ const FeedFriendsOverview: Component<{
 
           <div class="flex-col w-full overflow-hidden">
             <div class="flex gap-4">
-            <a
-              class="font-600 w-fit cursor-pointer"
-              href={`/user/${props.overview.user.id}`}
-            >
-              {props.overview.user.username}
-            </a>
+            {post().tags.length === 1 ? (
+                <span class="flex gap-1 w-fit">
+                  <a
+                    class="font-600 cursor-pointer"
+                    href={`/user/${props.overview.user.id}`}
+                  >
+                    {props.overview.user.username}
+                  </a>
+                  <p>with</p>
+                  <a
+                    class="font-600 cursor-pointer"
+                    href={`/user/${post().tags[0].userId}`}
+                  >
+                    {post().tags[0].user.fullname}
+                  </a>
+                </span>
+              ) : post().tags.length > 1 ? (
+                <span class="w-fit font-600">
+                  <a
+                    class="cursor-pointer"
+                    href={`/user/${props.overview.user.id}`}
+                  >
+                    {props.overview.user.username}
+                  </a>{' '}
+                  and {post().tags.length} more
+                </span> // TODO: drawer that shows list of people tagged
+              ) : (
+                <a
+                  class="font-600 w-fit cursor-pointer"
+                  href={`/user/${props.overview.user.id}`}
+                >
+                  {props.overview.user.username}
+                </a>
+              )}
+
               <Show when={post().origin === "repost"}>
                 <p class="w-fit text-white/80 flex items-center gap-1 bg-white/20 pl-2 pr-2.5 rounded-full text-xs">
                   <MdiRepost />{post().parentPostUsername}
