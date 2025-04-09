@@ -247,9 +247,12 @@ const FeedFriendsOverview: Component<{
 
           <div class="flex-col w-full overflow-hidden">
             <div class="flex gap-4">
-            <p class="font-600 w-fit cursor-pointer" onClick={() => window.location.href = `/user/${props.overview.user.id}`}>
+            <a
+              class="font-600 w-fit cursor-pointer"
+              href={`/user/${props.overview.user.id}`}
+            >
               {props.overview.user.username}
-            </p>
+            </a>
               <Show when={post().origin === "repost"}>
                 <p class="w-fit text-white/80 flex items-center gap-1 bg-white/20 pl-2 pr-2.5 rounded-full text-xs">
                   <MdiRepost />{post().parentPostUsername}

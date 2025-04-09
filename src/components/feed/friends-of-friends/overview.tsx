@@ -243,9 +243,12 @@ const FeedFriendsOfFriendsOverview: Component<{
 
           <div class="flex-col w-full overflow-hidden">
             <div class="flex gap-4">
-              <p class="font-600 w-fit cursor-pointer"  onClick={() => window.location.href = `/user/${props.post.user.id}`}>
-                {props.post.user.username}
-              </p>
+            <a
+              class="font-600 w-fit cursor-pointer"
+              href={`/user/${props.post.user.id}`}
+            >
+              {props.post.user.username}
+            </a>
             </div>
 
             <div class="flex items-center gap-2 text-sm text-white/50">
