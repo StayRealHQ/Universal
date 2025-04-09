@@ -5,6 +5,8 @@ import BottomNavigation from "~/components/bottom-navigation";
 import { useParams } from "@solidjs/router";
 import { person_profile } from "~/api/requests/person/profile";
 import { ApiMedia } from "~/api/types/media";
+import MdiLaunch from '~icons/mdi/launch'
+import { open } from "@tauri-apps/plugin-shell"
 
 const Chip: Component<{ content: string }> = (props) => (
   <div class="bg-white/15 rounded-full py-1.5 px-2.5">
@@ -67,14 +69,26 @@ const ProfileView: Component = () => {
           {(profile) => (
             <>
               <div class="flex flex-col items-center text-center gap-4">
-                <ProfilePicture
-                  username={profile().username}
-                  media={profile().profilePicture}
-                  fullName={profile().fullname}
-                  size={168}
-                  textSize={64}
-                />
-
+                <div class="relative w-[168px] h-[168px]">
+                  <ProfilePicture
+                    username={profile().username}
+                    media={profile().profilePicture}
+                    fullName={profile().fullname}
+                    size={168}
+                    textSize={64}
+                  />
+                  <Show when={profile().profilePicture?.url}>
+                    <button
+                      type="button"
+                      class="w-8 h-8 absolute bottom-0 right-1 rounded-sm transition-opacity active:opacity-50"
+                      onClick={() => open(profile().profilePicture?.url!)}
+                    >
+                      <div class="w-full h-full rounded-sm bg-black/40 flex items-center justify-center hover:opacity-50 transition-opacity">
+                        <MdiLaunch class="text-base text-white" />
+                      </div>
+                    </button>
+                  </Show>
+                </div>
                 <div class="flex flex-col">
                   <h1 class="text-2xl font-700 line-height-none">
                     {profile().fullname}
