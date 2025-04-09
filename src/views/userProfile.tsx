@@ -5,7 +5,6 @@ import BottomNavigation from "~/components/bottom-navigation";
 import { useParams } from "@solidjs/router";
 import { person_profile } from "~/api/requests/person/profile";
 import { ApiMedia } from "~/api/types/media";
-import MdiLaunch from '~icons/mdi/launch'
 import { open } from "@tauri-apps/plugin-shell"
 
 const Chip: Component<{ content: string }> = (props) => (
@@ -69,7 +68,7 @@ const ProfileView: Component = () => {
           {(profile) => (
             <>
               <div class="flex flex-col items-center text-center gap-4">
-                <div onClick={() => open(profile().profilePicture?.url!)} class="relative w-[168px] h-[168px]">
+                <div onClick={() => profile().profilePicture ? open(profile().profilePicture!.url) : void 0} class="relative w-[168px] h-[168px]">
                   <ProfilePicture
                     username={profile().username}
                     media={profile().profilePicture}
