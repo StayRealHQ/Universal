@@ -14,7 +14,12 @@ export interface PersonProfile {
   relationship: {
     status: "pending" | "accepted"
     commonFriends: {
-      sample: Array<unknown> // TODO
+      sample: {
+        id: string;
+        fullname: string;
+        username: string;
+        profilePicture: ApiMedia | null;
+      }[];
       total: number
     }
     friendedAt: string

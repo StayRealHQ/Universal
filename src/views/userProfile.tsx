@@ -1,4 +1,4 @@
-import {createResource, Show, type Component } from "solid-js";
+import { createSignal, createResource, For, Show, type Component } from "solid-js";
 import MdiChevronLeft from '~icons/mdi/chevron-left'
 import ProfilePicture from "~/components/profile-picture";
 import BottomNavigation from "~/components/bottom-navigation";
@@ -25,6 +25,14 @@ type UserProfile = {
   profilePicture: ApiMedia | null;
   relationship: {
     friendedAt: string;
+    commonFriends: {
+      sample: {
+        id: string;
+        fullname: string;
+        username: string;
+        profilePicture: ApiMedia | null;
+      }[];
+    };
   }
 };
 
@@ -39,14 +47,16 @@ async function fetchUserProfile(id: string): Promise<UserProfile> {
 
 
 const ProfileView: Component = () => {
-  const { id } = useParams();
-  const [userProfile] = createResource(id, fetchUserProfile);
+  const { id: initialId } = useParams();
+  const [profileId, setProfileId] = createSignal(initialId);
+  const [userProfile] = createResource(profileId, fetchUserProfile);
+
 
   return (
     <>
       <header class="pt-[env(safe-area-inset-top)]">
         <nav class="flex items-center justify-between px-4 h-[72px]">
-          <a href="#" class="p-2.5 rounded-full ml-[-10px]" aria-label="Back" onclick="window.history.back();">
+          <a href="#" class="p-2.5 rounded-full ml-[-10px]" aria-label="Back" onClick={() => window.history.back()}>
             <MdiChevronLeft class="text-2xl" />
           </a>
         </nav>
@@ -78,8 +88,13 @@ const ProfileView: Component = () => {
                   {profile().biography}
                 </div>
                 <div class="flex items-center justify-center flex-wrap gap-2">
-                  <Chip content={`${profile().streakLength} days`} />
-                  <Chip content={`${profile().location} `} />
+                  <Show when={profile().streakLength !== 0}>
+                    <Chip content={`${profile().streakLength} days`} />
+                  </Show>
+
+                  <Show when={profile().location != null}>
+                    <Chip content={profile().location!} />
+                  </Show>
                 </div>
               </div>
 
@@ -90,6 +105,36 @@ const ProfileView: Component = () => {
                 <p class="text-white/50 text-center text-xs md:text-sm">
                   Became friends on {new Date(profile().relationship.friendedAt).toLocaleString()}
                 </p>
+              </div>
+
+
+              <div>
+                <h2 class="text-sm text-white/60 uppercase font-600 mb-4">
+                  Mutual Friends ({profile().relationship.commonFriends.sample.length})
+                </h2>
+
+                <div class="flex flex-col gap-2">
+                <For each={profile().relationship.commonFriends.sample}>
+                    {(commonFriend) => (
+                      <button
+                        class="flex items-center gap-4 p-1.5 rounded-lg focus:scale-[0.98] active:scale-95 transition-transform"
+                        onClick={() => setProfileId(commonFriend.id)}
+                      >
+                        <ProfilePicture
+                          fullName={commonFriend.fullname}
+                          username={commonFriend.username}
+                          media={commonFriend.profilePicture}
+                          size={50}
+                        />
+
+                        <div class="flex flex-col items-start">
+                          <p class="font-400">{commonFriend.fullname}</p>
+                          <p class="text-sm text-white/40">@{commonFriend.username}</p>
+                        </div>
+                      </button>
+                    )}
+                  </For>
+                </div>
               </div>
             </>
           )}
