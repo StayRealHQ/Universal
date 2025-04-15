@@ -1,5 +1,6 @@
 import { BEREAL_IOS_BUNDLE_ID, BEREAL_IOS_VERSION, BEREAL_PLATFORM_VERSION } from "~/api/constants";
 
+import { v4 as uuidv4 } from "uuid";
 import { sha256 } from '@noble/hashes/sha2';
 import { bytesToHex } from '@noble/hashes/utils';
 
@@ -119,7 +120,7 @@ enforcement.setConfig({
       [p+"codec_hash"]:${conv(bytesToHex(sha256(codecs)))},
       [p+"device_name"]:${conv(bytesToHex(sha256(deviceId)))},
       [p+"cpu_cores"]:8,
-      [p+"icloud_ubiquity_token"]:"",
+      [p+"icloud_ubiquity_token"]:${conv(bytesToHex(sha256(uuidv4())))},
       [p+"bio_fingerprint"]:3,
       [p+"gpu"]:"Apple,Apple GPU",
       [p+"device_arch"]:"arm64e",
