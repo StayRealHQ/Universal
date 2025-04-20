@@ -82,7 +82,7 @@ const ProfileView: Component = () => {
                     {profile().fullname}
                   </h1>
                   <p class="text-white/60">
-                    {profile().username} ({profile().isPrivate ? "PRIVATE" : "PUBLIC"})
+                    {profile().username}
                   </p>
                 </div>
 
