@@ -29,4 +29,4 @@ tauri-plugin-dialog = "2"
 crates = ["wry"]
 
 [patch.crates-io]
-wry = { path = "./target/patch/wry-0.50.5" }
+wry = { path = "./target/patch/wry-0.51.2" }
