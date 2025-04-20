@@ -67,9 +67,9 @@ const PostRealMojis: Component<{
               }}
             />
             <Drawer.Content
-              class="orvu-transitioning:transition-transform corvu-transitioning:duration-500 corvu-transitioning:ease-[cubic-bezier(0.32,0.72,0,1)] fixed inset-x-0 bottom-0 z-50 flex h-full max-h-140 flex-col rounded-t-xl bg-[#141414] pt-3 px-4 after:absolute after:inset-x-0 after:top-[calc(100%-1px)] after:h-1/2 after:bg-inherit md:select-none">
+              class="corvu-transitioning:transition-transform corvu-transitioning:duration-500 corvu-transitioning:ease-[cubic-bezier(0.32,0.72,0,1)] fixed inset-x-0 bottom-0 z-50 flex h-full max-h-140 flex-col rounded-t-xl bg-[#141414] pt-3 px-4 after:absolute after:inset-x-0 after:top-[calc(100%-1px)] after:h-1/2 after:bg-inherit md:select-none">
               <div class="h-1 w-10 self-center rounded-full bg-white/40"/>
-              <div class={"max-h-140 overflow-y-scroll"}>
+              <div class="max-h-140 overflow-y-auto pb-8">
                 <For each={realmojis()}>
                   {(realMojis) => (
                     <div class={"mt-4 w-full flex flex-row items-center gap-2.5 animate-duration-450"}>
@@ -88,7 +88,9 @@ const PostRealMojis: Component<{
                         >
                           {realMojis.user?.username}
                         </a>
-                        <span class="ml-auto text-xs font-300 bg-white/40 px-4 py-2 rounded-lg">{realMojis.emoji}</span>
+                        <span class="ml-auto text-xs font-300 bg-white/20 px-4 py-2 rounded-lg">
+                          {realMojis.emoji}
+                        </span>
                       </div>
                     </div>
                   )}

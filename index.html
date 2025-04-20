@@ -22,6 +22,19 @@
         height: 100%;
       }
 
+      ::-webkit-scrollbar {
+        position: absolute;
+        background: transparent;
+        width: 16px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        border: 6px solid rgba(0, 0, 0, 0);
+        background: rgba(255, 255, 255, .5);
+        background-clip: padding-box;
+        border-radius: 8px;
+      }
+
       * {
         -webkit-user-drag: none;
         -khtml-user-drag: none;
