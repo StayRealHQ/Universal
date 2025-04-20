@@ -131,7 +131,7 @@
 
 ### Others Profile
 
-- [ ] Informations
+- [x] Informations
 - [ ] Pinned
 
 ### Upload
@@ -146,16 +146,13 @@
 
 ### Feed
 
-- [x] See your posts in small view
-- [x] See comments on your posts (you can only see count)
-- [x] See reactions on your posts (you can only see a sample)
-- [x] Comment under a post
-- [x] See posts in large view (as a swiper of multiple posts)
-- [x] See comments under a post (you can only see a sample)
-- [x] See reactions on a post (you can only see a sample)
-- [x] React to a post with your Realmojis
-- [x] Open primary/secondary image in your browser (through image URL)
-- [x] See your Friends of Friends feed, even after the latest updates
+- [x] See posts of the current moment
+- [x] Comment on a post
+- [x] See comments on a post (you can only see a sample, for now)
+- [x] See reactions on a post with a list of all reactions when clicking on it
+- [x] React to a post with your own reactions
+- [x] Open primary/secondary image in your default browser (through image URL)
+- [x] See your Friends of Friends feed, even after the latest updates that removed it from the UI
 
 ### Relationships
 
@@ -180,7 +177,7 @@
 Some advanced features that are not in the original application.
 
 - [ ] Light mode
-- [ ] Upload from gallery
+- [x] Upload from gallery
 - [ ] Manual camera (remove delay between primary image and secondary image, letting you to manually take the secondary image)
 - [x] Cache today's feed data to device `localStorage` (for faster reloading), this is a temporary solution until we implement the task below
 - [ ] Cache data to device local database (for faster reloading and offline access)
