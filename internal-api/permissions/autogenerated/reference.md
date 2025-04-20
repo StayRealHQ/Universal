@@ -2,6 +2,8 @@
 
 Default permissions for the plugin
 
+#### This default permission set includes the following:
+
 - `allow-get-auth-details`
 - `allow-set-auth-details`
 - `allow-clear-auth-details`
