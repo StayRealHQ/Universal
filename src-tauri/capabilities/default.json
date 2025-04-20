@@ -8,7 +8,6 @@
   "permissions": [
     "os:default",
     "core:default",
-    "shell:allow-open",
     {
       "identifier": "http:default",
       "allow": [
@@ -27,7 +26,7 @@
       ]
     },
     "internal-api:default",
-    "shell:default",
-    "dialog:default"
+    "dialog:default",
+    "opener:default"
   ]
 }

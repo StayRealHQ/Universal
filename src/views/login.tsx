@@ -18,9 +18,9 @@ import Otp from "~/components/otp";
 import MdiLoading from '~icons/mdi/loading'
 import { BeRealError } from "~/api/models/errors";
 import { invoke } from "@tauri-apps/api/core";
-import { open } from "@tauri-apps/plugin-shell";
 
 import StayRealLogo from "~icons/stayreal/logo";
+import { openUrl } from "@tauri-apps/plugin-opener";
 
 const LoginView: Component = () => {
   const navigate = useNavigate();
@@ -192,11 +192,11 @@ const LoginView: Component = () => {
 
             You also agree to <button
               type="button"
-              onClick={() => open("https://stayreal.vexcited.com/privacy-policy")}
+              onClick={() => openUrl("https://stayreal.vexcited.com/privacy-policy")}
               class="text-white/55 font-bold transition-colors"
             >StayReal's Privacy Policy</button> and <button
               type="button"
-              onClick={() => open("https://bereal.com/terms/")}
+              onClick={() => openUrl("https://bereal.com/terms/")}
               class="text-white/55 font-bold transition-colors"
             >
               BeReal's Terms of Service

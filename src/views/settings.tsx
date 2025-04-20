@@ -8,10 +8,10 @@ import MdiDelete from '~icons/mdi/delete'
 // import MdiEarth from '~icons/mdi/earth'
 import MdiChevronRight from '~icons/mdi/chevron-right'
 import MdiBlockHelper from '~icons/mdi/block-helper'
-import { open } from "@tauri-apps/plugin-shell";
 import { deletePersonMe, ProfileDeletionAlreadyScheduledError } from "~/api/requests/person/me";
 import { confirm, message } from '@tauri-apps/plugin-dialog';
 import { getVersion } from '@tauri-apps/api/app';
+import { openUrl } from "@tauri-apps/plugin-opener";
 // import me from "~/stores/me";
 
 const Settings: Component = () => {
@@ -61,7 +61,7 @@ const Settings: Component = () => {
           <h2 class="uppercase font-bold text-white/50 text-sm mt-6">Other</h2>
 
           <Entry title="Report an issue on GitHub" icon={<MdiGithub />} onClick={() => {
-            open("https://github.com/StayRealHQ/Universal/issues");
+            openUrl("https://github.com/StayRealHQ/Universal/issues");
           }} />
 
           <Entry title="Request account deletion" icon={<MdiDelete />} onClick={async () => {

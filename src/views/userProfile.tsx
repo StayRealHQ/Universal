@@ -5,15 +5,13 @@ import BottomNavigation from "~/components/bottom-navigation";
 import { useParams } from "@solidjs/router";
 import { person_profile } from "~/api/requests/person/profile";
 import { ApiMedia } from "~/api/types/media";
-import { open } from "@tauri-apps/plugin-shell"
+import { openUrl } from "@tauri-apps/plugin-opener";
 
 const Chip: Component<{ content: string }> = (props) => (
   <div class="bg-white/15 rounded-full py-1.5 px-2.5">
     <p class="text-xs sm:text-sm md:text-base">{props.content}</p>
   </div>
 );
-
-
 
 type UserProfile = {
   fullname: string;
@@ -68,7 +66,7 @@ const ProfileView: Component = () => {
           {(profile) => (
             <>
               <div class="flex flex-col items-center text-center gap-4">
-                <div onClick={() => profile().profilePicture ? open(profile().profilePicture!.url) : void 0} class="relative w-[168px] h-[168px]">
+                <div onClick={() => profile().profilePicture ? openUrl(profile().profilePicture!.url) : void 0} class="relative w-[168px] h-[168px]">
                   <ProfilePicture
                     username={profile().username}
                     media={profile().profilePicture}

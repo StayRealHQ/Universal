@@ -2,8 +2,8 @@ import {createMemo, For, Show, type Component, createSignal} from "solid-js";
 import type {PostsOverview} from "~/api/requests/feeds/friends";
 import {FriendsOfFriendsPost} from "~/api/requests/feeds/friends-of-friends";
 import me from "~/stores/me";
-import {open} from "@tauri-apps/plugin-shell";
 import Drawer from "@corvu/drawer";
+import { openUrl } from "@tauri-apps/plugin-opener";
 
 /**
  * RealMojis attributed to a given post.
@@ -78,7 +78,7 @@ const PostRealMojis: Component<{
                         src={realMojis.media.url}
                         alt={realMojis.emoji}
                         onClick={() => {
-                          void open(realMojis.media.url);
+                          void openUrl(realMojis.media.url);
                         }}
                       />
                       <div class={"w-full flex flex-row items-center justify-between"}>

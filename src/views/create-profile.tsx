@@ -1,5 +1,5 @@
 import { useNavigate } from "@solidjs/router";
-import { open } from "@tauri-apps/plugin-shell";
+import { openUrl } from "@tauri-apps/plugin-opener";
 import { createMemo, createSignal, Show, type Component } from "solid-js";
 import { postPersonMe } from "~/api/requests/person/me";
 import { type PersonProfilesUsernameCheck, getPersonProfilesUsernameCheck } from "~/api/requests/person/username-check";
@@ -69,7 +69,7 @@ const CreateProfileView: Component = () => {
         <p class="text-xs opacity-60">By creating an account, you agree to <br/>
           <button
             type="button"
-            onClick={() => open("https://bereal.com/terms/")}
+            onClick={() => openUrl("https://bereal.com/terms/")}
             class="hover:text-white/80 underline underline-offset-2 transition-colors"
           >
               BeReal's Terms of Service

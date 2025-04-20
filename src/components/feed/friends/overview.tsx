@@ -1,14 +1,13 @@
 import { batch, type Component, createMemo, createSignal, For, Show } from "solid-js";
 import type { PostsOverview } from "~/api/requests/feeds/friends";
 import MdiRepost from '~icons/mdi/repost';
-import MdiCommentOutline from '~icons/mdi/comment-outline'
 import FeedFriendsPost from "./post";
 import MingcuteMore4Fill from '~icons/mingcute/more-4-fill'
 import Location from "~/components/location";
 import { Duration } from "luxon";
 import MingcuteLocationFill from '~icons/mingcute/location-fill'
 import MingcuteTimeFill from '~icons/mingcute/time-fill'
-import { open } from "@tauri-apps/plugin-shell"
+import { openUrl } from "@tauri-apps/plugin-opener"
 import MdiSend from '~icons/mdi/send'
 import me from "~/stores/me";
 import { content_posts_comment } from "~/api/requests/content/posts/comment";
@@ -95,7 +94,7 @@ const FeedFriendsOverview: Component<{
               <div class="flex flex-col gap-2 mt-6">
                 <div class="flex gap-2 mb-4">
                   <button type="button" class="w-full h-16 relative rounded-lg transition-opacity active:opacity-50"
-                    onClick={() => open(post().primary.url)}
+                    onClick={() => openUrl(post().primary.url)}
                     style={{
                       background: `url(${post().primary.url}) center center / cover no-repeat`
                     }}
@@ -105,7 +104,7 @@ const FeedFriendsOverview: Component<{
                     </div>
                   </button>
                   <button type="button" class="w-full h-16 relative rounded-lg transition-opacity active:opacity-50"
-                    onClick={() => open(post().secondary.url)}
+                    onClick={() => openUrl(post().secondary.url)}
                     style={{
                       background: `url(${post().secondary.url}) center center / cover no-repeat`
                     }}
@@ -272,7 +271,7 @@ const FeedFriendsOverview: Component<{
               <Show when={post().location}>
                 {location => (
                   <button type="button"
-                    onClick={() => open(`https://maps.google.com/?q=${location().latitude},${location().longitude}`)}
+                    onClick={() => openUrl(`https://maps.google.com/?q=${location().latitude},${location().longitude}`)}
                     class="flex items-center gap-1 overflow-hidden"
                   >
                     <MingcuteLocationFill class="shrink-0" />

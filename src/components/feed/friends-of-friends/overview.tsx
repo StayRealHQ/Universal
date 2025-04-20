@@ -3,7 +3,6 @@ import MingcuteMore4Fill from '~icons/mingcute/more-4-fill'
 import Location from "~/components/location";
 import MingcuteLocationFill from '~icons/mingcute/location-fill'
 import MingcuteTimeFill from '~icons/mingcute/time-fill'
-import { open } from "@tauri-apps/plugin-shell"
 import MdiSend from '~icons/mdi/send'
 import me from "~/stores/me";
 import { content_posts_comment } from "~/api/requests/content/posts/comment";
@@ -17,6 +16,7 @@ import { postModerationReportsPost, PostReportReason, REPORT_REASONS } from "~/a
 import { FriendsOfFriendsPost } from "~/api/requests/feeds/friends-of-friends";
 import FeedFriendsOfFriendsPost from "./post";
 import feedFof from "~/stores/feed-fof";
+import { openUrl } from "@tauri-apps/plugin-opener";
 
 const FeedFriendsOfFriendsOverview: Component<{
   post: FriendsOfFriendsPost
@@ -91,7 +91,7 @@ const FeedFriendsOfFriendsOverview: Component<{
               <div class="flex flex-col gap-2 mt-6">
                 <div class="flex gap-2 mb-4">
                   <button type="button" class="w-full h-16 relative rounded-lg transition-opacity active:opacity-50"
-                    onClick={() => open(props.post.primary.url)}
+                    onClick={() => openUrl(props.post.primary.url)}
                     style={{
                       background: `url(${props.post.primary.url}) center center / cover no-repeat`
                     }}
@@ -101,7 +101,7 @@ const FeedFriendsOfFriendsOverview: Component<{
                     </div>
                   </button>
                   <button type="button" class="w-full h-16 relative rounded-lg transition-opacity active:opacity-50"
-                    onClick={() => open(props.post.secondary.url)}
+                    onClick={() => openUrl(props.post.secondary.url)}
                     style={{
                       background: `url(${props.post.secondary.url}) center center / cover no-repeat`
                     }}
@@ -263,7 +263,7 @@ const FeedFriendsOfFriendsOverview: Component<{
               <Show when={props.post.location}>
                 {location => (
                   <button type="button"
-                    onClick={() => open(`https://maps.google.com/?q=${location().latitude},${location().longitude}`)}
+                    onClick={() => openUrl(`https://maps.google.com/?q=${location().latitude},${location().longitude}`)}
                     class="flex items-center gap-1 overflow-hidden"
                   >
                     <MingcuteLocationFill class="shrink-0" />
