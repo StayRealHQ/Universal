@@ -6,6 +6,7 @@ import { useParams } from "@solidjs/router";
 import { person_profile } from "~/api/requests/person/profile";
 import { ApiMedia } from "~/api/types/media";
 import { openUrl } from "@tauri-apps/plugin-opener";
+import Drawer from "@corvu/drawer";
 
 const Chip: Component<{ content: string }> = (props) => (
   <div class="bg-white/15 rounded-full py-1.5 px-2.5">
@@ -43,13 +44,11 @@ async function fetchUserProfile(id: string): Promise<UserProfile> {
   return response;
 }
 
-
-
 const ProfileView: Component = () => {
   const { id: initialId } = useParams();
   const [profileId, setProfileId] = createSignal(initialId);
   const [userProfile] = createResource(profileId, fetchUserProfile);
-
+  const [isDrawerOpen, setDrawerOpen] = createSignal(false);
 
   return (
     <>
@@ -107,41 +106,76 @@ const ProfileView: Component = () => {
                 </p>
               </div>
 
-
-              <div>
-                <h2 class="text-sm text-white/60 uppercase font-600 mb-4">
-                  Mutual Friends ({profile().relationship.commonFriends.sample.length})
-                </h2>
-
-                <div class="flex flex-col gap-2">
-                <For each={profile().relationship.commonFriends.sample}>
-                    {(commonFriend) => (
-                      <button
-                        class="flex items-center gap-4 p-1.5 rounded-lg focus:scale-[0.98] active:scale-95 transition-transform"
-                        onClick={() => setProfileId(commonFriend.id)}
-                      >
-                        <ProfilePicture
-                          fullName={commonFriend.fullname}
-                          username={commonFriend.username}
-                          media={commonFriend.profilePicture}
-                          size={50}
-                        />
-
-                        <div class="flex flex-col items-start">
-                          <p class="font-400">{commonFriend.fullname}</p>
-                          <p class="text-sm text-white/40">@{commonFriend.username}</p>
-                        </div>
-                      </button>
-                    )}
-                  </For>
+              <Show when={profile().relationship.commonFriends.sample.length > 0}>
+                <div class="text-center">
+                  <button
+                    class="mt-4 text-sm text-white/80 underline"
+                    onClick={() => setDrawerOpen(true)}
+                  >
+                    View Mutual Friends ({profile().relationship.commonFriends.sample.length})
+                  </button>
                 </div>
-              </div>
+              </Show>
             </>
           )}
         </Show>
       </main>
 
       <BottomNavigation />
+
+      {/* Drawer Section */}
+      <Drawer
+        open={isDrawerOpen()}
+        onOpenChange={setDrawerOpen}
+        trapFocus={false}
+        breakPoints={[0.75]}
+        onOutsideFocus={(e) => e.preventDefault()}
+      >
+        {(drawer) => (
+          <Drawer.Portal>
+            <Drawer.Overlay
+              class="fixed inset-0 z-50 corvu-transitioning:transition-colors corvu-transitioning:duration-500"
+              style={{ "background-color": `rgb(0 0 0 / ${0.5 * drawer.openPercentage})` }}
+            />
+            <Drawer.Content class="corvu-transitioning:transition-transform corvu-transitioning:duration-500 fixed inset-x-0 bottom-0 z-50 flex h-full max-h-140 flex-col rounded-t-xl bg-[#141414] pt-3 px-4">
+              <div class="h-1 w-10 self-center rounded-full bg-white/40 mb-4" />
+
+              <h2 class="text-sm text-white/60 uppercase font-600 mb-4 text-center">
+                Mutual Friends
+              </h2>
+
+              <Show when={userProfile()}>
+                {(profile) => (
+                  <div class="flex flex-col gap-2 pb-8 overflow-y-auto">
+                    <For each={profile().relationship.commonFriends.sample}>
+                      {(commonFriend) => (
+                        <button
+                          class="flex items-center gap-4 p-1.5 rounded-lg focus:scale-[0.98] active:scale-95 transition-transform"
+                          onClick={() => {
+                            setDrawerOpen(false);
+                            setProfileId(commonFriend.id);
+                          }}
+                        >
+                          <ProfilePicture
+                            fullName={commonFriend.fullname}
+                            username={commonFriend.username}
+                            media={commonFriend.profilePicture}
+                            size={50}
+                          />
+                          <div class="flex flex-col items-start">
+                            <p class="font-400">{commonFriend.fullname}</p>
+                            <p class="text-sm text-white/40">@{commonFriend.username}</p>
+                          </div>
+                        </button>
+                      )}
+                    </For>
+                  </div>
+                )}
+              </Show>
+            </Drawer.Content>
+          </Drawer.Portal>
+        )}
+      </Drawer>
     </>
   );
 };
