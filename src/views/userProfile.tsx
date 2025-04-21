@@ -1,5 +1,6 @@
 import { createSignal, createResource, For, Show, type Component } from "solid-js";
-import MdiChevronLeft from '~icons/mdi/chevron-left'
+import MdiChevronLeft from '~icons/mdi/chevron-left';
+import MdiAccountGroup from '~icons/mdi/account-group';
 import ProfilePicture from "~/components/profile-picture";
 import BottomNavigation from "~/components/bottom-navigation";
 import { useParams } from "@solidjs/router";
@@ -33,7 +34,7 @@ type UserProfile = {
         profilePicture: ApiMedia | null;
       }[];
     };
-  }
+  };
 };
 
 async function fetchUserProfile(id: string): Promise<UserProfile> {
@@ -57,6 +58,15 @@ const ProfileView: Component = () => {
           <a href="#" class="p-2.5 rounded-full ml-[-10px]" aria-label="Back" onClick={() => window.history.back()}>
             <MdiChevronLeft class="text-2xl" />
           </a>
+          <Show when={userProfile()}>
+            <button
+              class="p-2.5 rounded-full"
+              onClick={() => setDrawerOpen(true)}
+              aria-label="View Mutual Friends"
+            >
+              <MdiAccountGroup class="text-2xl" />
+            </button>
+          </Show>
         </nav>
       </header>
 
@@ -105,16 +115,6 @@ const ProfileView: Component = () => {
                   Became friends on {new Date(profile().relationship.friendedAt).toLocaleString()}
                 </p>
               </div>
-
-              <Show when={profile().relationship.commonFriends.sample.length > 0}>
-                <div class="text-center">
-                  <button
-                    class="mt-4 text-sm text-white/80 underline"
-                    onClick={() => setDrawerOpen(true)}
-                  >
-                    View Mutual Friends ({profile().relationship.commonFriends.sample.length})
-                  </button>
-                </div>
               </Show>
             </>
           )}
@@ -123,55 +123,61 @@ const ProfileView: Component = () => {
 
       <BottomNavigation />
 
-      {/* Drawer Section */}
       <Drawer
+        trapFocus={false}
+        onOutsideFocus={e => e.preventDefault()}
         open={isDrawerOpen()}
         onOpenChange={setDrawerOpen}
-        trapFocus={false}
         breakPoints={[0.75]}
-        onOutsideFocus={(e) => e.preventDefault()}
       >
         {(drawer) => (
           <Drawer.Portal>
             <Drawer.Overlay
-              class="fixed inset-0 z-50 corvu-transitioning:transition-colors corvu-transitioning:duration-500"
-              style={{ "background-color": `rgb(0 0 0 / ${0.5 * drawer.openPercentage})` }}
+              class="fixed inset-0 z-50 corvu-transitioning:transition-colors corvu-transitioning:duration-500 corvu-transitioning:ease-[cubic-bezier(0.32,0.72,0,1)]"
+              style={{
+                'background-color': `rgb(0 0 0 / ${0.5 * drawer.openPercentage})`,
+              }}
             />
-            <Drawer.Content class="corvu-transitioning:transition-transform corvu-transitioning:duration-500 fixed inset-x-0 bottom-0 z-50 flex h-full max-h-140 flex-col rounded-t-xl bg-[#141414] pt-3 px-4">
-              <div class="h-1 w-10 self-center rounded-full bg-white/40 mb-4" />
+            <Drawer.Content
+              class="corvu-transitioning:transition-transform corvu-transitioning:duration-500 corvu-transitioning:ease-[cubic-bezier(0.32,0.72,0,1)] fixed inset-x-0 bottom-0 z-50 flex h-full max-h-140 flex-col rounded-t-xl bg-[#141414] pt-3 px-4 after:absolute after:inset-x-0 after:top-[calc(100%-1px)] after:h-1/2 after:bg-inherit md:select-none">
+              <div class="h-1 w-10 self-center rounded-full bg-white/40" />
+              <div class="max-h-140 overflow-y-auto pb-8">
+                <Show when={userProfile()}>
+                  {(profile) => (
+                    <>
+                      <h2 class="text-sm text-white/60 uppercase font-600 mb-4 text-center">
+                        Mutual Friends ({profile().relationship.commonFriends.sample.length})
+                      </h2>
 
-              <h2 class="text-sm text-white/60 uppercase font-600 mb-4 text-center">
-                Mutual Friends
-              </h2>
+                      <div class="flex flex-col gap-2">
+                        <For each={profile().relationship.commonFriends.sample}>
+                          {(commonFriend) => (
+                            <button
+                              class="flex items-center gap-4 p-1.5 rounded-lg focus:scale-[0.98] active:scale-95 transition-transform"
+                              onClick={() => {
+                                setProfileId(commonFriend.id);
+                                setDrawerOpen(false);
+                              }}
+                            >
+                              <ProfilePicture
+                                fullName={commonFriend.fullname}
+                                username={commonFriend.username}
+                                media={commonFriend.profilePicture}
+                                size={50}
+                              />
 
-              <Show when={userProfile()}>
-                {(profile) => (
-                  <div class="flex flex-col gap-2 pb-8 overflow-y-auto">
-                    <For each={profile().relationship.commonFriends.sample}>
-                      {(commonFriend) => (
-                        <button
-                          class="flex items-center gap-4 p-1.5 rounded-lg focus:scale-[0.98] active:scale-95 transition-transform"
-                          onClick={() => {
-                            setDrawerOpen(false);
-                            setProfileId(commonFriend.id);
-                          }}
-                        >
-                          <ProfilePicture
-                            fullName={commonFriend.fullname}
-                            username={commonFriend.username}
-                            media={commonFriend.profilePicture}
-                            size={50}
-                          />
-                          <div class="flex flex-col items-start">
-                            <p class="font-400">{commonFriend.fullname}</p>
-                            <p class="text-sm text-white/40">@{commonFriend.username}</p>
-                          </div>
-                        </button>
-                      )}
-                    </For>
-                  </div>
-                )}
-              </Show>
+                              <div class="flex flex-col items-start">
+                                <p class="font-400">{commonFriend.fullname}</p>
+                                <p class="text-sm text-white/40">@{commonFriend.username}</p>
+                              </div>
+                            </button>
+                          )}
+                        </For>
+                      </div>
+                    </>
+                  )}
+                </Show>
+              </div>
             </Drawer.Content>
           </Drawer.Portal>
         )}
