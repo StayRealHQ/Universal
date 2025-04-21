@@ -115,7 +115,6 @@ const ProfileView: Component = () => {
                   Became friends on {new Date(profile().relationship.friendedAt).toLocaleString()}
                 </p>
               </div>
-              </Show>
             </>
           )}
         </Show>
