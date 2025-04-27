@@ -4,6 +4,7 @@ import {FriendsOfFriendsPost} from "~/api/requests/feeds/friends-of-friends";
 import me from "~/stores/me";
 import Drawer from "@corvu/drawer";
 import { openUrl } from "@tauri-apps/plugin-opener";
+import MingcuteTimeFill from '~icons/mingcute/time-fill'
 
 /**
  * RealMojis attributed to a given post.
@@ -73,26 +74,51 @@ const PostRealMojis: Component<{
                 <For each={realmojis()}>
                   {(realMojis) => (
                     <div class={"mt-4 w-full flex flex-row items-center gap-2.5 animate-duration-450"}>
-                      <img
-                        class="rounded-full h-16 w-16 shrink-0 border-2 border-white/25 cursor-pointer"
-                        src={realMojis.media.url}
-                        alt={realMojis.emoji}
-                        onClick={() => {
-                          void openUrl(realMojis.media.url);
-                        }}
-                      />
-                      <div class={"w-full flex flex-row items-center justify-between"}>
-                        <a
-                          class="font-600 w-fit cursor-pointer"
-                          href={`/user/${realMojis.user?.id}`}
-                        >
+                    <img
+                      class="rounded-full h-16 w-16 shrink-0 border-2 border-white/25 cursor-pointer"
+                      src={realMojis.media.url}
+                      alt={realMojis.emoji}
+                      onClick={() => {
+                        void openUrl(realMojis.media.url);
+                      }}
+                    />
+                    <div class={"w-full flex flex-row items-center justify-between"}>
+                      <a
+                        class="font-600 w-fit cursor-pointer"
+                        href={`/user/${realMojis.user?.id}`}
+                      >
+                        <div class="leading-tight">
                           {realMojis.user?.username}
-                        </a>
-                        <span class="ml-auto text-xs font-300 bg-white/20 px-4 py-2 rounded-lg">
-                          {realMojis.emoji}
-                        </span>
-                      </div>
+
+                          <div class="flex items-center gap-1 text-sm text-white/50">
+                            <MingcuteTimeFill />
+                            {
+                              (() => {
+                                const posted = new Date(realMojis.postedAt);
+                                const now = new Date();
+                                const diffMs = now.getTime() - posted.getTime();
+                                const diffMin = Math.floor(diffMs / 60000);
+
+                                if (diffMin < 60) {
+                                  return `${diffMin} min${diffMin !== 1 ? 's' : ''} ago`;
+                                }
+
+                                return posted.toLocaleTimeString([], {
+                                  hour: '2-digit',
+                                  minute: '2-digit',
+                                  hour12: true,
+                                });
+                              })()
+                            }
+                          </div>
+                        </div>
+                      </a>
+                      <span class="ml-auto text-xs font-300 bg-white/20 px-4 py-2 rounded-lg">
+                        {realMojis.emoji}
+                      </span>
                     </div>
+                  </div>
+
                   )}
                 </For>
               </div>
