@@ -20,6 +20,6 @@ jobs:
           fetch-depth: 0
       - uses: Ximaz/repository-mirroring-action@main
         with:
-          target_repo_url: "git@codeberg.org:Vexcited/StayReal.git"
+          target_repo_url: "git@codeberg.org:StayRealHQ/Universal.git"
           ssh_private_key: ${{ secrets.CODEBERG_SSH_PRIVATE_KEY }}
           ssh_private_key_passphrase: ${{ secrets.CODEBERG_SSH_PASSPHRASE }}
