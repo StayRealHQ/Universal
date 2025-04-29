@@ -25,7 +25,6 @@ const PostComments: Component<PostCommentsProps> = (props) => {
       <div
         class="cursor-pointer"
         onClick={() => {
-          console.log("All comments:", props.comments);
           setDrawerOpen(true);
         }}
         aria-label={`View all ${props.comments.length} comments`}
@@ -80,17 +79,46 @@ const PostComments: Component<PostCommentsProps> = (props) => {
                           </Show>
                         </a>
                         <div class="flex flex-col">
-                          <a href={profileUrl} class="text-sm font-500 hover:underline w-fit">
-                            {comment.user.username}{" "}
+                            <a href={profileUrl} class="text-sm font-500 w-fit">
+                            {comment.user.username}{" "} {/*TODO: show fullname instead of username like original app*/}
                             <span class="text-white/50 font-normal text-xs">
-                              {posted.toLocaleString([], {
+                              {(() => {
+                              const now = new Date();
+                              const diff = now.getTime() - posted.getTime();
+                              const seconds = Math.floor(diff / 1000);
+                              const minutes = Math.floor(seconds / 60);
+                              const hours = Math.floor(minutes / 60);
+
+                              if (seconds < 60) {
+                                return `${seconds} seconds ago`;
+                              } else if (minutes < 60) {
+                                return `${minutes} minutes ago`;
+                              } else if (hours < 1) {
+                                return `1 hour ago`;
+                              } else if (now.toDateString() === posted.toDateString()) {
+                                return `Today at ${posted.toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                })}`;
+                              } else if (
+                                new Date(now.getTime() - 86400000).toDateString() ===
+                                posted.toDateString()
+                              ) {
+                                return `Yesterday at ${posted.toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                })}`;
+                              } else {
+                                return posted.toLocaleString([], {
                                 hour: "2-digit",
                                 minute: "2-digit",
                                 month: "short",
                                 day: "numeric",
-                              })}
+                                });
+                              }
+                              })()}
                             </span>
-                          </a>
+                            </a>
                           <p class="text-sm text-white/80 whitespace-pre-line">
                             {comment.content}
                           </p>
