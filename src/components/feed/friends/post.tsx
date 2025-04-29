@@ -1,4 +1,4 @@
-import { type Component, createEffect, createSignal, For, on, onCleanup, Show } from "solid-js";
+import { type Component, createEffect, createSignal, on, onCleanup, Show } from "solid-js";
 import { content_posts_repost } from "~/api/requests/content/posts/repost";
 import { Post } from "~/api/requests/feeds/friends";
 import PostRealMojis from "~/components/feed/realmojis";
@@ -9,6 +9,7 @@ import ReactionBar from "../ReactionBar";
 import { Gesture } from "@use-gesture/vanilla";
 import toast from "solid-toast";
 import MingcuteEmojiFill from '~icons/mingcute/emoji-fill'
+import PostComments from "~/components/feed/comments";
 
 const FeedFriendsPost: Component<{
   post: Post
@@ -28,8 +29,6 @@ const FeedFriendsPost: Component<{
   const primaryURL = () => isReversed() ? props.post.secondary.url : props.post.primary.url;
   const secondaryURL = () => isReversed() ? props.post.primary.url : props.post.secondary.url;
 
-  // Show up to 2 comments as a sample.
-  const commentsSample = () => props.post.comments.slice(0, 2);
 
   // On mobile, when having pointer down and scrolling
   // doesn't trigger `pointerup`, but `pointercancel` instead.
@@ -272,14 +271,9 @@ const FeedFriendsPost: Component<{
           "opacity-0 pointer-events-none": isFocusing() || isReacting()
         }}
       >
-        <For each={commentsSample()}>
-          {comment => (
-            <div class="flex items-center gap-1.5">
-              <p class="shrink-0 font-500">{comment.user.username}</p>
-              <p class="truncate">{comment.content}</p>
-            </div>
-          )}
-        </For>
+
+        <PostComments comments={props.post.comments} />
+
       </div>
 
       {/*
