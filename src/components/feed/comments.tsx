@@ -142,9 +142,17 @@ const PostComments: Component<PostCommentsProps> = (props) => {
                         })()}
                       </span>
                       </a>
-                      <p class="text-sm text-white/80 whitespace-pre-line">
-                      {comment.content}
-                      </p>
+                        <p class="text-sm text-white/80 whitespace-pre-line">
+                        {comment.content}
+                        </p>
+                        <div class="flex items-center gap-2">
+                          <button
+                          class="text-xs text-white/50 hover:text-white/80 transition-colors"
+                          onClick={() => setComment((prev) => `${prev}@${comment.user.username} `)}
+                          >
+                          reply
+                          </button>
+                        </div>
                     </div>
                     </div>
                   );
