@@ -272,7 +272,7 @@ const FeedFriendsPost: Component<{
         }}
       >
 
-        <PostComments comments={props.post.comments} />
+        <PostComments postData={props.post} postUserId={props.postUserId}/>
 
       </div>
 
