@@ -122,7 +122,7 @@ enforcement.setConfig({
       [p+"cpu_cores"]:8,
       [p+"icloud_ubiquity_token"]:${conv(bytesToHex(sha256(uuidv4())))},
       [p+"bio_fingerprint"]:3,
-      [p+"gpu"]:"Apple,Apple GPU",
+      [p+"gpu"]:"Apple,Apple ${uuidv4()}",
       [p+"device_arch"]:"arm64e",
       [p+"model"]:${conv(model)},
       [p+"kernel"]:${conv(anyKernel())},
