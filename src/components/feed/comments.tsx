@@ -44,7 +44,7 @@ const PostComments: Component<PostCommentsProps> = (props) => {
       console.error("Failed to post comment:", err);
     }
   };
-  console.log(props);
+
   return (
     <>
       <div
