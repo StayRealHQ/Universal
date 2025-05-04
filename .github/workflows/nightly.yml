@@ -23,9 +23,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: "macos-latest"
+          - platform: "macos-15"
             target: "aarch64-apple-darwin"
-          - platform: "macos-latest"
+          - platform: "macos-15"
             target: "x86_64-apple-darwin"
 
           - platform: ubuntu-22.04
@@ -204,7 +204,7 @@ jobs:
           path: src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage
 
       - name: (macOS) distribute .dmg
-        if: matrix.platform == 'macos-latest'
+        if: matrix.platform == 'macos-15'
         uses: actions/upload-artifact@v4
         with:
           name: stayreal-${{ matrix.target }}-dmg
@@ -233,7 +233,7 @@ jobs:
             os: android
             target-full: "x86_64-linux-android"
             target-short: "x86_64"
-          - platform: macos-latest
+          - platform: macos-15
             os: "ios"
             target-full: "aarch64-apple-ios"
             target-short: "aarch64"

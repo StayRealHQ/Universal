@@ -15,7 +15,7 @@ jobs:
         include:
           - platform: ubuntu-22.04
             os: android
-          - platform: macos-latest
+          - platform: macos-15
             os: "ios"
 
     runs-on: ${{ matrix.platform }}
