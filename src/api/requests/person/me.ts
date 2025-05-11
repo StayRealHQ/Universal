@@ -151,9 +151,9 @@ export const postPersonMe = async (username: string, birthdate: string, fullname
       timezone: BEREAL_TIMEZONE,
       username,
       clientVersion: BEREAL_IOS_VERSION,
-      // NOTE: constants to prevent any issues,
-      //       this should not impact the account creation anyway.
-      device: `iPhone15,3 ${BEREAL_PLATFORM_VERSION}`, // iPhone 15 Pro Max, should be updated time to time...
+      // This should be synced with other constants for the current device.
+      // @see https://appledb.dev/device/iPhone-16-Pro-Max.html
+      device: `iPhone17,2 ${BEREAL_PLATFORM_VERSION}`,
       language: "en",
       birthdate,
       fullname,
