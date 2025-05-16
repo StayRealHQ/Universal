@@ -152,8 +152,8 @@ export const postPersonMe = async (username: string, birthdate: string, fullname
       username,
       clientVersion: BEREAL_IOS_VERSION,
       // This should be synced with other constants for the current device.
-      // @see https://appledb.dev/device/iPhone-16-Pro-Max.html
-      device: `iPhone17,2 ${BEREAL_PLATFORM_VERSION}`,
+      // @see https://appledb.dev/device/iPhone-15-Pro.html
+      device: `iPhone16,1 ${BEREAL_PLATFORM_VERSION}`,
       language: "en",
       birthdate,
       fullname,

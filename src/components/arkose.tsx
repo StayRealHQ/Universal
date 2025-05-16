@@ -48,9 +48,9 @@ const anyKernel = (): string => {
   ].join('.');
 
   const tilde = `~${between(1, 5)}`;
-  // @see https://theapplewiki.com/wiki/T8140, which is the one used
-  //      by the iPhone 16 Pro Max (A18 Pro)
-  const arch = `RELEASE_ARM64_T8140`;
+  // @see https://theapplewiki.com/wiki/T8130, which is the one used
+  //      by the iPhone 15 Pro (A17 Pro)
+  const arch = `RELEASE_ARM64_T8130`;
 
   const [osVersion, osSubVersion] = BEREAL_PLATFORM_VERSION.split(".");
 
@@ -71,10 +71,10 @@ export const createArkoseURL = (key: string, dataExchange: string, deviceId: str
   // @see https://developer.mozilla.org/docs/Web/Media/Guides/Formats/Video_codecs
   const codecs = conv(["mp4a.40.2", "vorbis", "opus", "theora", "vorbis"]);
 
-  // @see https://appledb.dev/device/iPhone-16-Pro-Max.html
-  // Currently: iPhone 16 Pro Max
-  const model = "D94AP";
-  const product = "iPhone17,2";
+  // @see https://appledb.dev/device/iPhone-15-Pro.html
+  // Currently: iPhone 15 Pro
+  const model = "D83AP";
+  const product = "iPhone16,1";
 
   const html = `<html><head><meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=0"><style>html,body{display:flex;justify-content:center;align-items:center;background:black;height:100%;width:100%;overflow:hidden;position:fixed;margin:0;padding:0;color:#fff}.spin{transition: opacity .175s; animation: spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}</style>`
     + `<script crossorigin="anonymous" data-callback="setup" src="https://client-api.arkoselabs.com/v2/api.js" async defer></script>`
@@ -123,7 +123,7 @@ enforcement.setConfig({
       [p+"cpu_cores"]:6,
       [p+"icloud_ubiquity_token"]:${conv(bytesToHex(sha256(uuidv4())))},
       [p+"bio_fingerprint"]:3,
-      [p+"gpu"]:"Apple,Apple A18 Pro GPU",
+      [p+"gpu"]:"Apple,Apple A17 Pro GPU",
       [p+"device_arch"]:"arm64e",
       [p+"model"]:${conv(model)},
       [p+"kernel"]:${conv(anyKernel())},
