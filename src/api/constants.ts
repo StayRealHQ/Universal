@@ -2,7 +2,7 @@ import { hex } from '@scure/base';
 import { createBeRealSignature } from "./core/signature";
 
 export const BEREAL_IOS_BUNDLE_ID = "AlexisBarreyat.BeReal";
-export const BEREAL_IOS_VERSION = "4.15.3";
+export const BEREAL_IOS_VERSION = "4.23.0";
 export const BEREAL_IOS_BUILD = "19999";
 export const BEREAL_TIMEZONE = new Intl.DateTimeFormat().resolvedOptions().timeZone;
 export const BEREAL_ARKOSE_PUBLIC_KEY = "CCB0863E-D45D-42E9-A6C8-9E8544E8B17E";
