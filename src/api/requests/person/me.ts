@@ -96,7 +96,9 @@ export const person_me = async (): Promise<PersonMe> => {
     throw new ProfileInexistentError();
   }
 
-  await setRegion(json.region);
+  if (json.region)
+    await setRegion(json.region);
+
   return json;
 };
 
