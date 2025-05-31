@@ -18,8 +18,8 @@ class Requests(private val context: Context) {
   val preferences = Preferences(context)
 
   private val appIOSBundleId = "AlexisBarreyat.BeReal"
-  private val appIOSVersion = "4.15.3"
-  private val appIOSBuild = "19999"
+  private val appIOSVersion = "4.24.0"
+  private val appIOSBuild = "20523"
   private val clientSecret = "962D357B-B134-4AB6-8F53-BEA2B7255420"
 
   private fun defaultHeaders(deviceId: String): Headers {

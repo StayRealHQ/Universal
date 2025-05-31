@@ -20,8 +20,8 @@ pub fn init<R: Runtime, C: DeserializeOwned>(
 }
 
 const BEREAL_IOS_BUNDLE_ID: &str = "AlexisBarreyat.BeReal";
-const BEREAL_IOS_VERSION: &str = "4.15.3";
-const BEREAL_IOS_BUILD: &str = "19999";
+const BEREAL_IOS_VERSION: &str = "4.24.0";
+const BEREAL_IOS_BUILD: &str = "20523";
 const BEREAL_CLIENT_SECRET: &str = "962D357B-B134-4AB6-8F53-BEA2B7255420";
 const BEREAL_HMAC_KEY_HEX: &str =
   "3536303337663461663232666236393630663363643031346532656337316233";
