@@ -1,9 +1,10 @@
-import { createRoot, createSignal } from "solid-js";
+import { createRoot } from "solid-js";
 import { getFeedsFriendsOfFriends, type FriendsOfFriendsPost } from "~/api/requests/feeds/friends-of-friends";
 import auth from "./auth";
+import { createStore, reconcile } from "solid-js/store";
 
 export default createRoot(() => {
-  const [get, _set] = createSignal<Array<FriendsOfFriendsPost>>();
+  const [get, _set] = createStore({ value: void 0 as Array<FriendsOfFriendsPost> | undefined });
   const refetch = () => getFeedsFriendsOfFriends().then(set);
 
   const set = (value: Array<FriendsOfFriendsPost>): void => {
@@ -12,12 +13,12 @@ export default createRoot(() => {
     // reactivity system.
     if (auth.isDemo()) value = structuredClone(value);
 
-    _set(value);
+    _set("value", reconcile(value));
   };
 
   const clear = (): void => {
-    _set(void 0);
+    _set("value", void 0);
   }
 
-  return { get, set, clear, refetch };
+  return { get: () => get.value, set, clear, refetch };
 });

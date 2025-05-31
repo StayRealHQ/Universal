@@ -1,12 +1,16 @@
-import { createRoot, createSignal } from "solid-js";
+import { createRoot } from "solid-js";
 import { getFeedsFriends, type GetFeedsFriends } from "~/api/requests/feeds/friends";
 import auth from "./auth";
+import { createStore, reconcile } from "solid-js/store";
 
 export default createRoot(() => {
   const STORAGE_KEY = "feeds_friends";
   const INITIAL_DATA = localStorage.getItem(STORAGE_KEY);
 
-  const [get, _set] = createSignal(INITIAL_DATA ? <GetFeedsFriends>JSON.parse(INITIAL_DATA) : null);
+  const [get, _set] = createStore({
+    value: INITIAL_DATA ? <GetFeedsFriends>JSON.parse(INITIAL_DATA) : null
+  });
+
   const refetch = () => getFeedsFriends().then(set);
 
   const set = (value: GetFeedsFriends): void => {
@@ -18,13 +22,13 @@ export default createRoot(() => {
     // reactivity system.
     if (auth.isDemo()) value = structuredClone(value);
 
-    _set(value);
+    _set("value", reconcile(value));
   };
 
   const clear = (): void => {
     localStorage.removeItem(STORAGE_KEY);
-    _set(null);
+    _set("value", null);
   }
 
-  return { get, set, clear, refetch };
+  return { get: () => get.value, set, clear, refetch };
 });
