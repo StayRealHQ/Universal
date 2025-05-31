@@ -14,7 +14,7 @@ const FeedFriendsOfFriendsPost: Component<{
    */
   postUserId: string
 }> = (props) => {
-  const [useVideo, setVideo] = createSignal<HTMLVideoElement>();
+  const [useVideo] = createSignal<HTMLVideoElement>();
   const [useImage, setImage] = createSignal<HTMLImageElement>();
 
   const [isReversed, setIsReversed] = createSignal(false);

@@ -1,7 +1,6 @@
 import { fetch } from "@tauri-apps/plugin-http";
 import auth from "~/stores/auth"
 import { BEREAL_DEFAULT_HEADERS } from "~/api/constants";
-import type { PostsOverview } from "./friends";
 import { ApiMedia } from "~/api/types/media";
 
 export interface FriendsOfFriendsPost {

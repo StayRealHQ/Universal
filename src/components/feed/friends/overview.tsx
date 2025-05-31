@@ -1,10 +1,9 @@
-import { batch, type Component, createMemo, createSignal, For, Show } from "solid-js";
+import { batch, type Component, createSignal, For, Show } from "solid-js";
 import type { PostsOverview } from "~/api/requests/feeds/friends";
 import MdiRepost from '~icons/mdi/repost';
 import FeedFriendsPost from "./post";
 import MingcuteMore4Fill from '~icons/mingcute/more-4-fill'
 import Location from "~/components/location";
-import { Duration } from "luxon";
 import MingcuteLocationFill from '~icons/mingcute/location-fill'
 import MingcuteTimeFill from '~icons/mingcute/time-fill'
 import { openUrl } from "@tauri-apps/plugin-opener"
@@ -26,12 +25,12 @@ const FeedFriendsOverview: Component<{
   const post = () => props.overview.posts[0];
   const postDate = () => new Date(post().postedAt);
 
-  const lateDuration = createMemo(() => {
-    if (post().lateInSeconds > 0) {
-      const duration = Duration.fromObject({ seconds: post().lateInSeconds });
-      return duration.rescale().toHuman({ unitDisplay: "short" });
-    }
-  });
+  // const lateDuration = createMemo(() => {
+  //   if (post().lateInSeconds > 0) {
+  //     const duration = Duration.fromObject({ seconds: post().lateInSeconds });
+  //     return duration.rescale().toHuman({ unitDisplay: "short" });
+  //   }
+  // });
 
   const [comment, setComment] = createSignal("");
   const handlePostComment = async (event: SubmitEvent) => {

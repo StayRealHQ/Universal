@@ -4,7 +4,6 @@ import { Post } from "~/api/requests/feeds/friends";
 import PostRealMojis from "~/components/feed/realmojis";
 import feed from "~/stores/feed";
 import me from "~/stores/me";
-import SolarSmileCircleBold from '~icons/solar/smile-circle-bold'
 import ReactionBar from "../ReactionBar";
 import { Gesture } from "@use-gesture/vanilla";
 import toast from "solid-toast";
