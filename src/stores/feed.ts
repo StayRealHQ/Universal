@@ -14,8 +14,10 @@ export default createRoot(() => {
   const refetch = () => getFeedsFriends().then(set);
 
   const set = (value: GetFeedsFriends): void => {
-    // We don't want to preserve the data in demo mode.
-    if (!auth.isDemo()) localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
+    try {
+      // We don't want to preserve the data in demo mode.
+      if (!auth.isDemo()) localStorage.setItem(STORAGE_KEY, JSON.stringify(value))
+    } catch { /** NO-OP */}
 
     // Yeah, we're doing a deep copy in demo mode
     // because references kinda messes up the
