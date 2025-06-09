@@ -142,6 +142,7 @@ jobs:
         # if we are compiling for Windows ARM, we can only support NSIS
         run: pnpm tauri build --target ${{ matrix.target }} ${{ matrix.target == 'aarch64-pc-windows-msvc' && '--bundles nsis' || '' }}
         env:
+          CI: true
           RUSTFLAGS: -Awarnings
 
       - name: (Linux) (x86_64) build
