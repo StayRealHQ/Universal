@@ -9,18 +9,6 @@
     "frontendDist": "../dist"
   },
   "app": {
-    "windows": [
-      {
-        "title": "StayReal",
-        "width": 436,
-        "height": 800,
-        "fullscreen": false,
-        "backgroundColor": "#000000",
-        "minWidth": 436,
-        "theme": "Dark",
-        "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148"
-      }
-    ],
     "security": {
       "csp": null
     }
