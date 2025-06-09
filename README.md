@@ -11,7 +11,6 @@
   <a href="https://play.google.com/store/apps/details?id=com.vexcited.stayreal">
     <img src=".github/assets/googleplay.png" width="200px" alt="Get it on Google Play">
   </a>
-<a href="https://app.fossa.com/projects/git%2Bgithub.com%2FStayRealHQ%2FUniversal?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FStayRealHQ%2FUniversal.svg?type=shield"/></a>
 </p>
 <p align="center">
   <a href="https://github.com/StayRealHQ/Universal/actions/workflows/nightly.yml">
@@ -20,13 +19,19 @@
   <a href="https://github.com/StayRealHQ/Universal/tree/main/LICENSE.md">
     <img src="https://img.shields.io/github/license/StayRealHQ/Universal.svg?color=green" alt="License Badge">
   </a>
+  <a href="https://app.fossa.com/projects/git%2Bgithub.com%2FStayRealHQ%2FUniversal?ref=badge_shield" alt="FOSSA Status">
+    <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FStayRealHQ%2FUniversal.svg?type=shield"/>
+  </a>
   <a href="https://dsc.gg/stayreal">
     <img src="https://img.shields.io/discord/1349527052365336636" alt="Discord">
   </a>
 </p>
 
-
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FStayRealHQ%2FUniversal.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FStayRealHQ%2FUniversal?ref=badge_large)
+<p align="center">
+  <a href="https://app.fossa.com/projects/git%2Bgithub.com%2FStayRealHQ%2FUniversal?ref=badge_large">
+    <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FStayRealHQ%2FUniversal.svg?type=large" alt="FOSSA Status">
+  </a>
+</p>
 
 ## 📥 Download
 
