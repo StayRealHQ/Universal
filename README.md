@@ -27,12 +27,6 @@
   </a>
 </p>
 
-<p align="center">
-  <a href="https://app.fossa.com/projects/git%2Bgithub.com%2FStayRealHQ%2FUniversal?ref=badge_large">
-    <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FStayRealHQ%2FUniversal.svg?type=large" alt="FOSSA Status">
-  </a>
-</p>
-
 ## 📥 Download
 
 <table align="center">
