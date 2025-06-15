@@ -30,13 +30,14 @@
     <meta-data
       android:name="com.google.firebase.messaging.default_notification_channel_id"
       android:value="stayreal_messaging" />
-    
+
     <activity
       android:name=".MainActivity"
       android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
       android:exported="true"
       android:label="@string/main_activity_title"
-      android:launchMode="singleTask">
+      android:launchMode="singleTask"
+      android:windowSoftInputMode="adjustResize">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
