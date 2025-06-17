@@ -39,7 +39,7 @@ pub fn run() {
     .setup(|app| {
         let mut win = WebviewWindowBuilder::new(app, "main", WebviewUrl::App("index.html".into()))
           .background_color(Color(0, 0, 0, 255))
-          .user_agent("Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148")
+          .user_agent("Mozilla/5.0 (iPhone; CPU iPhone OS 19_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148")
           .initialization_script_for_all_frames(ARKOSE_INIT_SCRIPT);
 
         #[cfg(not(mobile))]
