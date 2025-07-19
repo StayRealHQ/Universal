@@ -25,6 +25,9 @@ if (window.location.origin === "https://client-api.arkoselabs.com") {
 
   tweak(window.screen.orientation, "type", "portrait-primary")
   tweak(window, "devicePixelRatio", 3)
+
+  tweak(window, "outerHeight", 0)
+  tweak(window, "outerWidth", 0)
 }
 "#;
 
