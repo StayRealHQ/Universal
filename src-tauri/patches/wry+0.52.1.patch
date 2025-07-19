@@ -1,5 +1,5 @@
 diff --git a/src/android/kotlin/RustWebView.kt b/src/android/kotlin/RustWebView.kt
-index 8debc1c..e0471bc 100644
+index 8debc1c..1bbb624 100644
 --- a/src/android/kotlin/RustWebView.kt
 +++ b/src/android/kotlin/RustWebView.kt
 @@ -17,6 +17,18 @@ import kotlin.collections.Map
@@ -7,15 +7,15 @@ index 8debc1c..e0471bc 100644
      val isDocumentStartScriptEnabled: Boolean
  
 +    val ajaxRequestContents = mutableMapOf<String, String>()
-+    fun addAjaxRequest (id: String, body: String){
-+      ajaxRequestContents.put(id, body);
++    fun addAjaxRequest (id: String, body: String) {
++        ajaxRequestContents.put(id, body);
 +    }
 +
 +    class RustWebViewAjax(val mWebView: RustWebView) {
-+      @JavascriptInterface
-+      fun customAjax (id: String, body: String) {
-+        mWebView.addAjaxRequest(id, body);
-+      }
++        @JavascriptInterface
++        fun customAjax (id: String, body: String) {
++          mWebView.addAjaxRequest(id, body);
++        }
 +    }
 +
      init {
@@ -31,7 +31,7 @@ index 8debc1c..e0471bc 100644
              isDocumentStartScriptEnabled = true
              for (script in initScripts) {
 diff --git a/src/android/kotlin/RustWebViewClient.kt b/src/android/kotlin/RustWebViewClient.kt
-index 343ad14..cb51c7c 100644
+index 343ad14..0d76222 100644
 --- a/src/android/kotlin/RustWebViewClient.kt
 +++ b/src/android/kotlin/RustWebViewClient.kt
 @@ -10,13 +10,18 @@ import android.content.Context
@@ -53,7 +53,7 @@ index 343ad14..cb51c7c 100644
  
      private val assetLoader = WebViewAssetLoader.Builder()
          .setDomain(assetLoaderDomain())
-@@ -35,17 +40,112 @@ class RustWebViewClient(context: Context): WebViewClient() {
+@@ -35,17 +40,111 @@ class RustWebViewClient(context: Context): WebViewClient() {
              return null
          }
  
@@ -69,7 +69,6 @@ index 343ad14..cb51c7c 100644
 +
 +          connection.setRequestProperty("X-Requested-With", "com.bereal.ft")
 +          connection.connect()
-+
 +          var html = connection.inputStream.bufferedReader().use { it.readText() }
 +
 +          // Remove the CSP.
