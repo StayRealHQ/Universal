@@ -1,6 +1,6 @@
 [package]
 name = "stayreal"
-version = "0.7.0"
+version = "0.7.1"
 description = "An open-source, lightweight and privacy-focused alternative client for a popular authentic social network."
 authors = ["Mikkel ALMONTE--RINGAUD <contact@vexcited.com>"]
 edition = "2021"
