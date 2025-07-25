@@ -31,7 +31,7 @@ index 8debc1c..1bbb624 100644
              isDocumentStartScriptEnabled = true
              for (script in initScripts) {
 diff --git a/src/android/kotlin/RustWebViewClient.kt b/src/android/kotlin/RustWebViewClient.kt
-index 343ad14..0d76222 100644
+index 343ad14..43e9381 100644
 --- a/src/android/kotlin/RustWebViewClient.kt
 +++ b/src/android/kotlin/RustWebViewClient.kt
 @@ -10,13 +10,18 @@ import android.content.Context
@@ -53,7 +53,7 @@ index 343ad14..0d76222 100644
  
      private val assetLoader = WebViewAssetLoader.Builder()
          .setDomain(assetLoaderDomain())
-@@ -35,17 +40,111 @@ class RustWebViewClient(context: Context): WebViewClient() {
+@@ -35,17 +40,114 @@ class RustWebViewClient(context: Context): WebViewClient() {
              return null
          }
  
@@ -62,12 +62,11 @@ index 343ad14..0d76222 100644
 +        if (url.startsWith("https://client-api.arkoselabs.com/") && url.contains("/enforcement.") && url.contains(".html")) {
 +          val connection = URL(url).openConnection() as HttpURLConnection
 +          request.requestHeaders.forEach {
-+            if (!it.key.startsWith("sec-ch-")) {
++            if (!it.key.startsWith("sec-")) {
 +              connection.setRequestProperty(it.key, it.value)
 +            }
 +          }
 +
-+          connection.setRequestProperty("X-Requested-With", "com.bereal.ft")
 +          connection.connect()
 +          var html = connection.inputStream.bufferedReader().use { it.readText() }
 +
@@ -116,12 +115,16 @@ index 343ad14..0d76222 100644
 +          connection.doInput = true
 +
 +          request.requestHeaders.forEach {
-+            if (!it.key.startsWith("sec-ch-")) {
++            if (!it.key.startsWith("sec-")) {
 +              connection.setRequestProperty(it.key, it.value)
 +            }
 +          }
 +
-+          connection.setRequestProperty("X-Requested-With", "com.bereal.ft")
++          connection.setRequestProperty("Priority", "u=3, i")
++          connection.setRequestProperty("Sec-Fetch-Site", "same-origin")
++          connection.setRequestProperty("Sec-Fetch-Mode", "cors")
++          connection.setRequestProperty("Sec-Fetch-Dest", "empty")
++          connection.setRequestProperty("Referer", "https://client-api.arkoselabs.com/")
 +
 +          DataOutputStream(connection.outputStream).use { it.writeBytes(requestBody) }
 +          return WebResourceResponse("application/json", "UTF-8", connection.inputStream)
