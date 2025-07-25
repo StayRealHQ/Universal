@@ -65,6 +65,9 @@ importers:
       embla-carousel-wheel-gestures:
         specifier: ^8.0.2
         version: 8.0.2(embla-carousel@8.6.0)
+      libphonenumber-js:
+        specifier: ^1.12.10
+        version: 1.12.10
       luxon:
         specifier: ^3.6.1
         version: 3.6.1
@@ -1075,6 +1078,9 @@ packages:
 
   kolorist@1.8.0:
     resolution: {integrity: sha512-Y+60/zizpJ3HRH8DCss+q95yr6145JXZo46OTpFvDZWLfRCE4qChOyk1b26nMaNpfHHgxagk9dXT5OP0Tfe+dQ==}
+
+  libphonenumber-js@1.12.10:
+    resolution: {integrity: sha512-E91vHJD61jekHHR/RF/E83T/CMoaLXT7cwYA75T4gim4FZjnM6hbJjVIGg7chqlSqRsSvQ3izGmOjHy1SQzcGQ==}
 
   local-pkg@1.1.1:
     resolution: {integrity: sha512-WunYko2W1NcdfAFpuLUoucsgULmgDBRkdxHxWQ7mK0cQqwPiy8E1enjuRBrhLtZkB5iScJ1XIPdhVEFK8aOLSg==}
@@ -2374,6 +2380,8 @@ snapshots:
   json5@2.2.3: {}
 
   kolorist@1.8.0: {}
+
+  libphonenumber-js@1.12.10: {}
 
   local-pkg@1.1.1:
     dependencies:
