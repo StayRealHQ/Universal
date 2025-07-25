@@ -12,6 +12,7 @@ import { BEREAL_ARKOSE_PUBLIC_KEY } from "~/api/constants";
 import { createArkoseURL } from "~/components/arkose";
 import auth from "~/stores/auth";
 import { DEMO_ACCESS_TOKEN, DEMO_PHONE_NUMBER, DEMO_REFRESH_TOKEN } from "~/utils/demo";
+import { formatPhoneNumberAsYouType, autoFormatToInternational, isValidPhoneNumber, getUserCountryCode } from "~/utils/phone";
 import MdiChevronLeft from '~icons/mdi/chevron-left'
 import { postVonageDataExchange } from "~/api/requests/auth/vonage/data-exchange";
 import Otp from "~/components/otp";
@@ -26,13 +27,17 @@ const LoginView: Component = () => {
   const navigate = useNavigate();
   const [params, setParams] = useSearchParams<{ arkoseToken: string }>()
 
+  const storedPhoneNumber = localStorage.getItem("login__phoneNumber") || "";
+  const userCountry = getUserCountryCode();
+  
   const [state, setState] = createStore({
     step: "phone" as ("phone" | "otp"),
     deviceID: localStorage.getItem("login__deviceID") || uuidv4(),
     error: null as string | null,
     loading: false,
 
-    phoneNumber: localStorage.getItem("login__phoneNumber") || "",
+    phoneNumber: storedPhoneNumber,
+    displayPhoneNumber: storedPhoneNumber ? formatPhoneNumberAsYouType(storedPhoneNumber, userCountry) : "",
     requestID: "",
     otp: "",
   })
@@ -40,8 +45,14 @@ const LoginView: Component = () => {
   const runAuthentication = async (): Promise<void> => {
     if (!state.phoneNumber) return;
 
-    // Make sure there's no whitespace in the phone number.
-    const phoneNumber = state.phoneNumber.replace(/ /g, "");
+    // Convert phone number to international format
+    const phoneNumber = autoFormatToInternational(state.phoneNumber);
+
+    // Validate the phone number
+    if (!isValidPhoneNumber(phoneNumber, getUserCountryCode()) && phoneNumber !== DEMO_PHONE_NUMBER) {
+      setState("error", "Please enter a valid phone number");
+      return;
+    }
 
     try {
       setState("loading", true);
@@ -61,7 +72,7 @@ const LoginView: Component = () => {
 
             // Save the state in `localStorage` to remember it
             // when we come back from the Arkose challenge.
-            localStorage.setItem("login__phoneNumber", phoneNumber);
+            localStorage.setItem("login__phoneNumber", state.phoneNumber);
             localStorage.setItem("login__deviceID", state.deviceID);
 
             const url = createArkoseURL(BEREAL_ARKOSE_PUBLIC_KEY, dataExchange, state.deviceID);
@@ -138,8 +149,15 @@ const LoginView: Component = () => {
   // If we're coming back from the Arkose challenge, we need to
   // re-run the authentication process.
   createEffect(on(() => params.arkoseToken, (token) => {
-    if (token)
+    if (token) {
+      // Update display phone number when coming back from Arkose
+      const stored = localStorage.getItem("login__phoneNumber");
+      if (stored) {
+        const userCountry = getUserCountryCode();
+        setState("displayPhoneNumber", formatPhoneNumberAsYouType(stored, userCountry));
+      }
       runAuthentication();
+    }
   }));
 
   return (
@@ -180,8 +198,21 @@ const LoginView: Component = () => {
             type="tel"
             inputMode="tel"
             autocomplete="tel"
-            value={state.phoneNumber}
-            onInput={e => setState("phoneNumber", e.currentTarget.value)}
+            value={state.displayPhoneNumber}
+            onInput={e => {
+              const input = e.currentTarget.value;
+              const userCountry = getUserCountryCode();
+              
+              // Format for display as the user types
+              const formatted = formatPhoneNumberAsYouType(input, userCountry);
+              setState("displayPhoneNumber", formatted);
+              
+              // Store the raw input for processing
+              setState("phoneNumber", input);
+              
+              // Clear any previous error when user starts typing
+              if (state.error) setState("error", null);
+            }}
             placeholder="+33 6 12 34 56 78"
             required
           />
@@ -209,7 +240,7 @@ const LoginView: Component = () => {
             </p>
           </Show>
 
-          <button type="submit" disabled={state.loading || !state.phoneNumber}
+          <button type="submit" disabled={state.loading || !state.phoneNumber.trim()}
             class="text-black font-medium bg-white rounded-2xl w-full py-3 mt-auto focus:(outline outline-white outline-offset-2) disabled:opacity-30 transition-all"
           >
             <Show when={state.loading} fallback={"Send me a verification code"}>
@@ -238,7 +269,7 @@ const LoginView: Component = () => {
               </p>
             }>
               <p class="mt-8 text-sm text-center px-4 text-white/75">
-                Verification code sent to {state.phoneNumber}
+                Verification code sent to {autoFormatToInternational(state.phoneNumber)}
               </p>
             </Show>
           </Show>

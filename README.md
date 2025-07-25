@@ -116,7 +116,7 @@
 
 > Note that accounts with parental control are not supported, if you have one, please open an issue so we can work on it.
 
-- [ ] Automatically convert your phone number to international format
+- [x] Automatically convert your phone number to international format
 - [x] Send OTP
 - [x] Verify OTP
 - [x] Logout
