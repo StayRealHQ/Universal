@@ -10,7 +10,7 @@ import { openUrl } from "@tauri-apps/plugin-opener";
 import Drawer from "@corvu/drawer";
 
 const Chip: Component<{ content: string }> = (props) => (
-  <div class="bg-white/15 rounded-full py-1.5 px-2.5">
+  <div class="rounded-full py-1.5 px-2.5" style={{"background-color": "var(--overlay-strong)"}}>
     <p class="text-xs sm:text-sm md:text-base">{props.content}</p>
   </div>
 );
@@ -88,7 +88,7 @@ const ProfileView: Component = () => {
                   <h1 class="text-2xl font-700 line-height-none">
                     {profile().fullname}
                   </h1>
-                  <p class="text-white/60">
+                  <p style={{"color": "var(--text-secondary)"}}>
                     {profile().username}
                   </p>
                 </div>
@@ -108,10 +108,10 @@ const ProfileView: Component = () => {
               </div>
 
               <div>
-                <p class="text-white/50 text-center text-xs md:text-sm">
+                <p class="text-center text-xs md:text-sm" style={{"color": "var(--text-secondary)"}}>
                   Joined on {new Date(profile().createdAt).toLocaleString()}
                 </p>
-                <p class="text-white/50 text-center text-xs md:text-sm">
+                <p class="text-center text-xs md:text-sm" style={{"color": "var(--text-secondary)"}}>
                   Became friends on {new Date(profile().relationship.friendedAt).toLocaleString()}
                 </p>
               </div>
@@ -138,13 +138,15 @@ const ProfileView: Component = () => {
               }}
             />
             <Drawer.Content
-              class="corvu-transitioning:transition-transform corvu-transitioning:duration-500 corvu-transitioning:ease-[cubic-bezier(0.32,0.72,0,1)] fixed inset-x-0 bottom-0 z-50 flex h-full max-h-140 flex-col rounded-t-xl bg-[#141414] pt-3 px-4 after:absolute after:inset-x-0 after:top-[calc(100%-1px)] after:h-1/2 after:bg-inherit md:select-none">
-              <div class="h-1 w-10 self-center rounded-full bg-white/40" />
+              class="corvu-transitioning:transition-transform corvu-transitioning:duration-500 corvu-transitioning:ease-[cubic-bezier(0.32,0.72,0,1)] fixed inset-x-0 bottom-0 z-50 flex h-full max-h-140 flex-col rounded-t-xl pt-3 px-4 after:absolute after:inset-x-0 after:top-[calc(100%-1px)] after:h-1/2 md:select-none"
+              style={{"background-color": "var(--bg-secondary)"}}
+            >
+              <div class="h-1 w-10 self-center rounded-full" style={{"background-color": "var(--text-tertiary)"}} />
               <div class="max-h-140 overflow-y-auto pb-8">
                 <Show when={userProfile()}>
                   {(profile) => (
                     <>
-                      <h2 class="text-sm text-white/60 uppercase font-600 mb-4 text-center">
+                      <h2 class="text-sm uppercase font-600 mb-4 text-center" style={{"color": "var(--text-secondary)"}}>
                         Mutual Friends ({profile().relationship.commonFriends.sample.length})
                       </h2>
 
@@ -167,7 +169,7 @@ const ProfileView: Component = () => {
 
                               <div class="flex flex-col items-start">
                                 <p class="font-400">{commonFriend.fullname}</p>
-                                <p class="text-sm text-white/40">@{commonFriend.username}</p>
+                                <p class="text-sm" style={{"color": "var(--text-tertiary)"}}>@{commonFriend.username}</p>
                               </div>
                             </button>
                           )}

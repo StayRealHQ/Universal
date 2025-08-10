@@ -9,6 +9,9 @@ import { Router } from "@solidjs/router";
 import SplashView from "~/views/splash";
 import { Toaster } from "solid-toast";
 
+// Initialize theme store
+import "~/stores/theme";
+
 const routes = [
   {
     path: "/",
@@ -84,15 +87,15 @@ render(() => (
       }}
       toastOptions={{
         iconTheme: {
-          primary: '#fff',
-          secondary: '#000',
+          primary: 'var(--text-primary)',
+          secondary: 'var(--bg-primary)',
         },
         style: {
-          color: "#fff",
-          background: "#000",
-          border: "2px solid #fff",
+          color: "var(--text-primary)",
+          background: "var(--bg-primary)",
+          border: "2px solid var(--border-primary)",
           "border-radius": "16px",
-          "box-shadow": "0 0 10px rgba(0,0,0,0.5)"
+          "box-shadow": "0 0 10px rgba(0,0,0,0.2)"
         }
       }}
     />

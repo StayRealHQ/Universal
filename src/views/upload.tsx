@@ -341,7 +341,7 @@ const UploadView: Component = () => {
       >
         <Show when={!stream()}>
           <div class="absolute inset-0 flex items-center justify-center">
-            <p class="text-white text-center">
+            <p class="text-center" style={{"color": "var(--text-primary)"}}>
               Loading stream...
             </p>
           </div>
@@ -363,7 +363,7 @@ const UploadView: Component = () => {
 
         <div class="absolute top-4 right-4 w-full max-w-[calc(20vh*(1500/2000))] h-20vh">
           <canvas ref={!state.reversed ? setFrontVideoPreview : setBackVideoPreview}
-            class="absolute inset-0 z-15 rounded-xl h-full w-full object-cover border-2 border-white/25"
+            class="absolute inset-0 z-15 rounded-xl h-full w-full object-cover border-2" style={{"border-color": "var(--border-primary)"}}
             classList={{ "opacity-0": (!state.reversed ? frontImage() === undefined : backImage() === undefined) || isCapturingPrimary() }}
           />
         </div>
@@ -387,12 +387,19 @@ const UploadView: Component = () => {
               type="button"
               title="Capture"
               disabled={state.capturing}
-              class="p-4 h-24 w-24 bg-white/5 border-6 border-white rounded-full disabled:(bg-white animate-pulse animation-duration-100)"
+              class="p-4 h-24 w-24 border-6 rounded-full"
+              style={{
+                "background-color": state.capturing ? "var(--text-primary)" : "var(--overlay)",
+                "border-color": "var(--text-primary)"
+              }}
+              classList={{
+                "animate-pulse": state.capturing
+              }}
               onClick={() => handleCapture()}
             />
             <a
               href="/uploadFromStorage"
-              class="absolute top-1/2 left-full ml-4 -translate-y-1/2 text-black bg-white rounded-full py-2 px-4 flex items-center"
+              class="absolute top-1/2 left-full ml-4 -translate-y-1/2 rounded-full py-2 px-4 flex items-center" style={{"color": "var(--bg-primary)", "background-color": "var(--text-primary)"}}
             >
               <MingcuteUploadLine class="text-2xl" />
             </a>
@@ -410,7 +417,7 @@ const UploadView: Component = () => {
           <button type="button"
             disabled={state.uploading || state.compressing}
             onClick={() => handleUpload()}
-            class="bg-white text-black font-600 py-3.5 px-8 rounded-2xl mx-auto"
+            class="font-600 py-3.5 px-8 rounded-2xl mx-auto" style={{"background-color": "var(--text-primary)", "color": "var(--bg-primary)"}}
           >
             {!state.uploading && !state.compressing && "Upload"}
             {state.compressing && "Compressing..."}

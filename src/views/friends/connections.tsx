@@ -60,10 +60,10 @@ const FriendsConnectionsView: Component = () => {
 
           <div class="flex flex-col">
             <p class="font-500">{props.profile.fullname}</p>
-            <p class="text-sm text-white/60">@{props.profile.username}</p>
+            <p class="text-sm" style={{"color": "var(--text-secondary)"}}>@{props.profile.username}</p>
           </div>
         </a>
-        <button type="button" class="shrink-0 bg-white/20 text-hite uppercase font-600 rounded-full text-xs px-2.5 py-1.5 disabled:opacity-50"
+        <button type="button" class="shrink-0 uppercase font-600 rounded-full text-xs px-2.5 py-1.5 disabled:opacity-50" style={{"background-color": "var(--overlay-strong)", "color": "var(--text-primary)"}}
           disabled={loading() || props.profile.status === "sent" || props.profile.status === "accepted"}
           onClick={handleAdd}
         >
@@ -84,13 +84,14 @@ const FriendsConnectionsView: Component = () => {
       {/* Query input to search for friends or new users. */}
       <div class="mb-6">
         <div class="relative flex items-center">
-          <MdiMagnify class="absolute w-6 h-6 left-4 text-white/40 text-2xl" />
+          <MdiMagnify class="absolute w-6 h-6 left-4 text-2xl" style={{"color": "var(--text-tertiary)"}} />
           <input
             type="text"
             value={searchQuery()}
             onInput={(e) => setSearchQuery(e.currentTarget.value)}
+            class="w-full rounded-xl py-2.5 pl-14 pr-4 text-[16px] focus:outline-none"
+            style={{"background-color": "var(--bg-secondary)", "color": "var(--text-primary)"}}
             placeholder="Add or search friends"
-            class="w-full bg-[#121212] rounded-xl py-2.5 pl-14 pr-4 text-[16px] placeholder:text-white/55 focus:outline-none"
           />
         </div>
       </div>
@@ -100,7 +101,7 @@ const FriendsConnectionsView: Component = () => {
       {/* Show friends and also friends related to the query. */}
       <Show when={friends() && ((searchQuery().length >= 3 && filteredFriends().length !== 0) || searchQuery().length < 3)}>
         <section>
-          <h2 class="text-sm text-white/60 uppercase font-600 mb-4">
+          <h2 class="text-sm uppercase font-600 mb-4" style={{"color": "var(--text-secondary)"}}>
             My Friends ({filteredFriends().length})
           </h2>
 
@@ -119,7 +120,7 @@ const FriendsConnectionsView: Component = () => {
 
                   <div class="flex flex-col">
                     <p class="font-500">{friend.fullname}</p>
-                    <p class="text-sm text-white/60">@{friend.username}</p>
+                    <p class="text-sm" style={{"color": "var(--text-secondary)"}}>@{friend.username}</p>
                   </div>
                 </a>
               )}
@@ -132,7 +133,7 @@ const FriendsConnectionsView: Component = () => {
       <Show when={searchQuery().length >= 3 && profilesQuery()}>
         {profiles => (
           <section class="mt-4">
-            <h2 class="text-sm text-white/60 uppercase font-600 mb-4">
+            <h2 class="text-sm uppercase font-600 mb-4" style={{"color": "var(--text-secondary)"}}>
               More Results ({profiles().data.length})
             </h2>
 

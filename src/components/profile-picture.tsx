@@ -21,8 +21,8 @@ const ProfilePicture: Component<{
       when={!isUnavailable() && props.media}
       fallback={
         <div
-          class="shrink-0 rounded-full bg-white/20 flex items-center justify-center"
-          style={style()}
+          class="shrink-0 rounded-full flex items-center justify-center"
+          style={{...style(), "background-color": "var(--overlay-strong)"}}
         >
           <span class="font-500 uppercase leading-[0] translate-y-[2px]"
             style={{ "font-size": `${props.textSize ?? 24}px` }}

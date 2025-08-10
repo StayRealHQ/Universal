@@ -87,8 +87,8 @@ const FeedFriendsOverview: Component<{
                 })`,
               }}
             />
-            <Drawer.Content class="corvu-transitioning:transition-transform corvu-transitioning:duration-500 corvu-transitioning:ease-[cubic-bezier(0.32,0.72,0,1)] fixed inset-x-0 bottom-0 z-50 flex h-full max-h-70 flex-col rounded-t-xl bg-[#141414] pt-3 px-4 after:absolute after:inset-x-0 after:top-[calc(100%-1px)] after:h-1/2 after:bg-inherit md:select-none">
-              <div class="h-1 w-10 self-center rounded-full bg-white/40" />
+            <Drawer.Content class="corvu-transitioning:transition-transform corvu-transitioning:duration-500 corvu-transitioning:ease-[cubic-bezier(0.32,0.72,0,1)] fixed inset-x-0 bottom-0 z-50 flex h-full max-h-70 flex-col rounded-t-xl pt-3 px-4 after:absolute after:inset-x-0 after:top-[calc(100%-1px)] after:h-1/2 md:select-none" style={{"background-color": "var(--bg-secondary)"}}>
+              <div class="h-1 w-10 self-center rounded-full" style={{"background-color": "var(--text-tertiary)"}} />
 
               <div class="flex flex-col gap-2 mt-6">
                 <div class="flex gap-2 mb-4">
@@ -98,7 +98,7 @@ const FeedFriendsOverview: Component<{
                       background: `url(${post().primary.url}) center center / cover no-repeat`
                     }}
                   >
-                    <div class="absolute inset-1 rounded-md bg-black/40 flex items-center justify-center hover:opacity-50 transition-opacity">
+                    <div class="absolute inset-1 rounded-md flex items-center justify-center hover:opacity-50 transition-opacity" style={{"background-color": "var(--bg-primary)", "opacity": "0.6"}}>
                       <MdiLaunch class="text-lg" />
                     </div>
                   </button>
@@ -108,13 +108,16 @@ const FeedFriendsOverview: Component<{
                       background: `url(${post().secondary.url}) center center / cover no-repeat`
                     }}
                   >
-                    <div class="absolute inset-1 rounded-md bg-black/40 flex items-center justify-center hover:opacity-50 transition-opacity">
+                    <div class="absolute inset-1 rounded-md flex items-center justify-center hover:opacity-50 transition-opacity" style={{"background-color": "var(--bg-primary)", "opacity": "0.6"}}>
                       <MdiLaunch class="text-lg" />
                     </div>
                   </button>
                 </div>
 
-                <button type="button" class="w-full rounded-lg bg-white/5 text-red/80 hover:text-white px-4 py-3 text-lg font-medium transition-all duration-100 hover:bg-white/10 active:opacity-50"
+                <button type="button" class="w-full rounded-lg text-red/80 px-4 py-3 text-lg font-medium transition-all duration-100 active:opacity-50" 
+                  style={{"background-color": "var(--overlay)"}}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "var(--overlay-strong)"}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "var(--overlay)"}
                   onClick={() => {
                     // We wait a bit to make it feel more natural.
                     setTimeout(() => {
@@ -128,7 +131,10 @@ const FeedFriendsOverview: Component<{
                   Report this post
                 </button>
 
-                <button type="button" class="w-full rounded-lg bg-white/5 text-red/80 hover:text-white px-4 py-3 text-lg font-medium transition-all duration-100 hover:bg-white/10 active:opacity-50"
+                <button type="button" class="w-full rounded-lg text-red/80 px-4 py-3 text-lg font-medium transition-all duration-100 active:opacity-50"
+                  style={{"background-color": "var(--overlay)"}}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "var(--overlay-strong)"}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "var(--overlay)"}
                   onClick={async () => {
                     // 0. make sure the user wants to block the user.
                     const confirmation = await confirm(`${props.overview.user.username} will no longer be able to see your public posts. ${props.overview.user.username} will be removed from your friends.`, {
@@ -186,8 +192,8 @@ const FeedFriendsOverview: Component<{
                 })`,
               }}
             />
-            <Drawer.Content class="corvu-transitioning:transition-[transform,height] corvu-transitioning:duration-500 corvu-transitioning:ease-[cubic-bezier(0.32,0.72,0,1)] fixed inset-x-0 bottom-0 z-50 flex flex-col rounded-t-lg bg-[#141414] pt-3 px-4 after:absolute after:inset-x-0 after:top-[calc(100%-1px)] after:h-1/2 after:bg-inherit md:select-none">
-              <div class="h-1 w-10 self-center rounded-full bg-white/40" />
+            <Drawer.Content class="corvu-transitioning:transition-[transform,height] corvu-transitioning:duration-500 corvu-transitioning:ease-[cubic-bezier(0.32,0.72,0,1)] fixed inset-x-0 bottom-0 z-50 flex flex-col rounded-t-lg pt-3 px-4 after:absolute after:inset-x-0 after:top-[calc(100%-1px)] after:h-1/2 md:select-none" style={{"background-color": "var(--bg-secondary)"}}>
+              <div class="h-1 w-10 self-center rounded-full" style={{"background-color": "var(--text-tertiary)"}} />
 
               <Drawer.Label class="mt-4 text-center text-xl font-bold">
                 Report a post
@@ -318,11 +324,15 @@ const FeedFriendsOverview: Component<{
               <input
                 type="text"
                 placeholder="Add a comment..."
-                class="bg-transparent text-white outline-none w-full focus:bg-white/10 py-1 px-2 rounded-lg transition-colors"
+                class="outline-none w-full py-1 px-2 rounded-lg transition-colors"
+                style={{"background-color": "transparent", "color": "var(--text-primary)"}}
+                onFocus={(e) => e.currentTarget.style.backgroundColor = "var(--overlay)"}
+                onBlur={(e) => e.currentTarget.style.backgroundColor = "transparent"}
                 value={comment()}
                 onInput={event => setComment(event.currentTarget.value)}
               />
-              <button type="submit" class="bg-white/20 text-white py-1.5 px-2 rounded-lg disabled:bg-white/10 disabled:text-white/50 hover:bg-white/25 focus:bg-white/25 transition-colors"
+              <button type="submit" class="py-1.5 px-2 rounded-lg disabled:opacity-50 transition-colors"
+                style={{"background-color": "var(--overlay-strong)", "color": "var(--text-primary)"}}
                 disabled={!comment().trim()}
               >
                 <MdiSend class="text-xs" />

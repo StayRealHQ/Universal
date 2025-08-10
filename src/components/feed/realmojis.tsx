@@ -69,13 +69,13 @@ const PostRealMojis: Component<{
             />
             <Drawer.Content
               class="corvu-transitioning:transition-transform corvu-transitioning:duration-500 corvu-transitioning:ease-[cubic-bezier(0.32,0.72,0,1)] fixed inset-x-0 bottom-0 z-50 flex h-full max-h-140 flex-col rounded-t-xl bg-[#141414] pt-3 px-4 after:absolute after:inset-x-0 after:top-[calc(100%-1px)] after:h-1/2 after:bg-inherit md:select-none">
-              <div class="h-1 w-10 self-center rounded-full bg-white/40"/>
+              <div class="h-1 w-10 self-center rounded-full" style={{"background-color": "var(--text-tertiary)"}} />
               <div class="max-h-140 overflow-y-auto pb-8">
                 <For each={realmojis()}>
                   {(realMojis) => (
                     <div class={"mt-4 w-full flex flex-row items-center gap-2.5 animate-duration-450"}>
                     <img
-                      class="rounded-full h-16 w-16 shrink-0 border-2 border-white/25 cursor-pointer"
+                      class="rounded-full h-16 w-16 shrink-0 border-2 cursor-pointer" style={{"border-color": "var(--border-primary)"}}
                       src={realMojis.media.url}
                       alt={realMojis.emoji}
                       onClick={() => {
@@ -90,7 +90,7 @@ const PostRealMojis: Component<{
                         <div class="leading-tight">
                           {realMojis.user?.username}
 
-                          <div class="flex items-center gap-1 text-sm text-white/50">
+                          <div class="flex items-center gap-1 text-sm" style={{"color": "var(--text-secondary)"}}>
                             <MingcuteTimeFill />
                             {
                               (() => {
@@ -113,7 +113,7 @@ const PostRealMojis: Component<{
                           </div>
                         </div>
                       </a>
-                      <span class="ml-auto text-xs font-300 bg-white/20 px-4 py-2 rounded-lg">
+                      <span class="ml-auto text-xs font-300 px-4 py-2 rounded-lg" style={{"background-color": "var(--overlay-strong)"}}>
                         {realMojis.emoji}
                       </span>
                     </div>
@@ -133,7 +133,7 @@ const PostRealMojis: Component<{
             {(realMojis, index) => (
 
               <img
-                class="shrink-0 rounded-full border-2 border-white/25"
+                class="shrink-0 rounded-full border-2" style={{"border-color": "var(--border-primary)"}}
                 src={realMojis.media.url}
                 aria-hidden="true"
                 style={{
@@ -146,7 +146,7 @@ const PostRealMojis: Component<{
           </For>
           <Show when={total() > 0}>
             <div
-              class="shrink-0 rounded-full border-2 border-white/25 bg-#1a1a1c text-white flex justify-center items-center"
+              class="shrink-0 rounded-full border-2 flex justify-center items-center" style={{"border-color": "var(--border-primary)", "background-color": "var(--bg-secondary)", "color": "var(--text-primary)"}}
               aria-hidden="true"
               style={{
                 "z-index": `${props.shouldReverseZIndex ? 0 : 2}`,

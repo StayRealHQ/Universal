@@ -12,7 +12,7 @@ const isAndroid = type() === "android";
 const InviteCallout: Component = () => {
   return (
     <div class="mb-6 cursor-pointer focus:scale-[0.98] active:scale-95 transition-transform">
-      <div class="relative bg-[#121212] rounded-2xl p-3.5 overflow-hidden">
+      <div class="relative rounded-2xl p-3.5 overflow-hidden" style={{"background-color": "var(--bg-secondary)"}}>
         <Show when={!isAndroid && me.get()!.profilePicture}>
           {(profilePicture) => (
             <div
@@ -45,15 +45,15 @@ const InviteCallout: Component = () => {
             />
 
             <div class="flex flex-col gap-0.5">
-              <p class="text-white font-500 text-[15px]">
+              <p class="font-500 text-[15px]" style={{"color": "var(--text-primary)"}}>
                 Invite friends
               </p>
-              <p class="text-sm text-white/50">
+              <p class="text-sm" style={{"color": "var(--text-secondary)"}}>
                 bere.al/{me.get()!.username}
               </p>
             </div>
           </div>
-          <MdiShareVariant class="text-[22px] text-white" />
+          <MdiShareVariant class="text-[22px]" style={{"color": "var(--text-primary)"}} />
         </div>
       </div>
     </div>

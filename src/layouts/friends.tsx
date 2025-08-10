@@ -8,7 +8,7 @@ const FriendsLayout: FlowComponent = (props) => {
   return (
     <>
       <main>
-        <header class="z-20 fixed top-0 inset-x-0 bg-gradient-to-b from-#0D0E12 to-transparent pt-[env(safe-area-inset-top)]">
+        <header class="z-20 fixed top-0 inset-x-0 pt-[env(safe-area-inset-top)]" style={{"background": "linear-gradient(to bottom, var(--bg-primary), transparent)"}}>
           <nav class="flex items-center gap-4 h-[72px] px-8" role="banner">
             <For
               each={[
@@ -20,9 +20,9 @@ const FriendsLayout: FlowComponent = (props) => {
                 <a
                   href={tab.path}
                   class="text-2xl transition-all"
-                  classList={{
-                    "text-white font-700": tab.path === location.pathname,
-                    "text-white/50 font-500": tab.path !== location.pathname,
+                  style={{
+                    "color": tab.path === location.pathname ? "var(--text-primary)" : "var(--text-secondary)",
+                    "font-weight": tab.path === location.pathname ? "700" : "500"
                   }}
                 >
                   {tab.label}

@@ -184,7 +184,7 @@ const FeedFriendsPost: Component<{
   return (
     <div class="z-20 relative mx-auto w-fit">
       <img
-        class="z-30 h-40 w-auto absolute top-4 right-4 rounded-xl inline-block border border-white/25 shadow-xl transition-opacity"
+        class="z-30 h-40 w-auto absolute top-4 right-4 rounded-xl inline-block border shadow-xl transition-opacity" style={{"border-color": "var(--border-primary)"}}
         onClick={() => setIsReversed(prev => !prev)}
         alt="Secondary image"
         src={secondaryURL()}
@@ -211,7 +211,7 @@ const FeedFriendsPost: Component<{
           onEnded={handleUnfocus}
         ></video>
 
-        <p class="z-25 absolute top-4 left-4 bg-black/20 text-white px-3 py-.5 transition-opacity rounded-xl backdrop-blur font-600"
+        <p class="z-25 absolute top-4 left-4 px-3 py-.5 transition-opacity rounded-xl backdrop-blur font-600" style={{"background-color": "var(--bg-primary)", "color": "var(--text-primary)", "opacity": "0.8"}}
           classList={{
             "opacity-0 pointer-events-none": isFocusing()
           }}
@@ -245,7 +245,7 @@ const FeedFriendsPost: Component<{
           <button type="button"
             onClick={() => setIsReacting(true)}
           >
-            <MingcuteEmojiFill class="text-white text-3xl" />
+            <MingcuteEmojiFill class="text-3xl" style={{"color": "var(--text-primary)"}} />
           </button>
         </div>
       </div>
@@ -285,7 +285,7 @@ const FeedFriendsPost: Component<{
         <div class="absolute z-30 bottom-4.5 inset-x-0 w-fit mx-auto">
           <button
             type="button"
-            class="bg-white text-black uppercase font-bold px-4 py-.5 rounded-full shadow-lg disabled:opacity-50"
+            class="uppercase font-bold px-4 py-.5 rounded-full shadow-lg disabled:opacity-50" style={{"background-color": "var(--text-primary)", "color": "var(--bg-primary)"}}
             disabled={isReposting()}
             onClick={handleRepost}
           >

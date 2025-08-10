@@ -66,15 +66,16 @@ const ReactionBar: Component<{
             </p>
 
             <Show when={currentReaction() !== null && currentReaction()?.emoji !== realmoji.emoji}>
-              <div class="z-35 inset-0 absolute bg-black/40 rounded-xl" />
+              <div class="z-35 inset-0 absolute rounded-xl" style={{"background-color": "var(--bg-primary)", "opacity": "0.4"}} />
             </Show>
 
             <img
-              class="shrink-0 rounded-xl border border-white/25 shadow-2xl w-13 h-13 z-30"
-              src={realmoji.media.url}
-              classList={{
-                "outline outline-1 outline-white": currentReaction()?.emoji === realmoji.emoji,
+              class="shrink-0 rounded-xl border shadow-2xl w-13 h-13 z-30"
+              style={{
+                "border-color": "var(--border-primary)",
+                "outline": currentReaction()?.emoji === realmoji.emoji ? `1px solid var(--text-primary)` : "none"
               }}
+              src={realmoji.media.url}
             />
           </button>
         )}

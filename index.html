@@ -16,6 +16,35 @@
         -webkit-touch-callout: none;
       }
 
+      /* Theme CSS Variables */
+      :root {
+        /* Light theme colors */
+        --bg-primary: #FFFFFF;
+        --bg-secondary: #F5F5F5;
+        --bg-tertiary: #E5E5E5;
+        --text-primary: #000000;
+        --text-secondary: #666666;
+        --text-tertiary: #999999;
+        --border-primary: rgba(0, 0, 0, 0.1);
+        --border-secondary: rgba(0, 0, 0, 0.05);
+        --overlay: rgba(0, 0, 0, 0.1);
+        --overlay-strong: rgba(0, 0, 0, 0.2);
+      }
+
+      :root.dark {
+        /* Dark theme colors */
+        --bg-primary: #0D0E12;
+        --bg-secondary: #1A1B23;
+        --bg-tertiary: #2A2B33;
+        --text-primary: #FFFFFF;
+        --text-secondary: rgba(255, 255, 255, 0.6);
+        --text-tertiary: rgba(255, 255, 255, 0.4);
+        --border-primary: rgba(255, 255, 255, 0.1);
+        --border-secondary: rgba(255, 255, 255, 0.05);
+        --overlay: rgba(255, 255, 255, 0.1);
+        --overlay-strong: rgba(255, 255, 255, 0.2);
+      }
+
       /* https://stackoverflow.com/a/60516252 */
       :root {
         touch-action: pan-x pan-y;
@@ -30,7 +59,7 @@
 
       ::-webkit-scrollbar-thumb {
         border: 6px solid rgba(0, 0, 0, 0);
-        background: rgba(255, 255, 255, .5);
+        background: var(--text-secondary);
         background-clip: padding-box;
         border-radius: 8px;
       }
@@ -94,7 +123,7 @@
     </script>
   </head>
 
-  <body class="font-sans bg-#0D0E12 text-white select-none overscroll-none h-screen">
+  <body class="font-sans select-none overscroll-none h-screen" style="background-color: var(--bg-primary); color: var(--text-primary)">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
 

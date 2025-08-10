@@ -93,15 +93,15 @@ const FeedLayout: FlowComponent = (props) => {
           </p> */}
 
           <DropdownMenu preventScroll={false}>
-            <DropdownMenu.Trigger class="flex items-center gap-2 text-2xl text-center text-white font-700">
+            <DropdownMenu.Trigger class="flex items-center gap-2 text-2xl text-center font-700" style={{"color": "var(--text-primary)"}}>
               <span>{view() === "friends" ? "Friends" : "Friends of Friends"}</span>
               <DropdownMenu.Icon class="kobalte-expanded:rotate-180 transition-transform">
                 <MdiChevronDown />
               </DropdownMenu.Icon>
             </DropdownMenu.Trigger>
             <DropdownMenu.Portal>
-              <DropdownMenu.Content class="transform-origin-[var(--kb-menu-content-transform-origin)] mt-2 z-50 bg-white/5 w-[240px] backdrop-blur-xl rounded-xl overflow-hidden shadow-2xl animate-[contentHide_200ms_ease-in_forwards] kobalte-expanded:animate-[contentShow_200ms_ease-out]">
-                <DropdownMenu.Item class="px-4 py-2 cursor-pointer kobalte-highlighted:bg-white/5 transition-colors flex items-center justify-between"
+              <DropdownMenu.Content class="transform-origin-[var(--kb-menu-content-transform-origin)] mt-2 z-50 w-[240px] backdrop-blur-xl rounded-xl overflow-hidden shadow-2xl animate-[contentHide_200ms_ease-in_forwards] kobalte-expanded:animate-[contentShow_200ms_ease-out]" style={{"background-color": "var(--overlay)"}}>
+                <DropdownMenu.Item class="px-4 py-2 cursor-pointer transition-colors flex items-center justify-between" style={{"color": "var(--text-primary)"}} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "var(--overlay-strong)"} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "transparent"}
                   onSelect={() => {
                     navigate("/feed/friends");
                   }}
@@ -111,7 +111,7 @@ const FeedLayout: FlowComponent = (props) => {
                     <MdiCheck />
                   </Show>
                 </DropdownMenu.Item>
-                <DropdownMenu.Item class="px-4 py-2 border-t border-white/10 cursor-pointer kobalte-highlighted:bg-white/5 transition-colors flex items-center justify-between"
+                <DropdownMenu.Item class="px-4 py-2 border-t cursor-pointer transition-colors flex items-center justify-between" style={{"color": "var(--text-primary)", "border-color": "var(--border-primary)"}} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "var(--overlay-strong)"} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "transparent"}
                   onSelect={() => {
                     navigate("/feed/friends-of-friends");
                   }}
@@ -132,9 +132,13 @@ const FeedLayout: FlowComponent = (props) => {
             title="Refresh feed & last moment"
           >
             <MdiRefresh
-              class="text-white text-2xl rounded-full p-1"
+              class="text-2xl rounded-full p-1"
+              style={{
+                "color": isRefreshing() ? "var(--text-secondary)" : "var(--text-primary)",
+                "background-color": isRefreshing() ? "var(--overlay)" : "transparent"
+              }}
               classList={{
-                "animate-spin text-white/50 bg-white/10": isRefreshing(),
+                "animate-spin": isRefreshing(),
               }}
             />
           </button>

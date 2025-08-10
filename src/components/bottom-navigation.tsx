@@ -30,10 +30,7 @@ const BottomNavigation: Component = () => {
       if (props.label === "Messages") {
         toast("Messages are not available yet.");
       }
-    }} class="grow flex flex-col text-white justify-center items-center gap-1"
-      classList={{
-        "opacity-50": !props.selected
-      }}
+    }} class="grow flex flex-col justify-center items-center gap-1" style={{"color": "var(--text-primary)", "opacity": props.selected ? 1 : 0.5}}
     >
       <div class="text-xl text-shadow-xl">
         <Show when={props.selected} fallback={props.outlineIcon}>
@@ -52,7 +49,7 @@ const BottomNavigation: Component = () => {
   )
 
   return (
-    <nav class="z-50 fixed bottom-0 inset-x-0 bg-gradient-to-t from-#0D0E12/90 from-4% to-#0D0E12/0 pb-[env(safe-area-inset-bottom)] flex items-center">
+    <nav class="z-50 fixed bottom-0 inset-x-0 pb-[env(safe-area-inset-bottom)] flex items-center" style={{"background": "linear-gradient(to top, var(--bg-primary) 4%, transparent)"}}>
       <div class="my-auto flex items-center gap-4 px-8 grow py-6">
         <Entry href="/feed/friends"
           filledIcon={<MingcuteSunFill />}
@@ -67,7 +64,7 @@ const BottomNavigation: Component = () => {
           selected={location.pathname.startsWith("/friends")}
         />
 
-        <a href="/upload" class="text-black bg-white rounded-full py-2 px-4 flex">
+        <a href="/upload" class="rounded-full py-2 px-4 flex" style={{"color": "var(--bg-primary)", "background-color": "var(--text-primary)"}}>
           <MingcuteCamera2Fill class="text-2xl "/>
         </a>
 
@@ -78,10 +75,7 @@ const BottomNavigation: Component = () => {
           selected={location.pathname.startsWith("/messages")}
         />
 
-        <a href="/profile" aria-label="My profile" class="shrink-0 grow flex flex-col text-white justify-center items-center gap-1"
-          classList={{
-            "opacity-50": location.pathname !== "/profile"
-          }}
+        <a href="/profile" aria-label="My profile" class="shrink-0 grow flex flex-col justify-center items-center gap-1" style={{"color": "var(--text-primary)", "opacity": location.pathname === "/profile" ? 1 : 0.5}}
         >
           <ProfilePicture
             media={me.get()?.profilePicture}

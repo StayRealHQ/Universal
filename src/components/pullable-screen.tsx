@@ -6,11 +6,13 @@ const PullableScreen: FlowComponent<{
   onRefresh: () => void;
 }> = (props) => {
   const iconArrow = <MdiRefresh
-    class="text-white/75 text-2xl rounded-full p-1"
+    class="text-2xl rounded-full p-1"
+    style={{"color": "var(--text-secondary)"}}
   />
 
   const iconRefreshing = <MdiRefresh
-    class="text-white/75 text-2xl rounded-full p-1 animate-spin"
+    class="text-2xl rounded-full p-1 animate-spin"
+    style={{"color": "var(--text-secondary)"}}
   />
 
   onMount(() => {
@@ -54,11 +56,11 @@ const PullableScreen: FlowComponent<{
 
 .__PREFIX__text {
   margin-top: .33em;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-secondary);
 }
 
 .__PREFIX__icon {
-  color: white;
+  color: var(--text-primary);
   width: fit-content;
   margin-inline: auto;
 }
